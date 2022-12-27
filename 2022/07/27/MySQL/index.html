@@ -101,35 +101,16 @@
                     
                         <li class="menu-item">
                             <!-- Menu -->
-                            <a class="has-dropdown" 
-                                href="javascript:void(0);">
+                            <a class="" 
+                                href="/categories" >
                                 
                                     
                                         <i class="fa-regular fa-chart-bar"></i>
                                     
-                                    CATEGORY&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                                    CATEGORY
                                 
                             </a>
                             <!-- Submenu -->
-                            
-                                <ul class="sub-menu">
-                                  
-                                    <li>
-                                      <a href="/categories/Java">JAVA
-                                      </a>
-                                    </li>
-                                  
-                                    <li>
-                                      <a href="/categories/SQL">SQL
-                                      </a>
-                                    </li>
-                                  
-                                    <li>
-                                      <a href="/categories">ALL
-                                      </a>
-                                    </li>
-                                  
-                                </ul>
                             
                         </li>
                     
@@ -219,31 +200,17 @@
                 
             
                 <li class="drawer-menu-item flex-center">
-                    <a class="has-dropdown" 
-                       href="javascript:void(0);">
-                        
+                    <a class="" 
+                       href="/categories" >
+                         
                             
                                 <i class="fa-regular fa-chart-bar"></i>
                             
-                            CATEGORY&nbsp;<i class="fa-solid fa-chevron-down"></i>
+                            CATEGORY
                         
                     </a>
                 </li>
                 <!-- Submenu -->
-                          
-                    
-                        <li class="dropdown-item flex-center">
-                            <a class="dropdown-item" href="/categories/Java">JAVA</a>
-                        </li>
-                    
-                        <li class="dropdown-item flex-center">
-                            <a class="dropdown-item" href="/categories/SQL">SQL</a>
-                        </li>
-                    
-                        <li class="dropdown-item flex-center">
-                            <a class="dropdown-item" href="/categories">ALL</a>
-                        </li>
-                    
                 
             
                 <li class="drawer-menu-item flex-center">
@@ -414,19 +381,9 @@
 <p><strong>注意</strong>：直接使用source命令可以执行sql脚本。</p>
 <p>sql脚本中的数据量太大的时候，无法打开，请使用source命令完成初始化。</p>
 <h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><p>drop database bjpowernode;</p>
-<h4 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h4><p>mysql&gt; desc dept ;<br><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220708225121242.png"
-                      alt="image-20220708225121242"
-                ></p>
+<h4 id="查看表结构"><a href="#查看表结构" class="headerlink" title="查看表结构"></a>查看表结构</h4><p>mysql&gt; desc dept ;<br><img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220708225121242.png" alt="image-20220708225121242"></p>
 <h4 id="表中的数据"><a href="#表中的数据" class="headerlink" title="表中的数据"></a>表中的数据</h4><p>mysql&gt; select * from emp;</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220708225221098.png"
-                      alt="image-20220708225221098"
-                ></p>
+<p><img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220708225221098.png" alt="image-20220708225221098"></p>
 <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><h3 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h3><p>mysql&gt; select version();</p>
 <h3 id="查看当前使用的是哪个数据库"><a href="#查看当前使用的是哪个数据库" class="headerlink" title="查看当前使用的是哪个数据库"></a>查看当前使用的是哪个数据库</h3><p>mysql&gt; select database();</p>
 <h3 id="结束一条语句"><a href="#结束一条语句" class="headerlink" title="结束一条语句"></a>结束一条语句</h3><p>\c  </p>
@@ -593,12 +550,7 @@
 <p>ifnull 是空处理函数，专门处理空的。</p>
 <p>在所有数据库当中，只要有 null 参与的数学运算，最终结果就是 null</p>
 <p><code>mysql&gt; select ename ,sal + comm  as salcomm from emp;</code></p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220709222152642.png"
-                      alt="image-20220709222152642" style="zoom:33%;" 
-                >
+<img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220709222152642.png" alt="image-20220709222152642" style="zoom:33%;" />
 
 
 
@@ -606,12 +558,7 @@
 <p>年薪 &#x3D; （月薪 + 月补助）* 12 </p>
 <p><code>mysql&gt; select ename , (sal + comm) * 12 as yearsal  from emp;</code>  &#x2F;&#x2F; error</p>
 <p><strong>null 只要参与运算，最终结果一定是 null ,为了避免这个现象，需要使用  ifnull 函数</strong>.</p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220709232249769.png"
-                      alt="image-20220709232249769" style="zoom:33%;" 
-                >
+<img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220709232249769.png" alt="image-20220709232249769" style="zoom:33%;" />
 
 
 
@@ -992,45 +939,20 @@
 
 <p>出现错误，因为在班级表中不存在班级编号为10班级，外键约束起到了作用</p>
 <p>存在外键的表就是子表，参照的表就是父表，所以存在一个父子关系，也就是主从关系，主表就是班级表，从表就是学生表</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3584\wps1.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3584\wps1.jpg" alt="img"> </p>
 <p>以上成功的插入了学生信息，当时classes_id没有值，这样会影响参照完整性，所以我们建议将外键字段设置为非空</p>
-<p>drop table if exists t_student;create table t_student(	student_id  int(10),	student_name 	varchar(20),	sex		char(2),	birthday	date,	email		varchar(30),	classes_id	int (3) not null,	constraint    student_id_pk primary key(student_id),	constraint	fk_classes_id foreign key(classes_id) references t_classes(classes_id)	   )insert into t_student(student_id, student_name, sex, birthday, email, classes_id) values(1001, ‘zhangsan’, ‘m’, ‘1988-01-01’, ‘<a class="link"   href="mailto:&#x71;&#113;&#113;&#x40;&#49;&#54;&#51;&#x2e;&#x63;&#x6f;&#x6d;" >&#x71;&#113;&#113;&#x40;&#49;&#54;&#51;&#x2e;&#x63;&#x6f;&#x6d;<i class="fa-solid fa-up-right-from-square"></i></a>‘, null);</p>
+<p>drop table if exists t_student;create table t_student(	student_id  int(10),	student_name 	varchar(20),	sex		char(2),	birthday	date,	email		varchar(30),	classes_id	int (3) not null,	constraint    student_id_pk primary key(student_id),	constraint	fk_classes_id foreign key(classes_id) references t_classes(classes_id)	   )insert into t_student(student_id, student_name, sex, birthday, email, classes_id) values(1001, ‘zhangsan’, ‘m’, ‘1988-01-01’, ‘<a class="link"   href="mailto:&#113;&#113;&#x71;&#x40;&#x31;&#x36;&#51;&#x2e;&#99;&#x6f;&#x6d;" >&#113;&#113;&#x71;&#x40;&#x31;&#x36;&#51;&#x2e;&#99;&#x6f;&#x6d;<i class="fa-solid fa-up-right-from-square"></i></a>‘, null);</p>
 <p>再次插入班级编号为null的数据</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3584\wps2.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3584\wps2.jpg" alt="img"> </p>
 <p>添加数据到班级表，添加数据到学生表，删除班级数据，将会出现如下错误：</p>
-<p>insert into t_classes (classes_id,classes_name) values (10,’366’); insert into t_student(student_id, student_name, sex, birthday, email, classes_id) values(1001, ‘zhangsan’, ‘m’, ‘1988-01-01’, ‘<a class="link"   href="mailto:&#x71;&#x71;&#x71;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;" >&#x71;&#x71;&#x71;&#64;&#x31;&#54;&#x33;&#x2e;&#x63;&#111;&#x6d;<i class="fa-solid fa-up-right-from-square"></i></a>‘, 10) mysql&gt; update t_classes set  classes_id &#x3D; 20 where classes_name &#x3D; ‘366’;<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3584\wps3.jpg"
-                      alt="img"
-                > 因为子表（t_student）存在一个外键classes_id，它参照了父表（t_classes）中的主键，所以先删除子表中的引用记录，再修改父表中的数据。我们也可以采取以下措施 级联更新。mysql&gt; delete from t_classes where classes_id &#x3D; 10;<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3584\wps4.jpg"
-                      alt="img"
-                > 因为子表（t_student）存在一个外键classes_id，它参照了父表（t_classes）中的主键，所以先删除父表，那么将会影响子表的参照完整性，所以正确的做法是，先删除子表中的数据，再删除父表中的数据，采用drop table也不行，必须先drop子表，再drop父表我们也可以采取以下措施 级联删除。</p>
+<p>insert into t_classes (classes_id,classes_name) values (10,’366’); insert into t_student(student_id, student_name, sex, birthday, email, classes_id) values(1001, ‘zhangsan’, ‘m’, ‘1988-01-01’, ‘<a class="link"   href="mailto:&#113;&#113;&#113;&#x40;&#49;&#x36;&#51;&#46;&#x63;&#x6f;&#x6d;" >&#113;&#113;&#113;&#x40;&#49;&#x36;&#51;&#46;&#x63;&#x6f;&#x6d;<i class="fa-solid fa-up-right-from-square"></i></a>‘, 10) mysql&gt; update t_classes set  classes_id &#x3D; 20 where classes_name &#x3D; ‘366’;<img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3584\wps3.jpg" alt="img"> 因为子表（t_student）存在一个外键classes_id，它参照了父表（t_classes）中的主键，所以先删除子表中的引用记录，再修改父表中的数据。我们也可以采取以下措施 级联更新。mysql&gt; delete from t_classes where classes_id &#x3D; 10;<img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3584\wps4.jpg" alt="img"> 因为子表（t_student）存在一个外键classes_id，它参照了父表（t_classes）中的主键，所以先删除父表，那么将会影响子表的参照完整性，所以正确的做法是，先删除子表中的数据，再删除父表中的数据，采用drop table也不行，必须先drop子表，再drop父表我们也可以采取以下措施 级联删除。</p>
 </li>
 </ul>
 <h3 id="级联更新与级联删除"><a href="#级联更新与级联删除" class="headerlink" title="级联更新与级联删除"></a>级联更新与级联删除</h3><hr>
 <h4 id="on-update-cascade"><a href="#on-update-cascade" class="headerlink" title="on update cascade;"></a>on update cascade;</h4><p>mysql对有些约束的修改比较麻烦，所以我们可以先删除，再添加</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter table t_student drop foreign key fk_classes_id;</span><br><span class="line"></span><br><span class="line">alter table t_student add constraint fk_classes_id_1 foreign key(classes_id) references t_classes(classes_id)  on update cascade;</span><br></pre></td></tr></table></figure></div>
 
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220726230906244.png"
-                      alt="image-20220726230906244"
-                ></p>
+<p><img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220726230906244.png" alt="image-20220726230906244"></p>
 <p>我们只修改了父表中的数据，但是子表中的数据也会跟着变动。</p>
 <h4 id="on-delete-cascade"><a href="#on-delete-cascade" class="headerlink" title="on delete cascade"></a>on delete cascade</h4><p>mysql对有些约束的修改时不支持的，所以我们可以先删除，再添加</p>
 <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alter table t_student drop foreign key fk_classes_id;</span><br><span class="line"></span><br><span class="line">alter table t_student add constraint fk_classes_id_1 foreign key(classes_id) references t_classes(classes_id)  on delete cascade;</span><br><span class="line">delete from t_classes where classes_id = 20;</span><br></pre></td></tr></table></figure></div>
@@ -1053,12 +975,7 @@
 <li>启动选项</li>
 <li>为了解当前服务器中有哪些存储引擎可用，可使用SHOW ENGINES语句：	mysql&gt; SHOW ENGINES\G</li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps1.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps1.jpg" alt="img"> </p>
 <ul>
 <li><p>在创建表时，可使用ENGINE选项为CREATE TABLE语句显式指定存储引擎。</p>
 <p>CREATE TABLE TABLENAME (NO INT) ENGINE &#x3D; MyISAM;</p>
@@ -1127,12 +1044,7 @@
 <li>可使用MEMORY存储引擎来存储非永久需要的数据，或者是能够从基于磁盘的表中重新生成的数据。</li>
 </ul>
 <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><hr>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps2.png"
-                      alt="img" style="zoom:53%;" 
-                >
+<img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps2.png" alt="img" style="zoom:53%;" />
 
  
 
@@ -1168,49 +1080,14 @@
 <p><strong>注意</strong>：rollback，或者commit后事务就结束了。</p>
 <h3 id="事务的提交与回滚演示"><a href="#事务的提交与回滚演示" class="headerlink" title="事务的提交与回滚演示"></a>事务的提交与回滚演示</h3><hr>
 <h4 id="1-创建表"><a href="#1-创建表" class="headerlink" title="\1) 创建表"></a>\1) 创建表</h4><p> <code>create table user(id int (11) primary key not null auto_increment ,    username varchar(30),password varchar(30))  ENGINE=InnoDB DEFAULT CHARSET=utf8</code></p>
-<h4 id="2-查询表中数据"><a href="#2-查询表中数据" class="headerlink" title="\2) 查询表中数据"></a>\2) 查询表中数据</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps3.jpg"
-                      alt="img"
-                > </p>
+<h4 id="2-查询表中数据"><a href="#2-查询表中数据" class="headerlink" title="\2) 查询表中数据"></a>\2) 查询表中数据</h4><p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps3.jpg" alt="img"> </p>
 <h4 id="3-开启事务START-TRANSACTION"><a href="#3-开启事务START-TRANSACTION" class="headerlink" title="\3) 开启事务START TRANSACTION;"></a>\3) 开启事务START TRANSACTION;</h4><h4 id="4-插入数据"><a href="#4-插入数据" class="headerlink" title="\4) 插入数据"></a>\4) 插入数据</h4><p><code>insert into user (username,password) values (&#39;zhangsan&#39;,&#39;123&#39;);</code></p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps4.jpg"
-                      alt="img"
-                > </p>
-<h4 id="5-查看数据"><a href="#5-查看数据" class="headerlink" title="\5) 查看数据"></a>\5) 查看数据</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps5.jpg"
-                      alt="img"
-                > </p>
-<h4 id="6-修改数据"><a href="#6-修改数据" class="headerlink" title="\6) 修改数据"></a>\6) 修改数据</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps6.jpg"
-                      alt="img"
-                ></p>
-<h4 id="7-查看数据"><a href="#7-查看数据" class="headerlink" title="\7) 查看数据"></a>\7) 查看数据</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps7.jpg"
-                      alt="img"
-                > </p>
-<h4 id="8-回滚事务"><a href="#8-回滚事务" class="headerlink" title="\8) 回滚事务"></a>\8) 回滚事务</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps8.jpg"
-                      alt="img"
-                > </p>
-<h4 id="9-查看数据"><a href="#9-查看数据" class="headerlink" title="\9) 查看数据"></a>\9) 查看数据</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps9.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps4.jpg" alt="img"> </p>
+<h4 id="5-查看数据"><a href="#5-查看数据" class="headerlink" title="\5) 查看数据"></a>\5) 查看数据</h4><p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps5.jpg" alt="img"> </p>
+<h4 id="6-修改数据"><a href="#6-修改数据" class="headerlink" title="\6) 修改数据"></a>\6) 修改数据</h4><p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps6.jpg" alt="img"></p>
+<h4 id="7-查看数据"><a href="#7-查看数据" class="headerlink" title="\7) 查看数据"></a>\7) 查看数据</h4><p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps7.jpg" alt="img"> </p>
+<h4 id="8-回滚事务"><a href="#8-回滚事务" class="headerlink" title="\8) 回滚事务"></a>\8) 回滚事务</h4><p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps8.jpg" alt="img"> </p>
+<h4 id="9-查看数据"><a href="#9-查看数据" class="headerlink" title="\9) 查看数据"></a>\9) 查看数据</h4><p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps9.jpg" alt="img"> </p>
 <h3 id="自动提交模式"><a href="#自动提交模式" class="headerlink" title="自动提交模式"></a>自动提交模式</h3><hr>
 <ul>
 <li>自动提交模式用于决定新事务如何及何时启动。 </li>
@@ -1280,12 +1157,7 @@
 <p>例:A可以开启事物,B也可以开启事物</p>
 <p>A在事物中执行DML语句时,未提交</p>
 <p>B不以执行DML,DQL语句</p>
-<h4 id="隔离级别与一致性问题的关系"><a href="#隔离级别与一致性问题的关系" class="headerlink" title="隔离级别与一致性问题的关系"></a>隔离级别与一致性问题的关系</h4><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps10.jpg"
-                      alt="img" style="zoom:50%;" 
-                > 
+<h4 id="隔离级别与一致性问题的关系"><a href="#隔离级别与一致性问题的关系" class="headerlink" title="隔离级别与一致性问题的关系"></a>隔离级别与一致性问题的关系</h4><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps10.jpg" alt="img" style="zoom:50%;" /> 
 
  
 
@@ -1485,12 +1357,7 @@
 <p>（主键，unique 都会默认的添加索引）</p>
 <h3 id="索引的应用"><a href="#索引的应用" class="headerlink" title="索引的应用"></a>索引的应用</h3><hr>
 <h4 id="创建索引"><a href="#创建索引" class="headerlink" title="创建索引"></a>创建索引</h4><p>如果未使用索引，我们查询 工资大于 1500的会执行全表扫描</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps11.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps11.jpg" alt="img"> </p>
 <p><strong>什么时候需要给字段添加索引：</strong></p>
 <p><strong>-表中该字段中的数据量庞大</strong></p>
 <p>  <strong>-经常被检索，经常出现在where子句中的字段</strong></p>
@@ -1501,35 +1368,15 @@
 <p>1、create unique index 索引名 on 表名(列名); </p>
 <p>create unique index u_ename on emp(ename);<br>2、alter table 表名 add unique index 索引名 (列名); </p>
 <p>create index test_index on emp (sal);</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps12.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps12.jpg" alt="img"> </p>
 <h4 id="查看索引"><a href="#查看索引" class="headerlink" title="查看索引"></a>查看索引</h4><p>show index from emp;</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps13.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps13.jpg" alt="img"> </p>
 <h4 id="使用索引"><a href="#使用索引" class="headerlink" title="使用索引"></a>使用索引</h4><p>注意一定不可以用select * … 可以看到type!&#x3D;all了，说明使用了索引</p>
 <p>explain select sal from emp where sal &gt; 1500;</p>
 <p>条件中的sal使用了索引</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps14.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps14.jpg" alt="img"> </p>
 <p>如下图：假如我们要查找sal大于1500的所有行，那么可以扫描索引，索引时排序的，结果得出7行，我们知道不会再有匹配的记录，可以退出了。<br>如果查找一个值，它在索引表中某个中间点以前不会出现，那么也有找到其第一个匹配索引项的定位算法，而不用进行表的顺序扫描（如二分查找法）。<br>这样，可以快速定位到第一个匹配的值，以节省大量搜索时间。数据库利用了各种各样的快速定位索引值的技术，通常这些技术都属于DBA的工作。</p>
-<h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><p>DROP INDEX index_name ON talbe_nameALTER TABLE table_name DROP INDEX index_nameALTER TABLE table_name DROP PRIMARY KEY其中，前两条语句是等价的，删除掉table_name中的索引index_name。第3条语句只在删除PRIMARY KEY索引时使用，因为一个表只可能有一个PRIMARY KEY索引， mysql&gt; ALTER TABLE EMP DROP INDEX test_index; 删除后就不再使用索引了，查询会执行全表扫描。<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps15.jpg"
-                      alt="img"
-                > </p>
+<h4 id="删除索引"><a href="#删除索引" class="headerlink" title="删除索引"></a>删除索引</h4><p>DROP INDEX index_name ON talbe_nameALTER TABLE table_name DROP INDEX index_nameALTER TABLE table_name DROP PRIMARY KEY其中，前两条语句是等价的，删除掉table_name中的索引index_name。第3条语句只在删除PRIMARY KEY索引时使用，因为一个表只可能有一个PRIMARY KEY索引， mysql&gt; ALTER TABLE EMP DROP INDEX test_index; 删除后就不再使用索引了，查询会执行全表扫描。<img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps15.jpg" alt="img"> </p>
 <h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><h3 id="什么是视图"><a href="#什么是视图" class="headerlink" title="什么是视图"></a>什么是视图</h3><hr>
 <ul>
 <li>视图是一种根据查询（也就是SELECT表达式）定义的数据库对象，用于获取想要看到和使用的局部数据。 </li>
@@ -1547,12 +1394,7 @@
 </ul>
 </li>
 </ul>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps16.jpg"
-                      alt="img"
-                > </p>
+<p><img src="C:\Users\CSQ-PC\AppData\Local\Temp\ksohtml3644\wps16.jpg" alt="img"> </p>
 <h3 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h3><hr>
 <p>如下示例：查询员工的姓名，部门，工资入职信息等信息。</p>
 <p>select ename,dname,sal,hiredate,e.deptno from emp e,dept d where e.deptno &#x3D; e.deptno and e.deptno &#x3D; 10;</p>
@@ -1626,7 +1468,7 @@
 <tbody><tr>
 <td>1001</td>
 <td>张三</td>
-<td><a class="link"   href="mailto:&#122;&#x73;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;" >&#122;&#x73;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;<i class="fa-solid fa-up-right-from-square"></i></a>,1359999999</td>
+<td><a class="link"   href="mailto:&#122;&#115;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;" >&#122;&#115;&#x40;&#103;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#x6d;<i class="fa-solid fa-up-right-from-square"></i></a>,1359999999</td>
 </tr>
 <tr>
 <td>1002</td>
@@ -1636,7 +1478,7 @@
 <tr>
 <td>1001</td>
 <td>王五</td>
-<td><a class="link"   href="mailto:&#119;&#119;&#64;&#x31;&#54;&#x33;&#46;&#x6e;&#101;&#x74;" >&#119;&#119;&#64;&#x31;&#54;&#x33;&#46;&#x6e;&#101;&#x74;<i class="fa-solid fa-up-right-from-square"></i></a>,13488888888</td>
+<td><a class="link"   href="mailto:&#119;&#x77;&#64;&#49;&#x36;&#51;&#x2e;&#110;&#101;&#116;" >&#119;&#x77;&#64;&#49;&#x36;&#51;&#x2e;&#110;&#101;&#116;<i class="fa-solid fa-up-right-from-square"></i></a>,13488888888</td>
 </tr>
 </tbody></table>
 <p>存在问题：</p>
@@ -1654,7 +1496,7 @@
 <tbody><tr>
 <td>1001</td>
 <td>张三</td>
-<td><a class="link"   href="mailto:&#x7a;&#x73;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" >&#x7a;&#x73;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;<i class="fa-solid fa-up-right-from-square"></i></a></td>
+<td><a class="link"   href="mailto:&#122;&#115;&#64;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;" >&#122;&#115;&#64;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;<i class="fa-solid fa-up-right-from-square"></i></a></td>
 <td>1359999999</td>
 </tr>
 <tr>
