@@ -619,14 +619,24 @@
 <p>当工程引入 jstl 的依赖,转发视图会自动转换为 JstlView</p>
 <p>若 使用的视图技术为 Thymeleaf, 在 SpringMVC 的 配置文件中 配置了 Thymeleaf 的 视图解析器,由此视图解析器解析之后所得到的是 ThymeleafView 视图</p>
 <h4 id="ThymeleafView"><a href="#ThymeleafView" class="headerlink" title="ThymeleafView"></a>ThymeleafView</h4><p>当 控制器方法中 所设置的视图名称没有任何前缀时, 此时的视图名称会被 SpringMVC 配置文件中 所配置的视图解析器解析,视图名称拼接视图前缀和视图后缀 后 所得到的最终路径, 会通过转发的方式实现跳转</p>
-<img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20221213170039056.png" alt="image-20221213170039056" style="zoom:50%;" />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20221213170039056.png"
+                      alt="image-20221213170039056" style="zoom:50%;" 
+                >
 
 
 
 <h4 id="转发视图"><a href="#转发视图" class="headerlink" title="转发视图"></a>转发视图</h4><p>SpringMVC 默认的 转发视图 是 <strong>InternalResourceView</strong></p>
 <p>SpringMVC 中创建视图的情况:</p>
 <p>当 控制器方法中 所设置的 视图名称以 “forward:” 为前缀时,创建 InternalResourceView 视图,此时的视图名称不会被 SpringMVC 配置文件中的 所配置的视图解析器所解析,而是将 前缀 “forward:” 去掉,剩余部分作为 最终路径 通过转发的方式实现跳转</p>
-<img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20221213171354864.png" alt="image-20221213171354864" style="zoom:50%;" />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20221213171354864.png"
+                      alt="image-20221213171354864" style="zoom:50%;" 
+                >
 
 
 
@@ -637,7 +647,12 @@
 
 <h4 id="重定向视图"><a href="#重定向视图" class="headerlink" title="重定向视图"></a>重定向视图</h4><p>SpringMVC 中默认的 重定向视图 是 RedirectView</p>
 <p>当 控制器方法中的 视图名称 以 “redirect:” 为前缀时,创建 RedirectView 视图.此时的 视图名称 不会被 SPringMVC 配置文件中配置的 视图解析器所解析,而是 会将 前缀”redirect:”  去掉, 剩余部分作为 最终路径 通过 重定向的方式 实现跳转</p>
-<img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20221213171718474.png" alt="image-20221213171718474" style="zoom:67%;" />
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20221213171718474.png"
+                      alt="image-20221213171718474" style="zoom:67%;" 
+                >
 
 
 
@@ -1031,7 +1046,12 @@
 <p>作用：将模型数据通过页面展示给用户</p>
 <h3 id="DispatcherServlet-初始化过程"><a href="#DispatcherServlet-初始化过程" class="headerlink" title="DispatcherServlet 初始化过程"></a>DispatcherServlet 初始化过程</h3><hr>
 <p>DispatcherServlet 本质上是一个 Servlet，所以天然的遵循 Servlet 的生命周期。所以宏观上是 Servlet 生命周期来进行调度。</p>
-<p><img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img005.png" alt="images"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img005.png"
+                      alt="images"
+                ></p>
 <h4 id="初始化WebApplicationContext"><a href="#初始化WebApplicationContext" class="headerlink" title="初始化WebApplicationContext"></a>初始化WebApplicationContext</h4><p>所在类：org.springframework.web.servlet.FrameworkServlet</p>
 <div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> WebApplicationContext <span class="title function_">initWebApplicationContext</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">WebApplicationContext</span> <span class="variable">rootContext</span> <span class="operator">=</span></span><br><span class="line">        WebApplicationContextUtils.getWebApplicationContext(getServletContext());</span><br><span class="line">    <span class="type">WebApplicationContext</span> <span class="variable">wac</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.webApplicationContext != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// A context instance was injected at construction time -&gt; use it</span></span><br><span class="line">        wac = <span class="built_in">this</span>.webApplicationContext;</span><br><span class="line">        <span class="keyword">if</span> (wac <span class="keyword">instanceof</span> ConfigurableWebApplicationContext) &#123;</span><br><span class="line">            <span class="type">ConfigurableWebApplicationContext</span> <span class="variable">cwac</span> <span class="operator">=</span> (ConfigurableWebApplicationContext) wac;</span><br><span class="line">            <span class="keyword">if</span> (!cwac.isActive()) &#123;</span><br><span class="line">                <span class="comment">// The context has not yet been refreshed -&gt; provide services such as</span></span><br><span class="line">                <span class="comment">// setting the parent context, setting the application context id, etc</span></span><br><span class="line">                <span class="keyword">if</span> (cwac.getParent() == <span class="literal">null</span>) &#123;</span><br><span class="line">                    <span class="comment">// The context instance was injected without an explicit parent -&gt; set</span></span><br><span class="line">                    <span class="comment">// the root application context (if any; may be null) as the parent</span></span><br><span class="line">                    cwac.setParent(rootContext);</span><br><span class="line">                &#125;</span><br><span class="line">                configureAndRefreshWebApplicationContext(cwac);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (wac == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// No context instance was injected at construction time -&gt; see if one</span></span><br><span class="line">        <span class="comment">// has been registered in the servlet context. If one exists, it is assumed</span></span><br><span class="line">        <span class="comment">// that the parent context (if any) has already been set and that the</span></span><br><span class="line">        <span class="comment">// user has performed any initialization such as setting the context id</span></span><br><span class="line">        wac = findWebApplicationContext();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (wac == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">// No context instance is defined for this servlet -&gt; create a local one</span></span><br><span class="line">        <span class="comment">// 创建WebApplicationContext</span></span><br><span class="line">        wac = createWebApplicationContext(rootContext);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">this</span>.refreshEventReceived) &#123;</span><br><span class="line">        <span class="comment">// Either the context is not a ConfigurableApplicationContext with refresh</span></span><br><span class="line">        <span class="comment">// support or the context injected at construction time had already been</span></span><br><span class="line">        <span class="comment">// refreshed -&gt; trigger initial onRefresh manually here.</span></span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>.onRefreshMonitor) &#123;</span><br><span class="line">            <span class="comment">// 刷新WebApplicationContext</span></span><br><span class="line">            onRefresh(wac);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.publishContext) &#123;</span><br><span class="line">        <span class="comment">// Publish the context as a servlet context attribute.</span></span><br><span class="line">        <span class="comment">// 将IOC容器在应用域共享</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">attrName</span> <span class="operator">=</span> getServletContextAttributeName();</span><br><span class="line">        getServletContext().setAttribute(attrName, wac);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wac;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
@@ -1077,11 +1097,31 @@
 <p>a) 不存在</p>
 <p>i. 再判断是否配置了mvc:default-servlet-handler</p>
 <p>ii. 如果没配置，则控制台报映射查找不到，客户端展示404错误</p>
-<p><img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img006.png" alt="image-20210709214911404"></p>
-<p><img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img007.png" alt=" "></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img006.png"
+                      alt="image-20210709214911404"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img007.png"
+                      alt=" "
+                ></p>
 <p>iii. 如果有配置，则访问目标资源（一般为静态资源，如：JS,CSS,HTML），找不到客户端也会展示404错误</p>
-<p><img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img008.png" alt="image-20210709215255693"></p>
-<p><img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img009.png" alt="image-20210709215336097"></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img008.png"
+                      alt="image-20210709215255693"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/img009.png"
+                      alt="image-20210709215336097"
+                ></p>
 <p>b) 存在则执行下面的流程</p>
 <ol start="3">
 <li><p>根据该URI，调用HandlerMapping获得该Handler配置的所有相关的对象（包括Handler对象以及Handler对象对应的拦截器），最后以HandlerExecutionChain执行链对象的形式返回。</p>
