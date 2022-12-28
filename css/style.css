@@ -3332,7 +3332,7 @@ pre .deletion {
   top: 108px;
   border-radius: 0;
   display: none;
-  width: 300px;
+  width: 400px;
   height: auto;
   max-height: calc(100vh - 210px);
   overflow-y: auto;
