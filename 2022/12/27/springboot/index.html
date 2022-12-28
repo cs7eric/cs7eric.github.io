@@ -281,7 +281,7 @@
                         <div class="author">
                             <span class="name">cs7eric</span>
                             
-                                <span class="author-label">Lv1</span>
+                                <span class="author-label">Lv2</span>
                             
                         </div>
                         <div class="meta-info">
@@ -1635,10 +1635,8 @@ private Map&lt;String, List&lt;Pet&gt;&gt; allPets;
 <ul>
 <li><p>容器中的组件 ： 类型 <code>DefaultErrorAttributes</code> -&gt; id : errorAttributes</p>
 <ul>
-<li><p><strong><code>public class DefaultErrorAttributes implements ErrorAttributes, HandlerExceptionResolver</code></strong></p>
-</li>
-<li><p><code>DefaultErrorAttributes</code> : 定义错误页面中可以包含那些数据 </p>
-<ul>
+<li><strong><code>public class DefaultErrorAttributes implements ErrorAttributes, HandlerExceptionResolver</code></strong></li>
+<li><code>DefaultErrorAttributes</code> : 定义错误页面中可以包含那些数据 <ul>
 <li><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1653,21 +1651,15 @@ private Map&lt;String, List&lt;Pet&gt;&gt; allPets;
                 ></li>
 </ul>
 </li>
-<li><p><strong>容器中的组件：类型：BasicErrorController –&gt; id：basicErrorController（json+白页 适配响应）</strong></p>
-<ul>
+<li><strong>容器中的组件：类型：BasicErrorController –&gt; id：basicErrorController（json+白页 适配响应）</strong><ul>
 <li><strong>处理默认</strong> <strong>&#x2F;error 路径的请求；页面响应</strong> <strong>new</strong> ModelAndView(<strong>“error”</strong>, model)；</li>
 <li><strong>容器中有组件 View</strong>-&gt;<strong>id是error</strong>；（响应默认错误页）</li>
 <li>容器中放组件 <strong>BeanNameViewResolver（视图解析器）；按照返回的视图名作为组件的id去容器中找View对象。</strong></li>
 </ul>
 </li>
-<li><p><strong>容器中的组件：</strong>类型：<strong>DefaultErrorViewResolver -&gt; id：</strong>conventionErrorViewResolver</p>
-</li>
-<li><ul>
-<li><ul>
-<li>如果发生错误，会以HTTP的状态码 作为视图页地址（viewName），找到真正的页面</li>
+<li><strong>容器中的组件：</strong>类型：<strong>DefaultErrorViewResolver -&gt; id：</strong>conventionErrorViewResolver</li>
+<li>如果发生错误，会以HTTP的状态码 作为视图页地址（viewName），找到真正的页面<ul>
 <li>error&#x2F;404、5xx.html</li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
