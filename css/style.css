@@ -1524,7 +1524,7 @@ pre .deletion {
   position: relative;
   box-sizing: border-box;
   width: 80%;
-  max-width: 1000px;
+  max-width: 1200px;
   height: 100%;
   transition-property: color, background, box-shadow, border-color, max-width, width;
   transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
@@ -1542,7 +1542,7 @@ pre .deletion {
   }
 }
 .page-container .page-main-content .page-main-content-middle .main-content.has-toc {
-  max-width: 1200px !important;
+  max-width: 1440px !important;
 }
 .page-container .page-main-content .page-main-content-middle .page-main-content-bottom {
   width: 100%;
@@ -1900,7 +1900,7 @@ pre .deletion {
   position: relative;
   height: 100%;
   width: 80%;
-  max-width: 1000px;
+  max-width: 1200px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -1908,7 +1908,7 @@ pre .deletion {
   z-index: 1005;
 }
 .header-wrapper .header-content.has-first-screen {
-  max-width: 1200px;
+  max-width: 1440px;
 }
 @media (max-width: 780px) {
   .header-wrapper .header-content {
@@ -3292,7 +3292,7 @@ pre .deletion {
   top: 108px;
   border-radius: 0;
   display: none;
-  width: 210px;
+  width: 610px;
   height: auto;
   max-height: calc(100vh - 210px);
   overflow-y: auto;
