@@ -592,7 +592,7 @@ button {
   transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
   transition-duration: 0.2s, 0.2s, 0.2s, 0.2s, 0.2s, 0.2s;
   transition-timing-function: ease, ease, ease, ease, linear, linear;
-  margin: 10px auto 2px;
+  margin: 10px 0 2px;
 }
 .markdown-body > table {
   border-spacing: 0;
@@ -3311,7 +3311,7 @@ pre .deletion {
   top: 108px;
   border-radius: 0;
   display: none;
-  width: 400px;
+  width: 100px;
   height: auto;
   max-height: calc(100vh - 210px);
   overflow-y: auto;
