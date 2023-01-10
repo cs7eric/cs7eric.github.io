@@ -388,14 +388,299 @@
 
             <div class="article-content markdown-body">
                 <h1 id="SpringSecurity"><a href="#SpringSecurity" class="headerlink" title="SpringSecurity"></a>SpringSecurity</h1><p>2023&#x2F;01&#x2F;10 - </p>
-<p>Spring Security 是一个功能强大且高度可定制的身份验证和访问控制框架。它是保护基于 Spring 的应用程序的事实标准。</p>
-<p>Spring Security 是一个专注于为 Java 应用程序提供身份验证和授权的框架。与所有 Spring 项目一样，Spring Security 的真正强大之处在于它可以轻松扩展以满足自定义需求</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p><img  
+<p>Spring Security 是一个提供<a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/features/authentication/index.html" >身份验证<i class="fa-solid fa-up-right-from-square"></i></a>、<a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/features/authorization/index.html" >授权<i class="fa-solid fa-up-right-from-square"></i></a>和<a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/features/exploits/index.html" >针对常见攻击的保护<i class="fa-solid fa-up-right-from-square"></i></a>的框架。<a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/servlet/index.html" >凭借对保护命令<i class="fa-solid fa-up-right-from-square"></i></a>式应用程序和<a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/reactive/index.html" >反应式<i class="fa-solid fa-up-right-from-square"></i></a>应用程序的一流支持，它是保护基于 Spring 的应用程序的事实标准。</p>
+<p>有关功能的完整列表，请参阅参考资料的<a class="link"   target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/reference/features/index.html" >功能<i class="fa-solid fa-up-right-from-square"></i></a>部分。</p>
+<br>
+
+<h2 id="SpringSecurity-简介"><a href="#SpringSecurity-简介" class="headerlink" title="SpringSecurity 简介"></a>SpringSecurity 简介</h2><p>**SpringSecurity **是 Spring 家族中的一个安全管理框架。提供了更丰富 的功能，社区资源更多。一般来说，中大型的项目都是使用 SpringSecurity 来做安全框架。</p>
+<p>一般的 Web 应用都需要进行 <strong>认证</strong> 和 <strong>授权</strong></p>
+<p><strong>认证：</strong> 验证当前访问系统的是不是本系统的用户，并且要确认具体是哪个用户</p>
+<p><strong>授权：</strong>经过认证后判断当前用户是否有权限进行某个操作</p>
+<br>
+
+<p><strong>而认证和授权也是 SpringSecurity 作为安全框架的核心功能</strong></p>
+<br>
+
+
+
+<h2 id="SpringBoot-AutoConfiguration"><a href="#SpringBoot-AutoConfiguration" class="headerlink" title="SpringBoot AutoConfiguration"></a>SpringBoot AutoConfiguration</h2><p>Spring Boot automatically:</p>
+<ul>
+<li>Enables Spring Security’s default configuration, which creates a servlet <code>Filter</code> as a bean named <code>springSecurityFilterChain</code>. This bean is responsible for all the security (protecting the application URLs, validating submitted username and passwords, redirecting to the login form, and so on) within your application.</li>
+<li>Creates a <code>UserDetailsService</code>bean with a username of <code>user</code> and a randomly generated password that is logged to the console.<ul>
+<li><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="D:\CSQ\hexo-cs7eric-blog\themes\redefine\source\images\spring.png"
-                      alt="image-20230110191546392"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110204438390.png"
+                      alt="image-20230110204438390"
+                ></li>
+</ul>
+</li>
+<li>Registers the <code>Filter</code> with a bean named <code>springSecurityFilterChain</code> with the Servlet container for every request.</li>
+</ul>
+<p>Spring Boot is not configuring much, but it does a lot. A summary of the features follows:</p>
+<ul>
+<li>Require an authenticated user for any interaction with the application</li>
+<li>Generate a default login form for you</li>
+<li>Let the user with a username of <code>user</code> and a password that is logged to the console to authenticate with form-based authentication (in the preceding example, the password is <code>8e557245-73e2-4286-969a-ff57fe326336</code>)</li>
+<li>Protects the password storage with BCrypt</li>
+<li>Lets the user log out</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-site_request_forgery" >CSRF attack<i class="fa-solid fa-up-right-from-square"></i></a> prevention</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Session_fixation" >Session Fixation<i class="fa-solid fa-up-right-from-square"></i></a> protection</li>
+<li>Security Header integration<ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security" >HTTP Strict Transport Security<i class="fa-solid fa-up-right-from-square"></i></a> for secure requests</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/ie/gg622941(v=vs.85).aspx" >X-Content-Type-Options<i class="fa-solid fa-up-right-from-square"></i></a> integration</li>
+<li>Cache Control (can be overridden later by your application to allow caching of your static resources)</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/dd565647(v=vs.85).aspx" >X-XSS-Protection<i class="fa-solid fa-up-right-from-square"></i></a> integration</li>
+<li>X-Frame-Options integration to help prevent <a class="link"   target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Clickjacking" >Clickjacking<i class="fa-solid fa-up-right-from-square"></i></a></li>
+</ul>
+</li>
+<li>Integrate with the following Servlet API methods:<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#getRemoteUser()"><code>HttpServletRequest#getRemoteUser()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#getUserPrincipal()"><code>HttpServletRequest.html#getUserPrincipal()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#isUserInRole(java.lang.String)"><code>HttpServletRequest.html#isUserInRole(java.lang.String)</code></a></li>
+<li>[<code>HttpServletRequest.html#login(java.lang.String, java.lang.String)</code>](<a class="link"   target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#login" >https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#login<i class="fa-solid fa-up-right-from-square"></i></a>(java.lang.String, java.lang.String))</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#logout()"><code>HttpServletRequest.html#logout()</code></a></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h2 id="SpringSecurity-快速入门"><a href="#SpringSecurity-快速入门" class="headerlink" title="SpringSecurity 快速入门"></a>SpringSecurity 快速入门</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>通过 </p>
+<p>[maven]: <a class="link"   target="_blank" rel="noopener" href="https://mvnrepository.com/" >https://mvnrepository.com/<i class="fa-solid fa-up-right-from-square"></i></a>	“maven”</p>
+<p>添加相关依赖</p>
+<br>
+
+<p>也可 使用 Spring Initializer 勾选 SpringSecurity 的 starter</p>
+<br>
+
+<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3><p>启动 springboot 的application 的启动类</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110205021313.png"
+                      alt="image-20230110205021313"
                 ></p>
+<br>
+
+<p>发送请求</p>
+<p>springsecurity 拦截请求 验证是否是本系统的用户</p>
+<p>引入依赖后我们在尝试去访问之前的接口就会自动跳转到一个SpringSecurity的默认登陆页面，默认用户名是user,密码会输出在控制台。</p>
+<p>必须登陆之后才能对接口进行访问。</p>
+<br>
+
+<h2 id="SpringSecurity-使用"><a href="#SpringSecurity-使用" class="headerlink" title="SpringSecurity 使用"></a>SpringSecurity 使用</h2><h3 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h3><h4 id="登陆校验流程"><a href="#登陆校验流程" class="headerlink" title="登陆校验流程"></a>登陆校验流程</h4><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110205454078.png"
+                      alt="image-20230110205454078" style="zoom:80%;" 
+                >
+
+<br>
+
+<h4 id="原理初探"><a href="#原理初探" class="headerlink" title="原理初探"></a>原理初探</h4><p>想要知道如何实现自己登陆流程逻辑就必须要先知道 demo 中的 SpringSecurity 的流程</p>
+<br>
+
+<h5 id="SpringSecurity-的完整流程"><a href="#SpringSecurity-的完整流程" class="headerlink" title="SpringSecurity 的完整流程"></a>SpringSecurity 的完整流程</h5><p>SpringSecurity  的 原理其实是一个过滤器链 ，内部包含了 提供各种功能的 过滤器。如下图所示（demo）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110210131839.png"
+                      alt="image-20230110210131839"
+                ></p>
+<br>
+
+<p>上图只展示了 核心的过滤器，非核心的并没有展示</p>
+<p><strong><code>UsernamePasswordAuthenticationFilter</code></strong>: 负责处理我们在登陆页面填写了用户名密码后的登陆请求。demo 中的认证工作主要就由他负责</p>
+<p><strong><code>ExceptionTranslationFilter</code></strong> : 处理过滤器链中抛出的任何 <code>AccessDeniedException </code>  和 <code>AuthenticationException</code></p>
+<p><strong><code>FilterSecurityInterceptor</code></strong>:  负责权限校验的过滤器</p>
+<br>
+
+<p>可以通过 Debug 查看当前系统中 SpringSecurity 过滤器链中有哪些过滤器以及他们的顺序</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110210832227.png"
+                      alt="image-20230110210832227"
+                ></p>
+<br>
+
+<h5 id="认证流程详解"><a href="#认证流程详解" class="headerlink" title="认证流程详解"></a>认证流程详解</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110210906336.png"
+                      alt="image-20230110210906336"
+                ></p>
+<br>
+
+<p>概念速查:</p>
+<p><strong><code>Authentication</code>接口</strong>: 它的实现类，表示当前访问系统的用户，封装了用户相关信息。</p>
+<p>**<code>AuthenticationManager接口</code>**：定义了认证Authentication的方法 </p>
+<p>**<code>UserDetailsService接口</code>**：加载用户特定数据的核心接口。里面定义了一个根据用户名查询用户信息的方法。</p>
+<p>**<code>UserDetails接口</code>**：提供核心用户信息。通过UserDetailsService根据用户名获取处理的用户信息要封装成UserDetails对象返回。然后将这些信息封装到Authentication对象中。</p>
+<br>
+
+<h4 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h4><h5 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h5><h6 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h6><ul>
+<li>自定义登陆接口<ul>
+<li>调用 ProviderManager 的方法进行认证，如果认证通过，生成 JWT</li>
+<li>把 用户信息 存入 Redis 中</li>
+</ul>
+</li>
+<li>自定义 UserDetailService<ul>
+<li>在这个实现类中查询数据库</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h6 id="校验"><a href="#校验" class="headerlink" title="校验"></a>校验</h6><ul>
+<li>定义 JWT 认证过滤器<ul>
+<li>获取 token </li>
+<li>解析 token 获取其中的 userId</li>
+<li>从 Redis 中获取用户信息</li>
+<li>存入 SecurityContextHolder</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h5 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h5><h6 id="添加依赖-1"><a href="#添加依赖-1" class="headerlink" title="添加依赖"></a>添加依赖</h6><div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--redis依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--fastjson依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.33<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--jwt依赖--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </div>
 
@@ -511,7 +796,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringSecurity"><span class="nav-text">SpringSecurity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-text"></span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringSecurity"><span class="nav-text">SpringSecurity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E7%AE%80%E4%BB%8B"><span class="nav-text">SpringSecurity 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot-AutoConfiguration"><span class="nav-text">SpringBoot AutoConfiguration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-text">SpringSecurity 快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demo"><span class="nav-text">demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E4%BD%BF%E7%94%A8"><span class="nav-text">SpringSecurity 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-text">认证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E9%99%86%E6%A0%A1%E9%AA%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">登陆校验流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2"><span class="nav-text">原理初探</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SpringSecurity-%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-text">SpringSecurity 的完整流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B%E8%AF%A6%E8%A7%A3"><span class="nav-text">认证流程详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="nav-text">解决问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-text">思路分析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%99%BB%E9%99%86"><span class="nav-text">登陆</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C"><span class="nav-text">校验</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96-1"><span class="nav-text">添加依赖</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
