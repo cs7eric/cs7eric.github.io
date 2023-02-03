@@ -600,6 +600,308 @@
 <br>
 
 <h3 id="网络核心"><a href="#网络核心" class="headerlink" title="网络核心"></a>网络核心</h3><hr>
+<p>网络核心： 路由器的网状网络（即由互联因特网端系统的分组交换机和链路构成的网状网络）</p>
+<br>
+
+<h4 id="数据怎样通过网络进行传输？"><a href="#数据怎样通过网络进行传输？" class="headerlink" title="数据怎样通过网络进行传输？"></a>数据怎样通过网络进行传输？</h4><ul>
+<li><font color='red'><strong>电路交换</strong></font>：为每个呼叫预留一条专有电路：如 电话网</li>
+<li>**<font color='red'>分组交换</font>**：<ul>
+<li>将要传送的数据分成一个个单位： 分组</li>
+<li>将分组从一个路由器传到相邻路由器（hop ），一段段最终从源端传到 目标端</li>
+<li>每段 ： 采用链路的  <strong>最大传输能力</strong>（带宽）</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h4 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h4><p>在电路交换网络中，在端系统间通信会话期间，预留了端系统间沿路径通所需要的资源（缓存、链路传输速率）</p>
+<h5 id="端到端的资源被分配给从源端到目标端的呼叫-“-call-”"><a href="#端到端的资源被分配给从源端到目标端的呼叫-“-call-”" class="headerlink" title="端到端的资源被分配给从源端到目标端的呼叫 “ call ”"></a><strong><font color='red'>端到端的资源被分配给从源端到目标端的呼叫 “ call ”</font></strong></h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203162504963.png"
+                      alt="image-20230203162504963"
+                ></p>
+<ul>
+<li>图中 ，每段链路有四条线路：<ul>
+<li>该呼叫采用了上面链路的第二个线路，右边线路的第一个线路（piece）</li>
+</ul>
+</li>
+<li>独享资源： 不共享<ul>
+<li>每个呼叫一旦建立起来就能够保证性能</li>
+</ul>
+</li>
+<li>如果 呼叫没有数据发送，被分配的资源将被浪费 （**<font color='cornflowerblue'>no sharing</font>**）</li>
+<li>通常被传统电话网络采用</li>
+</ul>
+<br>
+
+<h5 id="为-呼叫-预留端-端资源"><a href="#为-呼叫-预留端-端资源" class="headerlink" title="为 呼叫 预留端-端资源"></a><strong><font color='red'>为 呼叫 预留端-端资源</font></strong></h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203163124768.png"
+                      alt="image-20230203163124768" style="zoom:50%;" 
+                >
+
+<ul>
+<li>链路带宽、交换能力</li>
+<li>专用资源 ： 不共享</li>
+<li>保证性能</li>
+<li>要求建立呼叫连接</li>
+</ul>
+<br>
+
+<h5 id="网络资源（如带宽）被分成-片"><a href="#网络资源（如带宽）被分成-片" class="headerlink" title="网络资源（如带宽）被分成 片"></a><strong>网络资源（如带宽）被分成 <font color='red'>片</font></strong></h5><ul>
+<li>为呼叫分配片</li>
+<li>如果某个资源处于**<font color='red'>空闲状态</font>**（不共享）</li>
+<li>将 带宽分成片<ul>
+<li>频分（Frequency - division multiplexing）</li>
+<li>时分（Time - division multiplexing）</li>
+<li>波分（Wave - division multiplexing）</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h5 id="FDM-与-TDM"><a href="#FDM-与-TDM" class="headerlink" title="FDM 与 TDM"></a><strong>FDM 与 TDM</strong></h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203170710095.png"
+                      alt="image-20230203170710095" style="zoom:50%;" 
+                >
+
+<br>
+
+<p>链路中的电路是通过 <strong><font color='red'>频分复用（Frequency - Division Multiplexing，FDM）</font></strong> 或  <strong><font color='red'>时分复用（Time - Division Multiplexing， TDM）</font></strong>  来实现的。</p>
+<p>对于 FDM，链路的频谱是由 跨越链路创建的所有连接共享。特别是，在连接期间链路为每条连接专用一个频段。</p>
+<p>对于一条 TDM  链路，时间被划分为 固定期间的帧，并且每个帧又被划分为固定数量的时隙。当网络跨越一条链路创建一条连接时，网络在每个帧中为该连接指定一个时隙。这些时隙专门由该连接单独使用，一个时隙（在每个帧中）可用于传输该连接的数据</p>
+<h5 id="习题"><a href="#习题" class="headerlink" title="习题"></a>习题</h5><h6 id="计算示例"><a href="#计算示例" class="headerlink" title="计算示例"></a>计算示例</h6><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203184136268.png"
+                      alt="image-20230203184136268" style="zoom: 50%;" 
+                >
+
+<br>
+
+<h6 id="电路交换不适合计算机之间的通信的原因"><a href="#电路交换不适合计算机之间的通信的原因" class="headerlink" title="电路交换不适合计算机之间的通信的原因"></a>电路交换不适合计算机之间的通信的原因</h6><ul>
+<li>连接建立时间长</li>
+<li>计算机之间的通信有突发性，如果使用线路交换，则浪费的片比较多<ul>
+<li>即使 这个呼叫没有数据传输，其所占据的片也不能够被别的呼叫使用</li>
+</ul>
+</li>
+<li>可靠性不高 <strong>？</strong></li>
+</ul>
+<br>
+
+<h4 id="分组交换"><a href="#分组交换" class="headerlink" title="分组交换"></a>分组交换</h4><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203191342603.png"
+                      alt="image-20230203191342603" style="zoom:50%;" 
+                >
+
+<br>
+
+<p><strong><font color='red'>以分组为单位存储-转发方式</font></strong></p>
+<ul>
+<li>网络带宽资源不再分为一个一个片，传输时使用全部带宽</li>
+<li>主机之间传输的数据 被划分为一个个分组</li>
+</ul>
+<br>
+
+<p><font color='red'><strong>资源共享，按需使用</strong></font></p>
+<ul>
+<li>存储 - 转发 ： 分组每次移动一跳（hop）<ul>
+<li>在转发之前，节点必须收到整个分组</li>
+<li>延迟比线路交换要大</li>
+<li>排队时间</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h5 id="统计多路复用"><a href="#统计多路复用" class="headerlink" title="统计多路复用"></a>统计多路复用</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203195457036.png"
+                      alt="image-20230203195457036" style="zoom:67%;" 
+                >
+
+<br>
+
+<p>A &amp; B 时分复用 链路资源</p>
+<p>A &amp; B 分组没有固定模式  -&gt; <strong><font color='red'>统计 多路复用</font></strong></p>
+<br>
+
+<h4 id="网络核心的关键功能"><a href="#网络核心的关键功能" class="headerlink" title="网络核心的关键功能"></a>网络核心的关键功能</h4><h5 id="存储-转发"><a href="#存储-转发" class="headerlink" title="存储 - 转发"></a>存储 - 转发</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203191846192.png"
+                      alt="image-20230203191846192"
+                ></p>
+<br>
+
+<p>**<font color='red'>分组交换</font>**：分组的存储转发一段一段从源端传到目标端，按照有无网络层的连接，分成：</p>
+<ul>
+<li>**<font color='red'>数据报网络</font>**：<ul>
+<li>分组的目标地址决定下一跳</li>
+<li>在不同的阶段，路由可以改变</li>
+<li>类似 ： 问路</li>
+<li>Internet</li>
+</ul>
+</li>
+<li>**<font color='red'>虚电路网络</font>**：<ul>
+<li>每个分组都带标签（虚电路标识 VCID），标签决定下一跳</li>
+<li>在 <strong><font color='red'>呼叫建立时</font></strong> 决定 路径，在整个呼叫中路径保持不变</li>
+<li><strong><font color='red'>路由器维持每个呼叫的状态信息</font></strong></li>
+<li>X.25 和  ATM</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h6 id="数据报的工作原理"><a href="#数据报的工作原理" class="headerlink" title="数据报的工作原理"></a>数据报的工作原理</h6><ul>
+<li>在通信之前，无须建立一个连接，有数据就传输</li>
+<li>每一个分组都独立路由（路径不一样，可能会失序）</li>
+<li>路由器 根据分组的目标地址进行路由</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203201649104.png"
+                      alt="image-20230203201649104" style="zoom:67%;" 
+                >
+
+<br>
+
+<h6 id="虚电路的工作原理"><a href="#虚电路的工作原理" class="headerlink" title="虚电路的工作原理"></a>虚电路的工作原理</h6><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203201720173.png"
+                      alt="image-20230203201720173" style="zoom: 50%;" 
+                >
+
+<br>
+
+<ul>
+<li>被传输到下一个链路之前，整个分组必须到达路由器 ： <strong><font color='red'>存储 - 转发</font></strong></li>
+<li>在 一个速率为 R bps 的链路，一个长度为 L bits 的 分组的存储转发延时 ： L&#x2F;R s<ul>
+<li>L &#x3D; 7.5 Mbits</li>
+<li>R &#x3D; 1.5 Mbps </li>
+<li>三次 存储转发延时 ： 15 s</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h5 id="排队延迟和丢失"><a href="#排队延迟和丢失" class="headerlink" title="排队延迟和丢失"></a>排队延迟和丢失</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203192515257.png"
+                      alt="image-20230203192515257" style="zoom:67%;" 
+                >
+
+<br>
+
+<p><strong><font color='red'>排队和延迟</font></strong></p>
+<p>每台分组交换机有多条链路与之相连。对于每条相连的链路，该分组交换机具有一个<strong>输出缓存</strong>（output buffer,也称为<strong>输出队列</strong>（output queue)),它用于存储路由器准备发往那条链路的分组。该输出缓存在分组交换中起着重要的作用。如果到达的分组需要传输到某条链路，但发现该链路正忙于传输其他分组，该到达分组必须在输出缓存中等待。因此，除了存储转发时延以外，分组还要承受输出缓存的<strong>排队时延</strong>（queuing delay)。这些时延是变化的，变化的程度取决于<strong>网络的拥塞程度</strong>。因为缓存空间的大小是有限的，一个到达的分组可能发现该缓存已被其他等待传输的分组完全充满了。在此情况下，将出现**<font color='red'>分组丢失（丢包）</font>**(packet loss),到达的分组或已经排队的分组之一将被丢弃。</p>
+<br>
+
+<p>如果 到达速率 &gt; 链路的输出速率</p>
+<ul>
+<li>分组将会排队，等待传输</li>
+<li>如果 路由器的缓存用完了，分组将会被抛弃</li>
+</ul>
+<br>
+
+<h5 id="转发表和路由选择协议"><a href="#转发表和路由选择协议" class="headerlink" title="转发表和路由选择协议"></a>转发表和路由选择协议</h5><p>**<font color='red'>路由</font>**： 决定分组采用的源到目标的路径</p>
+<p><strong><font color='red'>转发</font></strong>:    将分组从路由器的输入链路转移到输出链路</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203194139308.png"
+                      alt="image-20230203194139308" style="zoom:80%;" 
+                >
+
+<br>
+
+<p>在因特网中，每个端系统具有一个称为 IP 地址的 地址。当源主机要向目标主机要向目的端系统发送一个分组时，源在该分组的首部包含了目的地的 IP 地址，如同 邮政地址那样，该地址具有一种等级结构。当一个分组到达网络中的路由器时，路由器检查该分组的目的地址的一部分，并向一台相邻路由器转发该分组。 特别的是，每台路由器具有一个 <strong>转发表</strong>（forwarding table），用于将目的地址（或者目的地址的一部分）映射成为输出链路。当某分组 到达一台路由器时，路由器检查该地址，并用这个地址搜索其转发表，以发现适当的输出链路。路由器则将分组导向该出链路。</p>
+<br>
+
+<p>以上解释了 路由器使用分组的目的地址来索引转发表并决定适当的出链路。但是  转发表是如何进行设置的呢 ？</p>
+<p>因特网 具有一些特殊的 <strong>路由选择协议（routing protocol）</strong>，用于 自动地设置这些转发表。</p>
+<p>例如 ： 一个路由选择协议 可以决定从每台路由器到每个目的地的最短路径，并使用这些最短路径的结果来配置 路由器中的转发表。</p>
+<br>
+
+<h4 id="分组交换-和-电路交换的-对比"><a href="#分组交换-和-电路交换的-对比" class="headerlink" title="分组交换 和 电路交换的 对比"></a>分组交换 和 电路交换的 对比</h4><h5 id="同样的网络资源，分组交允许更多的用户使用-网络"><a href="#同样的网络资源，分组交允许更多的用户使用-网络" class="headerlink" title="同样的网络资源，分组交允许更多的用户使用 网络"></a><strong><font color='red'>同样的网络资源，分组交允许更多的用户使用 网络</font></strong></h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203200215763.png"
+                      alt="image-20230203200215763" style="zoom:50%;" 
+                >
+
+<ul>
+<li>1 Mb&#x2F;s 链路</li>
+<li>每个用户<ul>
+<li>活动时 100 kb&#x2F;s</li>
+<li>10 % 的时间是活动的</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<p>电路交换：</p>
+<ul>
+<li>10 用户</li>
+</ul>
+<br>
+
+<p>分组交换：</p>
+<ul>
+<li>35 用户时</li>
+<li><code>&gt;= 10</code> 用户活动的概率为 0.0004</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203200502312.png"
+                      alt="image-20230203200502312" style="zoom:50%;" 
+                >
+
+<br>
+
+<h5 id="分组交换是-“突发数据的胜利者”？"><a href="#分组交换是-“突发数据的胜利者”？" class="headerlink" title="分组交换是 “突发数据的胜利者”？"></a><font color='red'>分组交换是 “突发数据的胜利者”？</font></h5><ul>
+<li>适用于对 突发式数据传输<ul>
+<li>资源共享</li>
+<li>简单，不必建立呼叫</li>
+</ul>
+</li>
+<li><strong><font color='red'>过度使用会造成网络瘫痪</font></strong> ：分组延迟和 丢失<ul>
+<li>对可靠地数据传输需要协议来约束 ： 拥塞控制</li>
+</ul>
+</li>
+<li><strong><font color='red'>怎样提供 类似电路交换的 服务 ？</font></strong><ul>
+<li>保证 音频&#x2F;视频应用需要的带宽</li>
+<li>一个 仍未解决的问题 （chapter 7）</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h4 id="网络分类"><a href="#网络分类" class="headerlink" title="网络分类"></a>网络分类</h4><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230203201803329.png"
+                      alt="image-20230203201803329" style="zoom:67%;" 
+                >
+
+<br>
+
+
+
+
+
+<h3 id="接入网和物理媒体"><a href="#接入网和物理媒体" class="headerlink" title="接入网和物理媒体"></a>接入网和物理媒体</h3><hr>
 
             </div>
 
@@ -722,7 +1024,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="nav-text">计算机网络与因特网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Internet%EF%BC%9F"><span class="nav-text">什么是 Internet？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E5%85%B7%E4%BD%93%E6%9E%84%E6%88%90%E8%A7%92%E5%BA%A6%E6%8F%8F%E8%BF%B0"><span class="nav-text">从具体构成角度描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E8%A7%92%E5%BA%A6%E6%8F%8F%E8%BF%B0"><span class="nav-text">从服务角度描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E8%AE%AE"><span class="nav-text">什么是协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%BA%E7%B1%BB%E5%8D%8F%E8%AE%AE"><span class="nav-text">人类协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE"><span class="nav-text">网络协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98"><span class="nav-text">网络边缘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E7%94%A8-%E7%BD%91%E7%BB%9C%E8%AE%BE%E6%96%BD%E7%9A%84%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="nav-text">采用 网络设施的面向连接服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%A1%E6%89%8B%EF%BC%9A"><span class="nav-text">握手：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP-%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE%EF%BC%88Transmission-Control-Protocol%EF%BC%89"><span class="nav-text">TCP - 传输控制协议（Transmission Control Protocol）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E7%94%A8%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E7%9A%84%E6%97%A0%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="nav-text">采用基础设施的无连接服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TCP-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">使用 TCP 的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-UDP-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">使用 UDP  的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="nav-text">网络核心</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="nav-text">计算机网络与因特网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Internet%EF%BC%9F"><span class="nav-text">什么是 Internet？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E5%85%B7%E4%BD%93%E6%9E%84%E6%88%90%E8%A7%92%E5%BA%A6%E6%8F%8F%E8%BF%B0"><span class="nav-text">从具体构成角度描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E8%A7%92%E5%BA%A6%E6%8F%8F%E8%BF%B0"><span class="nav-text">从服务角度描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E8%AE%AE"><span class="nav-text">什么是协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%BA%E7%B1%BB%E5%8D%8F%E8%AE%AE"><span class="nav-text">人类协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE"><span class="nav-text">网络协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98"><span class="nav-text">网络边缘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E7%94%A8-%E7%BD%91%E7%BB%9C%E8%AE%BE%E6%96%BD%E7%9A%84%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="nav-text">采用 网络设施的面向连接服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%A1%E6%89%8B%EF%BC%9A"><span class="nav-text">握手：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP-%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE%EF%BC%88Transmission-Control-Protocol%EF%BC%89"><span class="nav-text">TCP - 传输控制协议（Transmission Control Protocol）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E7%94%A8%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E7%9A%84%E6%97%A0%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="nav-text">采用基础设施的无连接服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TCP-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">使用 TCP 的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-UDP-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">使用 UDP  的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="nav-text">网络核心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%80%8E%E6%A0%B7%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E8%BF%9B%E8%A1%8C%E4%BC%A0%E8%BE%93%EF%BC%9F"><span class="nav-text">数据怎样通过网络进行传输？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2"><span class="nav-text">电路交换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9A%84%E8%B5%84%E6%BA%90%E8%A2%AB%E5%88%86%E9%85%8D%E7%BB%99%E4%BB%8E%E6%BA%90%E7%AB%AF%E5%88%B0%E7%9B%AE%E6%A0%87%E7%AB%AF%E7%9A%84%E5%91%BC%E5%8F%AB-%E2%80%9C-call-%E2%80%9D"><span class="nav-text">端到端的资源被分配给从源端到目标端的呼叫 “ call ”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA-%E5%91%BC%E5%8F%AB-%E9%A2%84%E7%95%99%E7%AB%AF-%E7%AB%AF%E8%B5%84%E6%BA%90"><span class="nav-text">为 呼叫 预留端-端资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%EF%BC%88%E5%A6%82%E5%B8%A6%E5%AE%BD%EF%BC%89%E8%A2%AB%E5%88%86%E6%88%90-%E7%89%87"><span class="nav-text">网络资源（如带宽）被分成 片</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FDM-%E4%B8%8E-TDM"><span class="nav-text">FDM 与 TDM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B9%A0%E9%A2%98"><span class="nav-text">习题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%A4%BA%E4%BE%8B"><span class="nav-text">计算示例</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E4%B8%8D%E9%80%82%E5%90%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">电路交换不适合计算机之间的通信的原因</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2"><span class="nav-text">分组交换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">统计多路复用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83%E7%9A%84%E5%85%B3%E9%94%AE%E5%8A%9F%E8%83%BD"><span class="nav-text">网络核心的关键功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%98%E5%82%A8-%E8%BD%AC%E5%8F%91"><span class="nav-text">存储 - 转发</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%A5%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">数据报的工作原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%99%9A%E7%94%B5%E8%B7%AF%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">虚电路的工作原理</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%92%E9%98%9F%E5%BB%B6%E8%BF%9F%E5%92%8C%E4%B8%A2%E5%A4%B1"><span class="nav-text">排队延迟和丢失</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E5%8F%91%E8%A1%A8%E5%92%8C%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="nav-text">转发表和路由选择协议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2-%E5%92%8C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E7%9A%84-%E5%AF%B9%E6%AF%94"><span class="nav-text">分组交换 和 电路交换的 对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%A0%B7%E7%9A%84%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%EF%BC%8C%E5%88%86%E7%BB%84%E4%BA%A4%E5%85%81%E8%AE%B8%E6%9B%B4%E5%A4%9A%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8-%E7%BD%91%E7%BB%9C"><span class="nav-text">同样的网络资源，分组交允许更多的用户使用 网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E6%98%AF-%E2%80%9C%E7%AA%81%E5%8F%91%E6%95%B0%E6%8D%AE%E7%9A%84%E8%83%9C%E5%88%A9%E8%80%85%E2%80%9D%EF%BC%9F"><span class="nav-text">分组交换是 “突发数据的胜利者”？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB"><span class="nav-text">网络分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5%E7%BD%91%E5%92%8C%E7%89%A9%E7%90%86%E5%AA%92%E4%BD%93"><span class="nav-text">接入网和物理媒体</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
