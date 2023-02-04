@@ -902,6 +902,359 @@
 
 
 <h3 id="接入网和物理媒体"><a href="#接入网和物理媒体" class="headerlink" title="接入网和物理媒体"></a>接入网和物理媒体</h3><hr>
+<p><strong><font color='red'>怎样将端系统和边缘路由器连接 ？</font></strong></p>
+<ul>
+<li>住宅接入网络</li>
+<li>单位接入网络（学校、公司）</li>
+<li>无线接入网络</li>
+</ul>
+<br>
+
+<p><strong><font color='red'>注意</font></strong></p>
+<ul>
+<li>接入网络的带宽（bits per second）?</li>
+<li>共享&#x2F;专用</li>
+</ul>
+<br>
+
+<h4 id="接入网"><a href="#接入网" class="headerlink" title="接入网"></a>接入网</h4><p>考虑了位于 “网络边缘” 的应用程序 和  端系统后，下面考虑 <strong>接入网</strong> ，这是指将端系统物理连接到其 <strong>边缘路由器（edge route）</strong> 的网络。 </p>
+<p><strong>边缘路由器</strong>是指 端系统到任何其他远程端系统的路径上的第一台路由器。</p>
+<br>
+
+<h5 id="住宅接入-：-modem"><a href="#住宅接入-：-modem" class="headerlink" title="住宅接入 ： modem"></a>住宅接入 ： modem</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204194410976.png"
+                      alt="image-20230204194410976" style="zoom:67%;" 
+                >
+
+<p>将 上网数据 <strong><font color='red'>调制</font></strong> 加载音频信号上，在电话线上传输，在局端将其中的数据 <strong><font color='red'>解调</font></strong> 出来；反之亦然</p>
+<ul>
+<li>调频</li>
+<li>调幅</li>
+<li>调相位</li>
+<li>综合调制</li>
+</ul>
+<br>
+
+<p><strong><font color='red'>拨号调制器</font></strong></p>
+<ul>
+<li>56 kbps 的速率直接接入路由器（通常更低）</li>
+<li>不能同时上网和打电话：不能 总是在线</li>
+</ul>
+<br>
+
+<h5 id="住宅接入-：线缆模式"><a href="#住宅接入-：线缆模式" class="headerlink" title="住宅接入 ：线缆模式"></a>住宅接入 ：线缆模式</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204195618627.png"
+                      alt="image-20230204195618627" style="zoom:67%;" 
+                >
+
+<br>
+
+
+
+<h5 id="数字用户线-digital-subscriber-line-（DSL）"><a href="#数字用户线-digital-subscriber-line-（DSL）" class="headerlink" title="数字用户线  digital subscriber line （DSL）"></a>数字用户线  digital subscriber line （DSL）</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204194436253.png"
+                      alt="image-20230204194436253" style="zoom:67%;" 
+                >
+
+<ul>
+<li>采用 <strong>现存的</strong> 到交换局 DSLAM（数字用户线接入复用器） 的电话线<ul>
+<li>DSL 线路上的数据被传到互联网</li>
+<li>DSL 线路上的语音被传到电话网</li>
+</ul>
+</li>
+<li>&lt; 2.5 Mbps 上行传输速率 （typical &lt; 1 Mbps）</li>
+<li>&lt; 24 Mbps 下行传输速率 （typical &lt; 10 Mbps）</li>
+</ul>
+<br>
+
+<h5 id="线缆网络"><a href="#线缆网络" class="headerlink" title="线缆网络"></a>线缆网络</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204194808592.png"
+                      alt="image-20230204194808592" style="zoom:67%;" 
+                >
+
+<p>有线电视信号线缆双向改造</p>
+<p><strong><font color='red'>FDM</font></strong> ： 在 不同频段传输不同信道的数据，数字电视和 上网数据（上下行）</p>
+<br>
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204195056606.png"
+                      alt="image-20230204195056606" style="zoom:80%;" 
+                >
+
+<ul>
+<li><strong><font color='cornflowerblue'>HFC</font></strong> ： hybrid fiber coax<ul>
+<li>非对称 ： 最高 30 Mbps 的下行传输速率， 2 Mbps 的上行传输速率</li>
+</ul>
+</li>
+<li><strong><font color='cornflowerblue'>线缆和 光纤网络</font></strong> 将每个家庭用户 接入到 ISP 路由器</li>
+<li>各用户 <strong><font color='red'>共享</font></strong> 到 线缆头端的接入网络<ul>
+<li>与 DSL 不同，DSL 的每个用户 一个专用线路到 CO （central office）</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h5 id="家庭网络"><a href="#家庭网络" class="headerlink" title="家庭网络"></a>家庭网络</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204195719113.png"
+                      alt="image-20230204195719113" style="zoom:67%;" 
+                >
+
+
+
+<br>
+
+<h5 id="企业接入网络（Ethernet）"><a href="#企业接入网络（Ethernet）" class="headerlink" title="企业接入网络（Ethernet）"></a>企业接入网络（Ethernet）</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204195814334.png"
+                      alt="image-20230204195814334" style="zoom:67%;" 
+                >
+
+<ul>
+<li>经常被企业和大学等机构采用<ul>
+<li>10 Mbps，100 Mbps，1 Gbps，10 Gbps 传输速率</li>
+<li>现在，端系统经常直接接到 以太网络交换机上</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h5 id="无线接入网络"><a href="#无线接入网络" class="headerlink" title="无线接入网络"></a>无线接入网络</h5><ul>
+<li>各无线端系统共享接入网络（端系统到 无线路由器）<ul>
+<li>通过基站或者叫 接入点</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204200300116.png"
+                      alt="image-20230204200300116" style="zoom:50%;" 
+                >
+
+<br>
+
+<h4 id="物理媒体"><a href="#物理媒体" class="headerlink" title="物理媒体"></a>物理媒体</h4><ul>
+<li>**<font color='red'>Bit</font>**：在发送-接收对 间传播</li>
+<li>**<font color='red'>物理链路</font>**：连接每个发送-接收对 之间的物理媒体</li>
+<li><strong><font color='red'>导引型媒体</font></strong><ul>
+<li>信号沿固体媒介被导引<ul>
+<li>同轴电缆</li>
+<li>光纤</li>
+<li>双绞线</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong><font color='red'>非导引型媒体</font></strong><ul>
+<li>开放的空间传输电磁波或者光信号，在电磁或者光信号中承载数字数据</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<p>**<font color='red'>双绞线</font>**：</p>
+<p>两根绝缘铜导线拧合</p>
+<ul>
+<li>5 类 ：100 Mbps 以太网，Gbps 千兆以太网</li>
+<li>6 类 ： 10 Gbps 万兆以太网</li>
+</ul>
+<br>
+
+<h5 id="同轴电缆、光纤"><a href="#同轴电缆、光纤" class="headerlink" title="同轴电缆、光纤"></a>同轴电缆、光纤</h5><h6 id="同轴电缆"><a href="#同轴电缆" class="headerlink" title="同轴电缆"></a>同轴电缆</h6><ul>
+<li>两根同轴的铜导线</li>
+<li>双向</li>
+<li>基带电缆<ul>
+<li>电缆上一个单个信道</li>
+<li>Ethernet</li>
+</ul>
+</li>
+<li>宽带电缆<ul>
+<li>电缆上有多个 信道</li>
+<li>HFC</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h6 id="光纤和光缆"><a href="#光纤和光缆" class="headerlink" title="光纤和光缆"></a><font color='red'>光纤和光缆</font></h6><ul>
+<li><strong>光脉冲，每个脉冲表示一个 bit，在玻璃纤维中传输</strong></li>
+<li><strong>高速</strong><ul>
+<li><strong>点到点的高速传输（如 10Gbps - 100 Gbps 传输速率）</strong></li>
+</ul>
+</li>
+<li><strong>低误码率 ： 在两个中继器之间可以有很长的距离，不受电磁噪声的干扰</strong></li>
+<li><strong>安全</strong></li>
+</ul>
+<br>
+
+<h5 id="无线链路"><a href="#无线链路" class="headerlink" title="无线链路"></a>无线链路</h5><ul>
+<li>开放空间传输电磁波，携带要传输的数据</li>
+<li>无需物理  “线缆”</li>
+<li>双向</li>
+<li>传播环境效应<ul>
+<li>反射</li>
+<li>吸收</li>
+<li>干扰</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h6 id="无线链路类型"><a href="#无线链路类型" class="headerlink" title="无线链路类型"></a><font color='red'>无线链路类型</font></h6><ul>
+<li><strong><font color='cornflowerblue'>地面微波</font></strong></li>
+<li><strong><font color='cornflowerblue'>LAN</font></strong></li>
+<li><strong><font color='cornflowerblue'>wide-area</font></strong><ul>
+<li>3G cellular : ~ 几 Mbps </li>
+<li>4G ：10Mbps</li>
+<li>5G ： 数 Gbps</li>
+</ul>
+</li>
+<li><strong><font color='cornflowerblue'>卫星</font></strong><ul>
+<li>每个信道 kbps 到 45 Mbps（或者多个聚集信道）</li>
+<li>270 msec 端到端延迟</li>
+<li>同步静止卫星和地轨卫星</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h3 id="Internet-结构-和-ISP"><a href="#Internet-结构-和-ISP" class="headerlink" title="Internet 结构 和 ISP"></a>Internet 结构 和 ISP</h3><hr>
+<h4 id="互联网络结构-：-网络的网络"><a href="#互联网络结构-：-网络的网络" class="headerlink" title="互联网络结构 ： 网络的网络"></a>互联网络结构 ： 网络的网络</h4><ul>
+<li>端系统通过 接入**<font color='red'>ISPs</font>** (Internet Service Providers) 连接到互联网<ul>
+<li>住宅，公司和 大学的 ISPs</li>
+</ul>
+</li>
+<li>接入 ISPs 相应的必须是互联的<ul>
+<li>因此任何两个 端系统可互相发送分组给对方</li>
+</ul>
+</li>
+<li>导致的 “ 网络的网络” 非常复杂<ul>
+<li>发展和演化是通过 <strong>经济的</strong>  和 <strong>国家的</strong> 政策来驱动的</li>
+</ul>
+</li>
+<li>让我们采用渐进方法来描述当前互联网的结构</li>
+</ul>
+<br>
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204210108462.png"
+                      alt="image-20230204210108462" style="zoom:80%;" 
+                >
+
+<ul>
+<li>在网络的最中心，一些为数不多的充分连接的大范围网络（分布广、节点有限、但是之间有着多重连接）<ul>
+<li><strong><font color='red'>“ tier-1” commercial ISPs</font></strong> ,国家或者国际范围的覆盖</li>
+<li><strong><font color='red'>content provider network</font></strong> : 将他们的数据中心接入 ISP，方便周边用户的访问；通常私有网络之间用专网绕过第一层 ISP 和</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<h4 id="network-of-networks"><a href="#network-of-networks" class="headerlink" title="network of networks"></a>network of networks</h4><ul>
+<li>松散的层次结构</li>
+<li><strong><font color='red'>中心：第一层 ISP</font></strong> （如 UUNet，BBN&#x2F;Genuity，Sprint，AT&amp;T） 国家&#x2F;国际覆盖，速率极高<ul>
+<li>直接与其他第一层 ISP 相连</li>
+<li>与大量的 第二层 ISP 和 其他客户网络相连</li>
+</ul>
+</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204210818316.png"
+                      alt="image-20230204210818316" style="zoom:67%;" 
+                >
+
+
+
+<ul>
+<li><strong><font color='red'>第二层 ISP ： 更小些的（通常是区域性的）ISP</font></strong><ul>
+<li>与一个或多个第一个 ISPs ，也可能与其他第二层 ISP</li>
+</ul>
+</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204210948248.png"
+                      alt="image-20230204210948248" style="zoom: 50%;" 
+                >
+
+<ul>
+<li><strong><font color='red'>第三层 ISP  与其他本地 ISP</font></strong><ul>
+<li>接入网（与端系统最近）</li>
+</ul>
+</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204211036421.png"
+                      alt="image-20230204211036421" style="zoom:50%;" 
+                >
+
+<ul>
+<li><strong><font color='red'>一个分组要经过许多分组</font></strong></li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204211111511.png"
+                      alt="image-20230204211111511" style="zoom:50%;" 
+                >
+
+<ul>
+<li>许多内容提供商（如 Google） 可能会部署自己的网络，连接自己在各地的 DC （数据中心），走自己的数据</li>
+<li>连接若干 local ISP 和各级（包括一层）ISP，更加靠近用户</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204211318787.png"
+                      alt="image-20230204211318787" style="zoom:50%;" 
+                >
+
+<br>
+
+<h4 id="ISP-之间的连接"><a href="#ISP-之间的连接" class="headerlink" title="ISP 之间的连接"></a>ISP 之间的连接</h4><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230204211415213.png"
+                      alt="image-20230204211415213" style="zoom:67%;" 
+                >
+
+<ul>
+<li>POP ： 高层 ISP 面向客户网络的接入点，涉及费用结算<ul>
+<li>如一个低层 ISP 接入多个高层 ISP，多宿（multi home）</li>
+</ul>
+</li>
+<li>对等接入： 两个 ISP 对等接入，不涉及费用结算</li>
+<li>IXP ： 多个对等 ISP 互联互通之处，通常不涉及费用结算<ul>
+<li>对等接入</li>
+</ul>
+</li>
+<li>ICP 自己部署专用网络，同时 和各级 ISP 连接</li>
+</ul>
+<br>
+
+<h3 id="分组延时、丢失和吞吐量"><a href="#分组延时、丢失和吞吐量" class="headerlink" title="分组延时、丢失和吞吐量"></a>分组延时、丢失和吞吐量</h3><hr>
 
             </div>
 
@@ -1024,7 +1377,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="nav-text">计算机网络与因特网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Internet%EF%BC%9F"><span class="nav-text">什么是 Internet？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E5%85%B7%E4%BD%93%E6%9E%84%E6%88%90%E8%A7%92%E5%BA%A6%E6%8F%8F%E8%BF%B0"><span class="nav-text">从具体构成角度描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E8%A7%92%E5%BA%A6%E6%8F%8F%E8%BF%B0"><span class="nav-text">从服务角度描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E8%AE%AE"><span class="nav-text">什么是协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%BA%E7%B1%BB%E5%8D%8F%E8%AE%AE"><span class="nav-text">人类协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE"><span class="nav-text">网络协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98"><span class="nav-text">网络边缘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E7%94%A8-%E7%BD%91%E7%BB%9C%E8%AE%BE%E6%96%BD%E7%9A%84%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="nav-text">采用 网络设施的面向连接服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%A1%E6%89%8B%EF%BC%9A"><span class="nav-text">握手：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP-%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE%EF%BC%88Transmission-Control-Protocol%EF%BC%89"><span class="nav-text">TCP - 传输控制协议（Transmission Control Protocol）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E7%94%A8%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E7%9A%84%E6%97%A0%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="nav-text">采用基础设施的无连接服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TCP-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">使用 TCP 的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-UDP-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">使用 UDP  的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="nav-text">网络核心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%80%8E%E6%A0%B7%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E8%BF%9B%E8%A1%8C%E4%BC%A0%E8%BE%93%EF%BC%9F"><span class="nav-text">数据怎样通过网络进行传输？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2"><span class="nav-text">电路交换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9A%84%E8%B5%84%E6%BA%90%E8%A2%AB%E5%88%86%E9%85%8D%E7%BB%99%E4%BB%8E%E6%BA%90%E7%AB%AF%E5%88%B0%E7%9B%AE%E6%A0%87%E7%AB%AF%E7%9A%84%E5%91%BC%E5%8F%AB-%E2%80%9C-call-%E2%80%9D"><span class="nav-text">端到端的资源被分配给从源端到目标端的呼叫 “ call ”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA-%E5%91%BC%E5%8F%AB-%E9%A2%84%E7%95%99%E7%AB%AF-%E7%AB%AF%E8%B5%84%E6%BA%90"><span class="nav-text">为 呼叫 预留端-端资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%EF%BC%88%E5%A6%82%E5%B8%A6%E5%AE%BD%EF%BC%89%E8%A2%AB%E5%88%86%E6%88%90-%E7%89%87"><span class="nav-text">网络资源（如带宽）被分成 片</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FDM-%E4%B8%8E-TDM"><span class="nav-text">FDM 与 TDM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B9%A0%E9%A2%98"><span class="nav-text">习题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%A4%BA%E4%BE%8B"><span class="nav-text">计算示例</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E4%B8%8D%E9%80%82%E5%90%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">电路交换不适合计算机之间的通信的原因</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2"><span class="nav-text">分组交换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">统计多路复用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83%E7%9A%84%E5%85%B3%E9%94%AE%E5%8A%9F%E8%83%BD"><span class="nav-text">网络核心的关键功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%98%E5%82%A8-%E8%BD%AC%E5%8F%91"><span class="nav-text">存储 - 转发</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%A5%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">数据报的工作原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%99%9A%E7%94%B5%E8%B7%AF%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">虚电路的工作原理</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%92%E9%98%9F%E5%BB%B6%E8%BF%9F%E5%92%8C%E4%B8%A2%E5%A4%B1"><span class="nav-text">排队延迟和丢失</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E5%8F%91%E8%A1%A8%E5%92%8C%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="nav-text">转发表和路由选择协议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2-%E5%92%8C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E7%9A%84-%E5%AF%B9%E6%AF%94"><span class="nav-text">分组交换 和 电路交换的 对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%A0%B7%E7%9A%84%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%EF%BC%8C%E5%88%86%E7%BB%84%E4%BA%A4%E5%85%81%E8%AE%B8%E6%9B%B4%E5%A4%9A%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8-%E7%BD%91%E7%BB%9C"><span class="nav-text">同样的网络资源，分组交允许更多的用户使用 网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E6%98%AF-%E2%80%9C%E7%AA%81%E5%8F%91%E6%95%B0%E6%8D%AE%E7%9A%84%E8%83%9C%E5%88%A9%E8%80%85%E2%80%9D%EF%BC%9F"><span class="nav-text">分组交换是 “突发数据的胜利者”？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB"><span class="nav-text">网络分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5%E7%BD%91%E5%92%8C%E7%89%A9%E7%90%86%E5%AA%92%E4%BD%93"><span class="nav-text">接入网和物理媒体</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E4%B8%8E%E5%9B%A0%E7%89%B9%E7%BD%91"><span class="nav-text">计算机网络与因特网</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-Internet%EF%BC%9F"><span class="nav-text">什么是 Internet？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E5%85%B7%E4%BD%93%E6%9E%84%E6%88%90%E8%A7%92%E5%BA%A6%E6%8F%8F%E8%BF%B0"><span class="nav-text">从具体构成角度描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E8%A7%92%E5%BA%A6%E6%8F%8F%E8%BF%B0"><span class="nav-text">从服务角度描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E8%AE%AE"><span class="nav-text">什么是协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%BA%E7%B1%BB%E5%8D%8F%E8%AE%AE"><span class="nav-text">人类协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE"><span class="nav-text">网络协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="nav-text">网络结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%BE%B9%E7%BC%98"><span class="nav-text">网络边缘</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E7%94%A8-%E7%BD%91%E7%BB%9C%E8%AE%BE%E6%96%BD%E7%9A%84%E9%9D%A2%E5%90%91%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="nav-text">采用 网络设施的面向连接服务</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%A1%E6%89%8B%EF%BC%9A"><span class="nav-text">握手：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP-%E4%BC%A0%E8%BE%93%E6%8E%A7%E5%88%B6%E5%8D%8F%E8%AE%AE%EF%BC%88Transmission-Control-Protocol%EF%BC%89"><span class="nav-text">TCP - 传输控制协议（Transmission Control Protocol）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E7%94%A8%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E7%9A%84%E6%97%A0%E8%BF%9E%E6%8E%A5%E6%9C%8D%E5%8A%A1"><span class="nav-text">采用基础设施的无连接服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-TCP-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">使用 TCP 的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-UDP-%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-text">使用 UDP  的应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83"><span class="nav-text">网络核心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%80%8E%E6%A0%B7%E9%80%9A%E8%BF%87%E7%BD%91%E7%BB%9C%E8%BF%9B%E8%A1%8C%E4%BC%A0%E8%BE%93%EF%BC%9F"><span class="nav-text">数据怎样通过网络进行传输？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2"><span class="nav-text">电路交换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AB%AF%E5%88%B0%E7%AB%AF%E7%9A%84%E8%B5%84%E6%BA%90%E8%A2%AB%E5%88%86%E9%85%8D%E7%BB%99%E4%BB%8E%E6%BA%90%E7%AB%AF%E5%88%B0%E7%9B%AE%E6%A0%87%E7%AB%AF%E7%9A%84%E5%91%BC%E5%8F%AB-%E2%80%9C-call-%E2%80%9D"><span class="nav-text">端到端的资源被分配给从源端到目标端的呼叫 “ call ”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA-%E5%91%BC%E5%8F%AB-%E9%A2%84%E7%95%99%E7%AB%AF-%E7%AB%AF%E8%B5%84%E6%BA%90"><span class="nav-text">为 呼叫 预留端-端资源</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%EF%BC%88%E5%A6%82%E5%B8%A6%E5%AE%BD%EF%BC%89%E8%A2%AB%E5%88%86%E6%88%90-%E7%89%87"><span class="nav-text">网络资源（如带宽）被分成 片</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FDM-%E4%B8%8E-TDM"><span class="nav-text">FDM 与 TDM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B9%A0%E9%A2%98"><span class="nav-text">习题</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%A4%BA%E4%BE%8B"><span class="nav-text">计算示例</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E4%B8%8D%E9%80%82%E5%90%88%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-text">电路交换不适合计算机之间的通信的原因</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2"><span class="nav-text">分组交换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="nav-text">统计多路复用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A0%B8%E5%BF%83%E7%9A%84%E5%85%B3%E9%94%AE%E5%8A%9F%E8%83%BD"><span class="nav-text">网络核心的关键功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%98%E5%82%A8-%E8%BD%AC%E5%8F%91"><span class="nav-text">存储 - 转发</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%8A%A5%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">数据报的工作原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%99%9A%E7%94%B5%E8%B7%AF%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">虚电路的工作原理</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%92%E9%98%9F%E5%BB%B6%E8%BF%9F%E5%92%8C%E4%B8%A2%E5%A4%B1"><span class="nav-text">排队延迟和丢失</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E5%8F%91%E8%A1%A8%E5%92%8C%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9%E5%8D%8F%E8%AE%AE"><span class="nav-text">转发表和路由选择协议</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2-%E5%92%8C-%E7%94%B5%E8%B7%AF%E4%BA%A4%E6%8D%A2%E7%9A%84-%E5%AF%B9%E6%AF%94"><span class="nav-text">分组交换 和 电路交换的 对比</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%A0%B7%E7%9A%84%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%EF%BC%8C%E5%88%86%E7%BB%84%E4%BA%A4%E5%85%81%E8%AE%B8%E6%9B%B4%E5%A4%9A%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8-%E7%BD%91%E7%BB%9C"><span class="nav-text">同样的网络资源，分组交允许更多的用户使用 网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E4%BA%A4%E6%8D%A2%E6%98%AF-%E2%80%9C%E7%AA%81%E5%8F%91%E6%95%B0%E6%8D%AE%E7%9A%84%E8%83%9C%E5%88%A9%E8%80%85%E2%80%9D%EF%BC%9F"><span class="nav-text">分组交换是 “突发数据的胜利者”？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%88%86%E7%B1%BB"><span class="nav-text">网络分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5%E7%BD%91%E5%92%8C%E7%89%A9%E7%90%86%E5%AA%92%E4%BD%93"><span class="nav-text">接入网和物理媒体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5%E7%BD%91"><span class="nav-text">接入网</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%8F%E5%AE%85%E6%8E%A5%E5%85%A5-%EF%BC%9A-modem"><span class="nav-text">住宅接入 ： modem</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%8F%E5%AE%85%E6%8E%A5%E5%85%A5-%EF%BC%9A%E7%BA%BF%E7%BC%86%E6%A8%A1%E5%BC%8F"><span class="nav-text">住宅接入 ：线缆模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E7%94%A8%E6%88%B7%E7%BA%BF-digital-subscriber-line-%EF%BC%88DSL%EF%BC%89"><span class="nav-text">数字用户线  digital subscriber line （DSL）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E7%BC%86%E7%BD%91%E7%BB%9C"><span class="nav-text">线缆网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%B6%E5%BA%AD%E7%BD%91%E7%BB%9C"><span class="nav-text">家庭网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%81%E4%B8%9A%E6%8E%A5%E5%85%A5%E7%BD%91%E7%BB%9C%EF%BC%88Ethernet%EF%BC%89"><span class="nav-text">企业接入网络（Ethernet）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%BA%BF%E6%8E%A5%E5%85%A5%E7%BD%91%E7%BB%9C"><span class="nav-text">无线接入网络</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%A9%E7%90%86%E5%AA%92%E4%BD%93"><span class="nav-text">物理媒体</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E8%BD%B4%E7%94%B5%E7%BC%86%E3%80%81%E5%85%89%E7%BA%A4"><span class="nav-text">同轴电缆、光纤</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E8%BD%B4%E7%94%B5%E7%BC%86"><span class="nav-text">同轴电缆</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%89%E7%BA%A4%E5%92%8C%E5%85%89%E7%BC%86"><span class="nav-text">光纤和光缆</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A0%E7%BA%BF%E9%93%BE%E8%B7%AF"><span class="nav-text">无线链路</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%97%A0%E7%BA%BF%E9%93%BE%E8%B7%AF%E7%B1%BB%E5%9E%8B"><span class="nav-text">无线链路类型</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Internet-%E7%BB%93%E6%9E%84-%E5%92%8C-ISP"><span class="nav-text">Internet 结构 和 ISP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%92%E8%81%94%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84-%EF%BC%9A-%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BD%91%E7%BB%9C"><span class="nav-text">互联网络结构 ： 网络的网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#network-of-networks"><span class="nav-text">network of networks</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ISP-%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="nav-text">ISP 之间的连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E5%BB%B6%E6%97%B6%E3%80%81%E4%B8%A2%E5%A4%B1%E5%92%8C%E5%90%9E%E5%90%90%E9%87%8F"><span class="nav-text">分组延时、丢失和吞吐量</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
