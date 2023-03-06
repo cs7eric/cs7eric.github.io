@@ -680,7 +680,126 @@
 
 <p>如何获得 设置指定的 key 过期的 Unix 时间，单位为秒</p>
 <p><code>Long.toString(System.currentTimeMillis()/1000L).sout</code> </p>
-<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h5>
+<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h5><h6 id="最常用"><a href="#最常用" class="headerlink" title="最常用"></a>最常用</h6><ul>
+<li><code>set key value</code><ul>
+<li><code>keepttl</code></li>
+</ul>
+</li>
+</ul>
+<h6 id="同时设置-x2F-获取多个-键值"><a href="#同时设置-x2F-获取多个-键值" class="headerlink" title="同时设置&#x2F;获取多个 键值"></a>同时设置&#x2F;获取多个 键值</h6><ul>
+<li><p><code>MSET key value[key value ...]</code></p>
+<p>同时设置一个或多个 key-value键值对</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230306224401060.png"
+                      alt="image-20230306224401060" style="zoom:50%;" 
+                >
+</li>
+<li><p><code>MGET key[key ...]</code></p>
+<p>获取所有（一个或多个）给定 key 的 值</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230306224503423.png"
+                      alt="image-20230306224503423" style="zoom:50%;" 
+                >
+</li>
+<li><p><code>mset/mget/msetnx</code></p>
+<p>同时设置 一个 或多个 key-value 对，<strong>当且仅当所有给定的 key 都不存在</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230306224806449.png"
+                      alt="image-20230306224806449" style="zoom:50%;" 
+                ></li>
+</ul>
+<h6 id="获得指定区间范围内的值"><a href="#获得指定区间范围内的值" class="headerlink" title="获得指定区间范围内的值"></a>获得指定区间范围内的值</h6><p><code>getrange</code></p>
+<p>获得指定区间范围内的值，类似 between…and 的关系，<strong>从0 对 -1 表示全部</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230306225248021.png"
+                      alt="image-20230306225248021" style="zoom:50%;" 
+                >
+
+<br>
+
+<p><code>setrange</code></p>
+<p>设置指定区间内范围的值，格式是 setrange key值 具体值</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230306225339265.png"
+                      alt="image-20230306225339265" style="zoom:50%;" 
+                >
+
+
+
+<h6 id="数值增减"><a href="#数值增减" class="headerlink" title="数值增减"></a>数值增减</h6><ul>
+<li><strong>一定要是数字才可以增减</strong></li>
+<li>递增数字<ul>
+<li><code>INCR key</code></li>
+</ul>
+</li>
+<li>增加指定整数<ul>
+<li><code>INCRBY key increment</code></li>
+</ul>
+</li>
+<li>递减数值<ul>
+<li><code>DECR key</code></li>
+</ul>
+</li>
+<li>减少指定的整数<ul>
+<li><code>DECRBY key decrement</code></li>
+</ul>
+</li>
+</ul>
+<h6 id="获取字符串的长度和内容追加"><a href="#获取字符串的长度和内容追加" class="headerlink" title="获取字符串的长度和内容追加"></a>获取字符串的长度和内容追加</h6><ul>
+<li><code>STRLEN key</code></li>
+<li><code>APPEND key value</code></li>
+</ul>
+<h6 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h6><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230306225707441.png"
+                      alt="image-20230306225707441" style="zoom:67%;" 
+                >
+
+<ul>
+<li>EX ： key 在多少秒后过期</li>
+<li>PX ：key 在多少毫秒之后过期</li>
+<li>NX ：当 key 不存在的时候，才创建 key,效果等同于丢setnx</li>
+<li>XX : 当 key 存在的时候，覆盖 key</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230306225829951.png"
+                      alt="image-20230306225829951" style="zoom:50%;" 
+                >
+
+
+
+<h6 id="getset"><a href="#getset" class="headerlink" title="getset"></a>getset</h6><p>将给定的 key 的值设为 value，并返回 key 的旧值（old value）</p>
+<p>简单一句话，<strong>先 get ，然后立即 set</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230306230033934.png"
+                      alt="image-20230306230033934" style="zoom:50%;" 
+                >
+
+
+
+<h5 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h5><p>抖音无限点赞某个视频或者商品，点一下加一次</p>
+<br>
+
+<p>是否 喜欢的文章</p>
+<blockquote>
+<p>阅读数： 只要点击了 star，直接可以使用 incr key 命令增加一个数字1，完成记录数字</p>
+</blockquote>
+<h4 id="Redis列表（List）"><a href="#Redis列表（List）" class="headerlink" title="Redis列表（List）"></a>Redis列表（List）</h4><h5 id="常用-2"><a href="#常用-2" class="headerlink" title="常用"></a>常用</h5>
             </div>
 
             
@@ -806,7 +925,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-text">Redis 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E5%8A%9F%E8%83%BD%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="nav-text">主流功能与应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="nav-text">总体功能概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-text">资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BD%BF%E7%94%A8"><span class="nav-text">Redis 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%9A%84-10-%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">Redis 的 10 大数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String-%EF%BC%89"><span class="nav-text">redis 字符串 （String ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">redis 列表（List）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88Hash%EF%BC%89"><span class="nav-text">redis 哈希表（Hash）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E9%9B%86%E5%90%88-%EF%BC%88Set%EF%BC%89"><span class="nav-text">redis 集合 （Set）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88-%EF%BC%88ZSet-%EF%BC%89"><span class="nav-text">redis 有序集合 （ZSet ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">redis 地理空间（GEO）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">redis 基数统计（HyperLogLog）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">redis 位图（bitmap）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">redis 位域（bitfield）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">redis 流（Stream）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%94%AE%EF%BC%88key%EF%BC%89"><span class="nav-text">Redis 键（key）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%90%BD%E5%9C%B0%E8%BF%90%E7%94%A8"><span class="nav-text">数据类型命令及落地运用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String%EF%BC%89"><span class="nav-text">Redis 字符串 （String）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-1"><span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SET-%E5%91%BD%E4%BB%A4"><span class="nav-text">SET 命令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1"><span class="nav-text">案例</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-text">Redis 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E5%8A%9F%E8%83%BD%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="nav-text">主流功能与应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="nav-text">总体功能概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-text">资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BD%BF%E7%94%A8"><span class="nav-text">Redis 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%9A%84-10-%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">Redis 的 10 大数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String-%EF%BC%89"><span class="nav-text">redis 字符串 （String ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">redis 列表（List）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88Hash%EF%BC%89"><span class="nav-text">redis 哈希表（Hash）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E9%9B%86%E5%90%88-%EF%BC%88Set%EF%BC%89"><span class="nav-text">redis 集合 （Set）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88-%EF%BC%88ZSet-%EF%BC%89"><span class="nav-text">redis 有序集合 （ZSet ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">redis 地理空间（GEO）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">redis 基数统计（HyperLogLog）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">redis 位图（bitmap）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">redis 位域（bitfield）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">redis 流（Stream）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%94%AE%EF%BC%88key%EF%BC%89"><span class="nav-text">Redis 键（key）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%90%BD%E5%9C%B0%E8%BF%90%E7%94%A8"><span class="nav-text">数据类型命令及落地运用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String%EF%BC%89"><span class="nav-text">Redis 字符串 （String）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-1"><span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SET-%E5%91%BD%E4%BB%A4"><span class="nav-text">SET 命令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%80%E5%B8%B8%E7%94%A8"><span class="nav-text">最常用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E8%AE%BE%E7%BD%AE-x2F-%E8%8E%B7%E5%8F%96%E5%A4%9A%E4%B8%AA-%E9%94%AE%E5%80%BC"><span class="nav-text">同时设置&#x2F;获取多个 键值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E5%80%BC"><span class="nav-text">获得指定区间范围内的值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E5%A2%9E%E5%87%8F"><span class="nav-text">数值增减</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6%E5%92%8C%E5%86%85%E5%AE%B9%E8%BF%BD%E5%8A%A0"><span class="nav-text">获取字符串的长度和内容追加</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#getset"><span class="nav-text">getset</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">Redis列表（List）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-2"><span class="nav-text">常用</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
