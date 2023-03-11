@@ -2164,7 +2164,497 @@
                 >
 
 <p><code>BITFIELD key [GET type offset] [SET type offset value] [INCRBY type offset increment] [OVERFLOW WRAP|SAT|FAIL]</code></p>
+<h3 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h3><hr>
+<h4 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h4><p>redis 如何将数据写入硬盘</p>
+<br>
 
+<p>持久化是指将数据写入持久存储，例如 SSD（固态硬盘）。Redis 提供了 一系列持久化选项，这些包括：</p>
+<ul>
+<li>RDB （Redis Database 【redis 数据库】）：Redis 持久化以指定的时间间隔执行 数据集 的快照</li>
+<li>AOF （Append Only file ） : AOF 持久化记录 服务器收到的每一个  写  操作。然后可以在 服务器启动时再次重放这些操作，重建原始数据集。使用与Redis 协议本身相同的格式记录命令</li>
+<li>无持久化 ：可以完全禁用持久性，这有时在 缓存时使用</li>
+<li>RDB + AOF ： 可以在 同一个案例下同时使用 RDB + AOF</li>
+</ul>
+<br>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310151651119.png"
+                      alt="image-20230310151651119"
+                ></p>
+<h4 id="RDB-Redis-DataBase"><a href="#RDB-Redis-DataBase" class="headerlink" title="RDB (Redis DataBase)"></a>RDB (Redis DataBase)</h4><p>RDB 持久性以指定的时间间隔执行数据集的时间点快照</p>
+<h5 id="能干嘛-2"><a href="#能干嘛-2" class="headerlink" title="能干嘛"></a>能干嘛</h5><ul>
+<li>在指定的时间间隔内将内存中的数据集快照写入磁盘，也就是行话讲的 snapshot 内存快照，它恢复时再将磁盘快照文件直接读回 内存中</li>
+<li>redis 的数据都在内存中，保存备份时他执行的是 <strong>全量快照</strong>，也就是说，把内存中的所有数据都记录到 磁盘中，一锅端</li>
+<li>rdb  保存的是 dump.rdb 文件</li>
+</ul>
+<h5 id="案例演示"><a href="#案例演示" class="headerlink" title="案例演示"></a>案例演示</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310105325930.png"
+                      alt="image-20230310105325930" style="zoom:33%;" 
+                >
+
+<p>RDB 保存到磁盘的文件 叫 dump.rdb</p>
+<br>
+
+<p><strong>自动触发</strong></p>
+<p>redis 6.0.16 以下</p>
+<p>在 redis.conf 配置文件中的 snapshot 下配置 save 参数，来触发 redis 的 rdb 持久化条件，比如 <code>save m n </code> ： 表示 m 秒内 数据集存在 n 次修改时，自动触发 bgsave</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310152748384.png"
+                      alt="image-20230310152748384"
+                > </p>
+<p>Redis 6.2  以及 redis 7.0.0</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310171018738.png"
+                      alt="image-20230310171018738" style="zoom:50%;" 
+                >
+
+
+
+<h6 id="操作步骤"><a href="#操作步骤" class="headerlink" title="操作步骤"></a>操作步骤</h6><ul>
+<li>自动触发<ul>
+<li>redis 7版本 ，按照 redis.conf 里配置的 save <seconds> <changes><ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310171309483.png"
+                      alt="image-20230310171309483" style="zoom:50%;" 
+                ></li>
+<li>修改 dump 文件保存路径<ul>
+<li>默认<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310171505245.png"
+                      alt="image-20230310171505245" style="zoom:33%;" 
+                ></li>
+</ul>
+</li>
+<li>自定义修改的路径且可以进行 redis里用 config get dir 获取目录<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310171801493.png"
+                      alt="image-20230310171801493" style="zoom:50%;" 
+                ></li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310172126770.png"
+                      alt="image-20230310172126770" style="zoom:50%;" 
+                ></li>
+</ul>
+</li>
+<li>修改 dump 文件名称<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310172237300.png"
+                      alt="image-20230310172237300" style="zoom:50%;" 
+                ></li>
+</ul>
+</li>
+<li>触发备份<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310172344836.png"
+                      alt="image-20230310172344836" style="zoom: 33%;" 
+                ></li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310172404148.png"
+                      alt="image-20230310172404148" style="zoom:33%;" 
+                ></li>
+</ul>
+</li>
+<li>如何恢复<ul>
+<li>将备份文件（dump.rdb） 移动到 redis 安装目录并启动服务即可</li>
+<li>备份成功后故意用 flushdb 清空 redis,看是否可以恢复数据<ul>
+<li>执行 flushall&#x2F;flushdb 命令也会产生 dump.rdb 文件。但里面是空的。无意义</li>
+</ul>
+</li>
+<li>物理恢复，一定服务和备份 <strong>分机隔离</strong><ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310173458197.png"
+                      alt="image-20230310173458197"
+                ></li>
+<li>备注 ： 不可以把 备份文件 dump.rdb 和生产 redis 服务器放在同一台机器，必须分开各自存储，以防生产机物理损坏后备份文件也挂了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<p><strong>手动触发</strong></p>
+<ul>
+<li><p>save 和 bgsave</p>
+<ul>
+<li><p>redis 提供了两个命令来生成 rdb 文件，分别是 save 和 bgsave</p>
+</li>
+<li><p>save</p>
+<ul>
+<li><p>在主程序中执行 <strong><font color='red'>会阻塞</font></strong> 当前 redis 服务器，直到持久化工作完成</p>
+<p>执行 save 命令期间，redis 不能处理 其他命令，**<font color='red'>线上禁止使用</font>**</p>
+</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310174335493.png"
+                      alt="image-20230310174335493" style="zoom: 50%;" 
+                >
+</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310174355231.png"
+                      alt="image-20230310174355231" style="zoom:67%;" 
+                ></li>
+</ul>
+</li>
+<li><p>bgsave （默认）</p>
+<ul>
+<li><p>redis 会在后台异步进行 快照操作， <strong><font color='red'>不阻塞</font></strong> 快照同时还可以快速响应客户端的请求，该触发方式会 fork 一个子进程，由子进程复制持久化过程</p>
+</li>
+<li><p>fork 是什么</p>
+<ul>
+<li><p>在 Linux 程序中，fork（）会产生 一个父进程完全相同的子进程，但子进程在此后多会 exec 系统调用，出于效率考虑，尽量避免膨胀</p>
+</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310174957853.png"
+                      alt="image-20230310174957853" style="zoom:67%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310175023057.png"
+                      alt="image-20230310175023057"
+                ></p>
+</li>
+</ul>
+</li>
+<li><p>LASTSAVE </p>
+<ul>
+<li>可以 通过 lastsave 命令获取最后一次成功执行快照的时间</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="优势-1"><a href="#优势-1" class="headerlink" title="优势"></a>优势</h5><h6 id="官网说明"><a href="#官网说明" class="headerlink" title="官网说明"></a>官网说明</h6><ul>
+<li>rdb 是 redis 数据 的一个非常紧凑的单文件时间点表示，RDB 文件非常是和备份，例如，您可能希望在 最近的 24小时内 每一个小时归档一次 RDB 文件，并在 30 天内每天保存一个 RDB 快照。这使您可以在发生灾难时轻松的恢复不同版本的数据集</li>
+<li>RDB 非常适合灾难恢复，他是一个可以传输到远程数据中心 或 Amazon S3 （可能已加密）的压缩文件</li>
+<li>RDB 最大限度地提高 了 Redis 的性能，因为 redis 父进程为了持久化而需要做的唯一工作就是派生一个将完成所有其余工作的子进程。父进程永远不会执行磁盘 I&#x2F;O 或类似的操作</li>
+<li>与AOF相比，RDB 允许使用 大数据集更快的重启</li>
+<li>在副本上，RDB支持 <strong>重启和故障转移后的部分重新同步</strong></li>
+</ul>
+<h6 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h6><ul>
+<li>适合大规模的数据恢复</li>
+<li>按照业务定时备份</li>
+<li>对数据完整性和一致性要求不高</li>
+<li>RDB 文件 在内存中的加载速度要比 AOF快得多</li>
+</ul>
+<h5 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h5><h6 id="官网说明-1"><a href="#官网说明-1" class="headerlink" title="官网说明"></a>官网说明</h6><ul>
+<li>如果您需要在Redis停止工作时（例如断电后）将数据丢失的可能性降到最低，那么RDB并不好。您可以配置生成RDB的不同保存点（例如，在对数据集至少5分钟和100次写入之后，您可以有多个保存点）。但是，您通常会每五分钟或更长时间创建一次RDB快照，因此，如果Redis由于任何原因在没有正确关闭的情况下停止工作，您应该准备好丢失最新分钟的数据。</li>
+<li>RDB需要经常fork0以便使用子进程在磁盘上持久化。如果数据集很大，fork()可能会很耗时，并且如果数据集很大并且CPU性能不是很好，可能会导致Redis停止为客户端服务几毫秒甚至一秒钟。AOF也需要fork()但频率较低，您可以调整要重写日志的频率，而不需要对持久性进行任何权衡。</li>
+</ul>
+<h6 id="小总结-1"><a href="#小总结-1" class="headerlink" title="小总结"></a>小总结</h6><ul>
+<li>在一定间隔时间做一次备份，所以 如果redis 意外 down 掉的话，就会丢失从当前至最近一次快照期间的数据， <strong><font color='red'>快照之间的数据会丢失</font></strong></li>
+<li>内存数据的全量同步，如果数据量太大会导致 I&#x2F;O 严重影响服务器的性能</li>
+<li>RDB 依赖 主进程的 fork ，在更大的数据集中，这可能会导致服务器请求的瞬间延迟。fork 的时候内存中的数据被克隆了一份，大致 2 倍的膨胀性，需要考虑</li>
+</ul>
+<h5 id="如何-检查修复-dump-rdb-文件"><a href="#如何-检查修复-dump-rdb-文件" class="headerlink" title="如何 检查修复 dump.rdb 文件"></a>如何 检查修复 dump.rdb 文件</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310181547571.png"
+                      alt="image-20230310181547571" style="zoom: 50%;" 
+                >
+
+
+
+<h5 id="那些情况会触发-rdb-快照"><a href="#那些情况会触发-rdb-快照" class="headerlink" title="那些情况会触发 rdb 快照"></a>那些情况会触发 rdb 快照</h5><ul>
+<li>配置文件中默认的 快照配置</li>
+<li>手动 save&#x2F;bgsave 命令</li>
+<li>执行 flushdb&#x2F;flushall 命令也会产生 dump.rdb 文件，但里面是空的 ，无意义</li>
+<li>执行 shutdown 且没有设置开启 AOF 持久化</li>
+<li>主从复制时，主节点自动触发</li>
+</ul>
+<h5 id="如何禁用快照"><a href="#如何禁用快照" class="headerlink" title="如何禁用快照"></a>如何禁用快照</h5><ul>
+<li>动态所有停止 rdb 保存规则的方法 <code>redis-cli config set save &quot;&quot;</code></li>
+<li>快照禁用<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310181954382.png"
+                      alt="image-20230310181954382" style="zoom:50%;" 
+                ></li>
+</ul>
+</li>
+</ul>
+<h5 id="rdb-优化配置项详解"><a href="#rdb-优化配置项详解" class="headerlink" title="rdb 优化配置项详解"></a>rdb 优化配置项详解</h5><p>配置文件 snapshotting 模块</p>
+<ul>
+<li><code>save &lt;seconds&gt; &lt;changes&gt;</code></li>
+<li><code>dbfilename</code></li>
+<li><code>dir</code></li>
+<li><code>stop-writes-on-bgsave-error</code><ul>
+<li>默认 yes </li>
+<li>如果配置为 no,表示你不在乎数据不一致或者有其他的手段发现和控制这种不一致，那么在快照写入失败时，也能保证 redis 继续接受新的写请求</li>
+</ul>
+</li>
+<li><code>rdbcompression</code><ul>
+<li>默认 yes</li>
+<li>对于存储到硬盘中的快照，可以设置是否进行压缩存储。如果是的话，redis 会采用 LZF 算法进行压缩，如果你不想消耗 cpu 来进行压缩的话，可以设置关闭此功能</li>
+</ul>
+</li>
+<li><code>rdbchecksum</code><ul>
+<li>默认 yes</li>
+<li>在 存储快照后，还可以让 redis 使用  CRC64 算法来进行数据校验，但是这样做会增加大约10 %  的性能消耗，如果希望获取到最大的性能提升，可以关闭此功能</li>
+</ul>
+</li>
+<li><code>rdb-del-sync-files</code><ul>
+<li>在没有持久性的前提下删除复制中使用的 RDB文件启用，默认情况下为 no,此选项是禁用的</li>
+</ul>
+</li>
+</ul>
+<h5 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310182755358.png"
+                      alt="image-20230310182755358" style="zoom:67%;" 
+                >
+
+
+
+<h4 id="AOF（Append-only-file）"><a href="#AOF（Append-only-file）" class="headerlink" title="AOF（Append only file）"></a>AOF（Append only file）</h4><h5 id="是什么-3"><a href="#是什么-3" class="headerlink" title="是什么"></a>是什么</h5><ul>
+<li>**<font color='red'>以日志的形式来吉林每个写操作</font>**，将 redis 执行过的所有写命令记录下来（读操作不记录），只许追加文件但不可以改写文件，redis 启动之初会读取该文件重新构建数据，换言之，redis 重启的话就根据日志文件的内容将写指令从前到后执行一次以完成数据的恢复工作</li>
+<li>默认情况下，redis 是没有开启 AOF 的，开启AOF 功能需要设置配置 <code>appendonly yes</code></li>
+</ul>
+<br>
+
+<blockquote>
+<p><strong><font color='red'>AOF 保存的是 appendonly.aof 文件</font></strong> </p>
+</blockquote>
+<h5 id="AOF-持久化-工作流程"><a href="#AOF-持久化-工作流程" class="headerlink" title="AOF 持久化 工作流程"></a>AOF 持久化 工作流程</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310201153659.png"
+                      alt="image-20230310201153659" style="zoom: 33%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310201213908.png"
+                      alt="image-20230310201213908"
+                ></p>
+<h5 id="AOF-缓冲区的三种写回策略"><a href="#AOF-缓冲区的三种写回策略" class="headerlink" title="AOF 缓冲区的三种写回策略"></a>AOF 缓冲区的三种写回策略</h5><h6 id="三种写策略"><a href="#三种写策略" class="headerlink" title="三种写策略"></a>三种写策略</h6><ul>
+<li>Always<ul>
+<li>同步写回，每个写命令执行完立刻将日志写回磁盘</li>
+</ul>
+</li>
+<li>everysec<ul>
+<li>每秒写回，每个写命令执行完，只是先把日志写到 AOF 文件的内存缓冲区中，每隔 1 s 把缓冲区中的内容写入磁盘</li>
+</ul>
+</li>
+<li>no<ul>
+<li>操作系统控制的写回，每个写命令执行完，只是先把日志写到 AOF 文件的内容缓冲区，由操作系统决定何时将缓冲区内容写回磁盘</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310201704195.png"
+                      alt="image-20230310201704195" style="zoom: 33%;" 
+                >
+
+
+
+<h5 id="案例演示和说明"><a href="#案例演示和说明" class="headerlink" title="案例演示和说明"></a>案例演示和说明</h5><h6 id="配置文件说明（6-7）"><a href="#配置文件说明（6-7）" class="headerlink" title="配置文件说明（6 + 7）"></a>配置文件说明（6 + 7）</h6><p>如何开启 AOF</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310202127540.png"
+                      alt="image-20230310202127540" style="zoom: 33%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310202328514.png"
+                      alt="image-20230310202328514"
+                ></p>
+<br>
+
+<p>使用 默认写回策略，每秒钟</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310202445944.png"
+                      alt="image-20230310202445944" style="zoom:50%;" 
+                >
+
+<br>
+
+<p>aof 文件 - 保存路径</p>
+<p>redis 6</p>
+<ul>
+<li>AOF 保存文件的位置和 RDB 保存文件的位置一样，都是通过 redis.conf 配置文件的 dir 配置</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310203049588.png"
+                      alt="image-20230310203049588" style="zoom:67%;" 
+                ></li>
+</ul>
+<br>
+
+<p>redis 7</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310203116779.png"
+                      alt="image-20230310203116779"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310203128686.png"
+                      alt="image-20230310203128686"
+                ></p>
+<br>
+
+<p>aof 文件 - 保存名称</p>
+<p>redis 6</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310203301762.png"
+                      alt="image-20230310203301762" style="zoom:50%;" 
+                >
+
+<p>有且只有一个</p>
+<br>
+
+<p>redis 7.0 MultiPart AOF 的设计</p>
+<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310203405224.png"
+                      alt="image-20230310203405224" style="zoom: 50%;" 
+                >
+
+<p>从Redis 7.0.0开始，当调度AOF重写时，Redis父进程打开一个新的增量AOF文件继续写入。子进程执行重写逻辑并生成新的基础AOF。Redis会使用一个临时清单文件来跟踪新生成的基础文件和增量文件。当它们准备就绪后，Redis将执行原子替换操作，使这个临时清单文件生效。为了避免AOF重写反复失败重试时创建很多增量文件的问题，Redis引入了AOF重写限制机制，保证失败的AOF重写重试的速度越来越慢。</p>
+</li>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310204052313.png"
+                      alt="image-20230310204052313" style="zoom:50%;" 
+                >
+
+<ul>
+<li>base 基本文件</li>
+<li>incr 增量文件</li>
+<li>manifest 清单文件</li>
+</ul>
+</li>
+<li><p>Redis 7.0 config 中对应的配置项</p>
+<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310204214424.png"
+                      alt="image-20230310204214424" style="zoom: 50%;" 
+                ></li>
+</ul>
+</li>
+</ul>
+<h6 id="正常恢复"><a href="#正常恢复" class="headerlink" title="正常恢复"></a>正常恢复</h6><ul>
+<li>启动 ： 设置 yes  修改默认的 <code>appendonly no </code> ，改为 yes</li>
+<li>写操作继续，生成 AOF 文件到指定目录</li>
+<li>恢复1 ： 重启 redis 然后重新加载，结果 OK</li>
+<li>恢复2 <ul>
+<li>写入数据进 redis，然后 flushdb + shutdown 服务器</li>
+<li>新生成了  dump 和 aof</li>
+<li>备份新生成 的 aof.bak，然后删除 dump&#x2F;aof 再看恢复<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310204747742.png"
+                      alt="image-20230310204747742" style="zoom:33%;" 
+                ></li>
+</ul>
+</li>
+<li>重启 redis 然后 重新加载试试?</li>
+<li>停止服务器，拿出我们的备份修改后再重新启动服务器看看<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310204820165.png"
+                      alt="image-20230310204820165" style="zoom: 33%;" 
+                ></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="异常恢复"><a href="#异常恢复" class="headerlink" title="异常恢复"></a>异常恢复</h6><ul>
+<li>故意乱写正常的 AOF 文件，模拟网络闪断文件写 error </li>
+<li>重启 redis 之后就会进入 AOF 文件的载入，发现启动都不行</li>
+<li>异常修复命令 ： <code>redis-check-aof --fix </code> 进行修复</li>
+<li>重新 OK</li>
+</ul>
+<h5 id="优势-2"><a href="#优势-2" class="headerlink" title="优势"></a>优势</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310205614892.png"
+                      alt="image-20230310205614892" style="zoom:50%;" 
+                >
+
+<ul>
+<li>使用AOF Redis更加持久：您可以有不同的fsync策略：根本不fsync、每秒fsync、每次查询时fsync。使用每秒fsync的默认策略，写入性能仍然很棒。fsync是使用后台线程执行的，当没有fsync正在进行时，主线程将努力执行写入，因此您只能丢失一秒钟的写入。</li>
+<li>AOF 日志是一个仅附加日志，因此不会出现寻道问题，也不会在断电时出现损坏问题。即使由于某种原因（磁盘已满或其他原因）日志以写一半的命令结尾，redis-check-aof工具也能够轻松修复它。</li>
+<li>当AOF变得太大时，Redis能够在后台自动重写AOF。重写是完全安全的，因为当Redis继续附加到旧文件时，会使用创建当前数据集所需的最少操作集生成一个全新的文件，一旦第二个文件准备就绪，Redis就会切换两者并开始附加到新的那一个。</li>
+<li>AOF以易于理解和解析的格式依次包含所有操作的日志。您甚至可以轻松导出AOF文件。例如，即使您不小心使用该FLUSHALL命令刷新了所有内容，只要在此期间没有执行日志重写，您仍然可以通过停止服务器、删除最新命令并重新启动Redis来保存您的数据集，</li>
+</ul>
+<h5 id="劣势-1"><a href="#劣势-1" class="headerlink" title="劣势"></a>劣势</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230310210113921.png"
+                      alt="image-20230310210113921" style="zoom: 50%;" 
+                >
+
+<ul>
+<li>相同数据集的数据而言，aof文件要远大于 rdb 文件，恢复速度慢于 rdb</li>
+<li>aof 运行效率要慢于 rdb,每秒的同步策略效率较好，不同步效率和 rdb 相同</li>
+</ul>
+<h5 id="AOF-重写机制"><a href="#AOF-重写机制" class="headerlink" title="AOF 重写机制"></a>AOF 重写机制</h5>
             </div>
 
             
@@ -2294,7 +2784,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-text">Redis 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E5%8A%9F%E8%83%BD%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="nav-text">主流功能与应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="nav-text">总体功能概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-text">资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BD%BF%E7%94%A8"><span class="nav-text">Redis 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%9A%84-10-%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">Redis 的 10 大数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String-%EF%BC%89"><span class="nav-text">redis 字符串 （String ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">redis 列表（List）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88Hash%EF%BC%89"><span class="nav-text">redis 哈希表（Hash）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E9%9B%86%E5%90%88-%EF%BC%88Set%EF%BC%89"><span class="nav-text">redis 集合 （Set）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88-%EF%BC%88ZSet-%EF%BC%89"><span class="nav-text">redis 有序集合 （ZSet ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">redis 地理空间（GEO）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">redis 基数统计（HyperLogLog）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">redis 位图（bitmap）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">redis 位域（bitfield）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">redis 流（Stream）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%94%AE%EF%BC%88key%EF%BC%89"><span class="nav-text">Redis 键（key）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%90%BD%E5%9C%B0%E8%BF%90%E7%94%A8"><span class="nav-text">数据类型命令及落地运用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String%EF%BC%89"><span class="nav-text">Redis 字符串 （String）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-1"><span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SET-%E5%91%BD%E4%BB%A4"><span class="nav-text">SET 命令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%80%E5%B8%B8%E7%94%A8"><span class="nav-text">最常用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E8%AE%BE%E7%BD%AE-x2F-%E8%8E%B7%E5%8F%96%E5%A4%9A%E4%B8%AA-%E9%94%AE%E5%80%BC"><span class="nav-text">同时设置&#x2F;获取多个 键值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E5%80%BC"><span class="nav-text">获得指定区间范围内的值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E5%A2%9E%E5%87%8F"><span class="nav-text">数值增减</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6%E5%92%8C%E5%86%85%E5%AE%B9%E8%BF%BD%E5%8A%A0"><span class="nav-text">获取字符串的长度和内容追加</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#getset"><span class="nav-text">getset</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">Redis列表（List）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-2"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B4%E6%98%8E"><span class="nav-text">简单说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-2"><span class="nav-text">案例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lset-key-index-value"><span class="nav-text">lset key index value</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%93%88%E5%B8%8C%EF%BC%88Hash%EF%BC%89"><span class="nav-text">Redis哈希（Hash）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-3"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-3"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E9%9B%86%E5%90%88%EF%BC%88Set%EF%BC%89"><span class="nav-text">Redis集合（Set）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-4"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-4"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88Zset-sorted-set"><span class="nav-text">Redis 有序集合Zset (sorted set)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-5"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-5"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-3"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">Redis位图（bitmap）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-4"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">Redis基数统计（HyperLogLog）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-text">需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-5"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">Redis地理空间（GEO）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-1"><span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">Redis流（Stream）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-1"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84%E5%92%8C%E5%8E%9F%E7%90%86%E8%AF%B4%E6%98%8E"><span class="nav-text">底层结构和原理说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E7%90%86%E8%AE%BA"><span class="nav-text">基本命令理论</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">队列相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E7%BB%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">消费组相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-text">4 个特殊符号</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Redis-%E6%B5%81-%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-text">Redis 流 实例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4-1"><span class="nav-text">队列相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">消费者相关指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">Redis 位域（bitfield）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-2"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-1"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-text">命令</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-text">Redis 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E5%8A%9F%E8%83%BD%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="nav-text">主流功能与应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="nav-text">总体功能概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-text">资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BD%BF%E7%94%A8"><span class="nav-text">Redis 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%9A%84-10-%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">Redis 的 10 大数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String-%EF%BC%89"><span class="nav-text">redis 字符串 （String ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">redis 列表（List）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88Hash%EF%BC%89"><span class="nav-text">redis 哈希表（Hash）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E9%9B%86%E5%90%88-%EF%BC%88Set%EF%BC%89"><span class="nav-text">redis 集合 （Set）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88-%EF%BC%88ZSet-%EF%BC%89"><span class="nav-text">redis 有序集合 （ZSet ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">redis 地理空间（GEO）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">redis 基数统计（HyperLogLog）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">redis 位图（bitmap）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">redis 位域（bitfield）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">redis 流（Stream）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%94%AE%EF%BC%88key%EF%BC%89"><span class="nav-text">Redis 键（key）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%90%BD%E5%9C%B0%E8%BF%90%E7%94%A8"><span class="nav-text">数据类型命令及落地运用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String%EF%BC%89"><span class="nav-text">Redis 字符串 （String）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-1"><span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SET-%E5%91%BD%E4%BB%A4"><span class="nav-text">SET 命令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%80%E5%B8%B8%E7%94%A8"><span class="nav-text">最常用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E8%AE%BE%E7%BD%AE-x2F-%E8%8E%B7%E5%8F%96%E5%A4%9A%E4%B8%AA-%E9%94%AE%E5%80%BC"><span class="nav-text">同时设置&#x2F;获取多个 键值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E5%80%BC"><span class="nav-text">获得指定区间范围内的值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E5%A2%9E%E5%87%8F"><span class="nav-text">数值增减</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6%E5%92%8C%E5%86%85%E5%AE%B9%E8%BF%BD%E5%8A%A0"><span class="nav-text">获取字符串的长度和内容追加</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#getset"><span class="nav-text">getset</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">Redis列表（List）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-2"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B4%E6%98%8E"><span class="nav-text">简单说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-2"><span class="nav-text">案例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lset-key-index-value"><span class="nav-text">lset key index value</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%93%88%E5%B8%8C%EF%BC%88Hash%EF%BC%89"><span class="nav-text">Redis哈希（Hash）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-3"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-3"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E9%9B%86%E5%90%88%EF%BC%88Set%EF%BC%89"><span class="nav-text">Redis集合（Set）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-4"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-4"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88Zset-sorted-set"><span class="nav-text">Redis 有序集合Zset (sorted set)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-5"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-5"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-3"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">Redis位图（bitmap）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-4"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">Redis基数统计（HyperLogLog）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-text">需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-5"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">Redis地理空间（GEO）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-1"><span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">Redis流（Stream）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-1"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84%E5%92%8C%E5%8E%9F%E7%90%86%E8%AF%B4%E6%98%8E"><span class="nav-text">底层结构和原理说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E7%90%86%E8%AE%BA"><span class="nav-text">基本命令理论</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">队列相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E7%BB%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">消费组相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-text">4 个特殊符号</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Redis-%E6%B5%81-%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-text">Redis 流 实例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4-1"><span class="nav-text">队列相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">消费者相关指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">Redis 位域（bitfield）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-2"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-1"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-text">命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-text">Redis 持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E4%BB%8B%E7%BB%8D"><span class="nav-text">总体介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RDB-Redis-DataBase"><span class="nav-text">RDB (Redis DataBase)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-2"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-text">操作步骤</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-1"><span class="nav-text">优势</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E8%AF%B4%E6%98%8E"><span class="nav-text">官网说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B0%8F%E6%80%BB%E7%BB%93"><span class="nav-text">小总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-text">劣势</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E8%AF%B4%E6%98%8E-1"><span class="nav-text">官网说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B0%8F%E6%80%BB%E7%BB%93-1"><span class="nav-text">小总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95-%E6%A3%80%E6%9F%A5%E4%BF%AE%E5%A4%8D-dump-rdb-%E6%96%87%E4%BB%B6"><span class="nav-text">如何 检查修复 dump.rdb 文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%82%A3%E4%BA%9B%E6%83%85%E5%86%B5%E4%BC%9A%E8%A7%A6%E5%8F%91-rdb-%E5%BF%AB%E7%85%A7"><span class="nav-text">那些情况会触发 rdb 快照</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A6%81%E7%94%A8%E5%BF%AB%E7%85%A7"><span class="nav-text">如何禁用快照</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rdb-%E4%BC%98%E5%8C%96%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%A6%E8%A7%A3"><span class="nav-text">rdb 优化配置项详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF%EF%BC%88Append-only-file%EF%BC%89"><span class="nav-text">AOF（Append only file）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-3"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E6%8C%81%E4%B9%85%E5%8C%96-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-text">AOF 持久化 工作流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E4%B8%89%E7%A7%8D%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5"><span class="nav-text">AOF 缓冲区的三种写回策略</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E5%86%99%E7%AD%96%E7%95%A5"><span class="nav-text">三种写策略</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA%E5%92%8C%E8%AF%B4%E6%98%8E"><span class="nav-text">案例演示和说明</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E%EF%BC%886-7%EF%BC%89"><span class="nav-text">配置文件说明（6 + 7）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AD%A3%E5%B8%B8%E6%81%A2%E5%A4%8D"><span class="nav-text">正常恢复</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%81%A2%E5%A4%8D"><span class="nav-text">异常恢复</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-2"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF-1"><span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E9%87%8D%E5%86%99%E6%9C%BA%E5%88%B6"><span class="nav-text">AOF 重写机制</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
