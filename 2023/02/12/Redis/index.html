@@ -2164,7 +2164,7 @@
                 >
 
 <p><code>BITFIELD key [GET type offset] [SET type offset value] [INCRBY type offset increment] [OVERFLOW WRAP|SAT|FAIL]</code></p>
-<h3 id="Redis-持久化"><a href="#Redis-持久化" class="headerlink" title="Redis 持久化"></a>Redis 持久化</h3><hr>
+<h3 id="Redis-持久化（RDB-AOF）"><a href="#Redis-持久化（RDB-AOF）" class="headerlink" title="Redis 持久化（RDB + AOF）"></a>Redis 持久化（RDB + AOF）</h3><hr>
 <h4 id="总体介绍"><a href="#总体介绍" class="headerlink" title="总体介绍"></a>总体介绍</h4><p>redis 如何将数据写入硬盘</p>
 <br>
 
@@ -2883,7 +2883,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="Redis-事务"><a href="#Redis-事务" class="headerlink" title="Redis 事务"></a>Redis 事务</h3><hr>
+<h3 id="Redis-事务（transactional）"><a href="#Redis-事务（transactional）" class="headerlink" title="Redis 事务（transactional）"></a>Redis 事务（transactional）</h3><hr>
 <p>Redis Transactions allow the execution of a group of commands in a single step, they are centered around the commands <a target="_blank" rel="noopener" href="https://redis.io/commands/multi"><code>MULTI</code></a>, <a target="_blank" rel="noopener" href="https://redis.io/commands/exec"><code>EXEC</code></a>, <a target="_blank" rel="noopener" href="https://redis.io/commands/discard"><code>DISCARD</code></a> and <a target="_blank" rel="noopener" href="https://redis.io/commands/watch"><code>WATCH</code></a>. Redis Transactions make two important guarantees:</p>
 <ul>
 <li>All the commands in a transaction are serialized and executed sequentially. A request sent by another client will never be served <strong>in the middle</strong> of the execution of a Redis Transaction. This guarantees that the commands are executed as a single isolated operation.</li>
@@ -3073,7 +3073,7 @@
 <li>入队 ： 将多个命令入队到 事务中，接到这些命令并不会立即执行，而是放到等待执行的 事务队列 里面</li>
 <li>执行 ： 由  <code>exec</code> 命令触发命令</li>
 </ul>
-<h3 id="Redis-管道"><a href="#Redis-管道" class="headerlink" title="Redis 管道"></a>Redis 管道</h3><hr>
+<h3 id="Redis-管道（pipelining）"><a href="#Redis-管道（pipelining）" class="headerlink" title="Redis 管道（pipelining）"></a>Redis 管道（pipelining）</h3><hr>
 <p>面试题</p>
 <ul>
 <li><p>如何优化频繁命令往返造成的性能瓶颈</p>
@@ -3145,7 +3145,7 @@
 <li>pipelining 缓冲的执行只是会依次执行，不保证原子性，如果执行中执行发生异常，将会继续执行后续的命令</li>
 <li>使用 pipelining 组装的命令个数不能太多，不然数据量过大，客户端阻塞阻塞的时间可能过久，同时服务器端此时也被迫回复一个队列答复，占用很多内存</li>
 </ul>
-<h3 id="Redis-发布-x2F-订阅"><a href="#Redis-发布-x2F-订阅" class="headerlink" title="Redis 发布&#x2F;订阅"></a>Redis 发布&#x2F;订阅</h3><hr>
+<h3 id="Redis-发布-x2F-订阅（pub-x2F-sub）"><a href="#Redis-发布-x2F-订阅（pub-x2F-sub）" class="headerlink" title="Redis 发布&#x2F;订阅（pub&#x2F;sub）"></a>Redis 发布&#x2F;订阅（pub&#x2F;sub）</h3><hr>
 <p>学习定位 : 了解即可</p>
 <h4 id="是什么-5"><a href="#是什么-5" class="headerlink" title="是什么"></a>是什么</h4><h5 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h5><p>是一种消息通信模式： 发送者（PUBLISH)发送消息，订阅者（SUBSCRIBE)接收消息，可以实现进程间的消息传递</p>
 <h5 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h5><p><a target="_blank" rel="noopener" href="https://redis.io/commands/subscribe"><code>SUBSCRIBE</code></a>, <a target="_blank" rel="noopener" href="https://redis.io/commands/unsubscribe"><code>UNSUBSCRIBE</code></a> and <a target="_blank" rel="noopener" href="https://redis.io/commands/publish"><code>PUBLISH</code></a> implement the <a class="link"   target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Publish/subscribe" >Publish&#x2F;Subscribe messaging paradigm<i class="fa-solid fa-up-right-from-square"></i></a> where (citing Wikipedia) senders (publishers) are not programmed to send their messages to specific receivers (subscribers). Rather, published messages are characterized into channels, without knowledge of what (if any) subscribers there may be. Subscribers express interest in one or more channels, and only receive messages that are of interest, without knowledge of what (if any) publishers there are. This decoupling of publishers and subscribers can allow for greater scalability and a more dynamic network topology.</p>
@@ -3783,9 +3783,805 @@
                       alt="image-20230311223435317" style="zoom:33%;" 
                 >
 </li>
-<li></li>
-</ul>
+<li><p>重点参数项说明</p>
+<ul>
+<li><p>bind </p>
+<p>服务器监听地址，用于客户端连接，默认本机地址</p>
+</li>
+<li><p><code>daemonize</code> </p>
+<p>是否以后台 daemonize 方式运行</p>
+</li>
+<li><p><code>protected-mode</code> </p>
+<p>安全保护模式</p>
+</li>
+<li><p><code>port</code></p>
+<p>端口</p>
+</li>
+<li><p><code>logfile</code></p>
+<p>日志文件路径</p>
+</li>
+<li><p><code>pidfile</code></p>
+<p>pid 文件路径</p>
+</li>
+<li><p><code>dir</code></p>
+<p>工作目录</p>
+</li>
+<li><p><code>sentinel monitor &lt;master-name&gt; &lt;ip&gt; &lt;redis-port&gt; &lt;quoru&gt;</code></p>
+<ul>
+<li><p>设置要监控的 master 服务器</p>
+</li>
+<li><p>quorum 表示最少有多少个哨兵认可客观下线，同意故障迁移的法定票数</p>
+<ul>
+<li><p>quorum 表示确认客观下线的最少的哨兵数量</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312092107982.png"
+                      alt="image-20230312092107982" style="zoom:33%;" 
+                >
 
+<br>
+
+<p>网络是不可靠的，有时候一个sentinel会因为网络堵塞而  <strong><font color='red'>误以为</font></strong>  一个master redis已经死掉了，在sentinel集群环境下需要多个sentinel互相沟通来确认某个master  <font color='red'><strong>是否真的死了</strong></font>  ，quorum这个参数是进行客观下线的一个依据，意思是<strong>至少有quorum个sentinel认为这个master有故障，才会对这个master进行下线以及故障转移</strong>。因为有的时候，某个sentinel节点可能因为自身网络原因，导致无法连接master，而此时master并没有出现故障，所以，这就需要多个sentinel都一致认为该master有问题，才可以进行下一步操作，这就保证了公平性和高可用。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>sentinel auth-pass &lt;master-name&gt; &lt;password&gt;</code></p>
+<ul>
+<li>master 设置了密码，连接 master 服务的密码</li>
+</ul>
+</li>
+<li><p><code>sentinel down-after-milliseconds &lt;master-name&gt; &lt;milliseconds&gt;</code></p>
+<p>指定多少毫秒之后，主节点没有应答哨兵，此时哨兵主观上认为主节点下线</p>
+</li>
+<li><p><code>sentinel parallel-syncs &lt;master-name&gt; &lt;nums&gt;</code> </p>
+<p>表示允许并行同步的slave个数，当Master挂了后，哨兵会选出新的Master，此时，剩余的slave会向新的master发起同步数据</p>
+</li>
+<li><p><code>sentinel failover-timeout &lt;master-name&gt; &lt;milliseconds&gt;</code></p>
+<p>故障转移的超时时间，进行故障转移时，如果超过设置的毫秒，表示故障转移失败</p>
+</li>
+<li><p><code>sentinel notification-script &lt;master-name&gt; &lt;script-path&gt;</code></p>
+<p>配置当某一事件发生时所需要执行的脚本</p>
+</li>
+<li><p><code>sentinel client-reconfig-script &lt;master-name&gt; &lt;script-path&gt;</code></p>
+<p>客户端重新配置主节点参数脚本</p>
+</li>
+</ul>
+</li>
+<li><p>哨兵 sentinel 文件通用配置 </p>
+<ul>
+<li><p>sentinel26379.conf</p>
+<div class="highlight-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 26381</span><br><span class="line">logfile &quot;/opt/myredis/sentinel26381.log&quot;</span><br><span class="line">pidfile /var/run/redis-sentinel26381.pid</span><br><span class="line">dir &quot;/opt/myredis&quot;</span><br><span class="line">sentinel monitor mymaster 192.168.21.169 6379 2</span><br><span class="line">sentinel auth-pass mymaster C020611.</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>sentinel26380.conf</p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 26381</span><br><span class="line">logfile &quot;/opt/myredis/sentinel26381.log&quot;</span><br><span class="line">pidfile /var/run/redis-sentinel26381.pid</span><br><span class="line">dir &quot;/opt/myredis&quot;</span><br><span class="line">sentinel monitor mymaster 192.168.21.169 6379 2</span><br><span class="line">sentinel auth-pass mymaster C020611.</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>sentinel26381.conf</p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 26381</span><br><span class="line">logfile &quot;/opt/myredis/sentinel26381.log&quot;</span><br><span class="line">pidfile /var/run/redis-sentinel26381.pid</span><br><span class="line">dir &quot;/opt/myredis&quot;</span><br><span class="line">sentinel monitor mymaster 192.168.21.169 6379 2</span><br><span class="line">sentinel auth-pass mymaster C020611.</span><br></pre></td></tr></table></figure></div>
+</li>
+<li><p>sentinel26379、26380、26381.conf</p>
+ <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312093408239.png"
+                      alt="image-20230312093408239" style="zoom:33%;" 
+                >
+</li>
+<li><p>master 主机配置文件说明</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312093440394.png"
+                      alt="image-20230312093440394" style="zoom:33%;" 
+                ></li>
+</ul>
+</li>
+<li><p>先启动 一主二从 3个 redis 示例实例，测试正常的主从复制</p>
+<ul>
+<li><p>架构说明</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312093624411.png"
+                      alt="image-20230312093624411" style="zoom:33%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312093637099.png"
+                      alt="image-20230312093637099"
+                ></p>
+</li>
+<li><p>redis6379&#x2F;80&#x2F;81.conf 内容，填写主从配置</p>
+<ul>
+<li><p>主机 6379</p>
+<p>6379 后续可能会变成从机，需要设置访问密码，请设置 <code>masterauth C020611.</code></p>
+<p>不然后续可能报错 <code>master_link_status:down</code></p>
+</li>
+<li><p>6380&#x2F;81 </p>
+<p>参考上面配置</p>
+</li>
+</ul>
+</li>
+<li><p>三台不同的虚拟机实例，启动三部真实机器示例并连接</p>
+<ul>
+<li><code>redis-cli -a C020611. -p 6379/80/81</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>————————————————-哨兵部分—————————————————-</p>
+</li>
+<li><p>再启动三个哨兵，完成监控</p>
+<ul>
+<li><code>redis-sentinel sentinel26379.conf --sentinel</code></li>
+<li><code>redis-sentinel sentinel26380.conf --sentinel</code></li>
+<li><code>redis-sentinel sentinel26381.conf --sentinel</code></li>
+</ul>
+</li>
+<li><p>再启动 3 个哨兵监控后，再测试一次主从复制</p>
+</li>
+<li><p>原有的 master down机了</p>
+<ul>
+<li><p>手动模拟关闭 6379 服务器，模拟down 机</p>
+</li>
+<li><p>问题</p>
+<ul>
+<li>两台从机数据是否正常</li>
+<li>是否会从剩下的两台机器上选出新的 master</li>
+<li>之前 down 机的master 机器重启归来，谁会是老大，会不会双 master 冲突</li>
+</ul>
+</li>
+<li><p>数据 OK</p>
+<ul>
+<li><p>两个小问题</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312094511038.png"
+                      alt="image-20230312094511038" style="zoom:50%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312094520137.png"
+                      alt="image-20230312094520137" style="zoom:50%;" 
+                >
+</li>
+<li><p>6380&#x2F;6381</p>
+<p>Broken pipe</p>
+</li>
+<li><p>Broken pipe</p>
+<ul>
+<li><p>pipe</p>
+<p>pipe 是管道的意思，管道里面是数据流，通常是 从 文件或者 套接字读取的数据。当该管道从另一端突然崩溃关闭时，会发生数据突然中断，即是 broken，对于 socket 来说，可能是网络被拔出或另一端的进程崩溃</p>
+</li>
+<li><p>解决问题</p>
+<p>其实当该异常产生的时候，对于服务端来说，并没有多少影响。因为可能是某个客户端突然中止了进程导致崩溃导致了该错误</p>
+</li>
+<li><p>总结</p>
+<p>这个异常时客户端读取超时关闭了连接，这时候服务器端再向客户端已经断开的连接写数据时就发生了 broken pipe 异常</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312095222544.png"
+                      alt="image-20230312095222544" style="zoom:50%;" 
+                ></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>投票新选</p>
+<ul>
+<li><p>sentinel26379.log</p>
+<p> <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312095903020.png"
+                      alt="image-20230312095903020"
+                ></p>
+</li>
+<li><p>sentinel26380.log</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312095922085.png"
+                      alt="image-20230312095922085"
+                ></p>
+</li>
+<li><p>sentinel26381.log</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312095937279.png"
+                      alt="image-20230312095937279"
+                ></p>
+</li>
+</ul>
+</li>
+<li><p>谁是 master （此案例）</p>
+</li>
+<li><p>6381 被选为 新的 master，上位成功</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312100046138.png"
+                      alt="image-20230312100046138" style="zoom:50%;" 
+                >
+</li>
+<li><p>以前的 6379 从 master  降级 成为 slave</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312100130475.png"
+                      alt="image-20230312100130475" style="zoom:50%;" 
+                >
+</li>
+<li><p>6380 还是 从机，只不过换了个 新老大 6381（79变81），6380 还是 slave</p>
+</li>
+</ul>
+</li>
+<li><p>对比配置文件</p>
+<ul>
+<li>文件的内容，在运行期间会被 sentinel 动态改变</li>
+<li>Master - slave 切换后，master_redis.conf、sentinel.conf 的内容都会发生改变，即 master_redis.conf  中会多一行 slaveof 的配置，sentinel.conf  的监控目标会随之调换</li>
+</ul>
+</li>
+</ul>
+<br>
+
+<blockquote>
+<p>生产都是不同机房，不同服务器，很少出现三个 哨兵全挂掉的情况</p>
+<p>可以同时监控多个master，一行一个</p>
+</blockquote>
+<h4 id="哨兵运行流程和选举原理"><a href="#哨兵运行流程和选举原理" class="headerlink" title="哨兵运行流程和选举原理"></a>哨兵运行流程和选举原理</h4><p>当一个主从配置中的 master失效之后，sentinel 可以选举一个新的 master 用于自动接替 原来的 master 工作，主从配置中的其他的 redis 服务器自动指向新的 master 同步数据，一般建议 sentinel 采用奇数台，防止某一台sentinel 无法连接到 master 导致误切换</p>
+<h5 id="运行流程，故障切换"><a href="#运行流程，故障切换" class="headerlink" title="运行流程，故障切换"></a>运行流程，故障切换</h5><h6 id="SDown-主观下线（Subjectively-Down）"><a href="#SDown-主观下线（Subjectively-Down）" class="headerlink" title="SDown 主观下线（Subjectively Down）"></a>SDown 主观下线（Subjectively Down）</h6><p>SDown (主观不可用) 是 <strong>单个 sentinel 自动主观上</strong>  检测到的关于 master的状态，从 sentinel 的角度来看，如果发送了 ping 心跳后，在一定的时间内没有收到合法的回复，就达到了 SDown 的条件</p>
+<p>sentinel 配置文件中的 <code>down-after-milliseconds</code> 设置了 判断主观下线的时间长度</p>
+<p><strong>说明</strong></p>
+<p>所谓主观下线（Subjectively Down， 简称 SDOWN）指的是<strong>单个Sentinel实例</strong>对服务器做出的下线判断，即单个sentinel认为某个服务下线（有可能是接收不到订阅，之间的网络不通等等原因）。主观下线就是说如果服务器在[sentinel down-after-milliseconds]给定的毫秒数之内没有回应PING命令或者返回一个错误消息， 那么这个Sentinel会主观的(<strong>单方面的</strong>)认为这个master不可以用了</p>
+<p><code>sentinel down-after-milliseconds &lt;masterName&gt; &lt;timeout&gt;</code></p>
+<p>表示master被当前sentinel实例认定为失效的间隔时间，这个配置其实就是进行主观下线的一个依据</p>
+<p>master在多长时间内一直没有给Sentine返回有效信息，则认定该master主观下线。也就是说如果多久没联系上redis-servevr，认为这个redis-server进入到失效（SDOWN）状态。</p>
+<h6 id="ODwown-客观下线（Objectively-Down"><a href="#ODwown-客观下线（Objectively-Down" class="headerlink" title="ODwown 客观下线（Objectively Down)"></a>ODwown 客观下线（Objectively Down)</h6><p>ODown 需要达到一定数量的 sentinel，<strong>多个哨兵达成一致意见</strong> 才能认为 一个 master 客观上已经 down掉了</p>
+<p><code>sentinel monitor &lt;master-name&gt; &lt;ip&gt; &lt;redsi-port&gt; &lt;quorum&gt;</code></p>
+<p>masterName  是对某个  master+slave  组合的一个<strong>区分标识</strong>(一套sentinel可以监听多组master+slave这样的组合)</p>
+<p><code>quorum</code> **<font color='red'>这个参数 是进行客观下线的一个依据</font>**，法定人数 &#x2F; 法定票数</p>
+<p>意思是 ： </p>
+<p>至少有quorum个sentinel认为这个master有故障才会对这个master进行下线以及故障转移。因为有的时候，某个sentinel节点可能因为自身网络原因导致无法连接master，而此时master并没有出现故障，所以这就需要多个sentinel都一致认为该master有问题，才可以进行下一步操作，这就保证了公平性和高可用</p>
+<h6 id="选举出-leader（领导者）-哨兵"><a href="#选举出-leader（领导者）-哨兵" class="headerlink" title="选举出 leader（领导者） 哨兵"></a>选举出 leader（领导者） 哨兵</h6><p>当主节点被判断客观下线之后，各个哨兵节点会进行协商，先选举出一个 <strong>领导者哨兵节点</strong>  并由该领导者节点，也即被选举出的 leader 进行  failover （故障迁移）</p>
+<p><strong>三哨兵 log 文件解读</strong></p>
+<p>sentinel26379.log</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312102841293.png"
+                      alt="image-20230312102841293"
+                ></p>
+<p><strong><font color='red'>sentinel26380.log</font></strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312102929005.png"
+                      alt="image-20230312102929005"
+                ></p>
+<p>sentinel26381.log</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312102957390.png"
+                      alt="image-20230312102957390"
+                ></p>
+<h6 id="选举算法（Raft-算法）"><a href="#选举算法（Raft-算法）" class="headerlink" title="选举算法（Raft 算法）"></a>选举算法（Raft 算法）</h6><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312103108846.png"
+                      alt="image-20230312103108846" style="zoom:50%;" 
+                >
+
+<br>
+
+<p>监视该主节点的所有哨兵都有可能被选为 领导者，选举使用的算法是 raft 算法，</p>
+<p>raft 算法的 基本思路是 <strong><font color='red'>先到先得</font></strong></p>
+<p>即在一轮选举中，哨兵 a 向 b 发送成为领导者的 申请，如果 b 没有同意过 别的 哨兵，，则会同意 a 成为 领导者</p>
+<h6 id="由-领导者-开始推动故障切换流程并选出新的-master"><a href="#由-领导者-开始推动故障切换流程并选出新的-master" class="headerlink" title="由 领导者 开始推动故障切换流程并选出新的 master"></a>由 领导者 开始推动故障切换流程并选出新的 master</h6><ul>
+<li><p>新主登基</p>
+<ul>
+<li><p><strong><font color='red'>某个 slave 被选为 新 master</font></strong></p>
+</li>
+<li><p>选出新 master 的规则，剩余 slave 节点健康前提下</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312104131914.png"
+                      alt="image-20230312104131914" style="zoom:33%;" 
+                >
+
+<ul>
+<li><p>redis.conf 文件中，优先级 slave-priority 或者 replica-priority 最高的从节点（数字越小优先级越高）</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312104251234.png"
+                      alt="image-20230312104251234" style="zoom:50%;" 
+                >
+</li>
+<li><p>复制偏移位置 offset 最大的从节点</p>
+</li>
+<li><p>最小 Run ID 的从节点</p>
+<ul>
+<li>字典顺序，ASCII 码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>群臣拜服</p>
+<ul>
+<li><strong><font color='red'>其他 slave 重新 选择 master</font></strong></li>
+<li>执行 <code>slaveof no one</code> 命令让选出来的从节点成为新的主节点，并通过 slaveof 命令让其他节点成为其从节点</li>
+<li>sentinel leader 会对选举出的 新 master 执行 <code>slaveof no one</code> 操作，将其提升为 master 节点</li>
+<li>sentinel leader 向其他 slave 发送 命令，让剩余的 slave 成为 新的 master 的slave</li>
+</ul>
+</li>
+<li><p>旧主拜服</p>
+<ul>
+<li><strong><font color='red'>之前的master回来后，成为 slave，选择 现在的master成为其 slave</font></strong></li>
+<li>将之前下线的 老 master 设置为 新选出的 新 maser 的从节点，当老 master 重新上线后，他会成为 新 master 的 从节点</li>
+<li>sentinel leader 会让原来的 master 降级成为 slave 并恢复正常工作</li>
+</ul>
+</li>
+</ul>
+<p><strong>总结</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312105204360.png"
+                      alt="image-20230312105204360" style="zoom: 50%;" 
+                >
+
+<p><strong><font color='red'>上述的 failover 操作均由  sentinel 自己独立完成，完全不需要 人工干预</font></strong></p>
+<h4 id="哨兵使用-建议"><a href="#哨兵使用-建议" class="headerlink" title="哨兵使用 建议"></a>哨兵使用 建议</h4><ul>
+<li>哨兵节点的数量应为多个，哨兵本身应该集群，保证高可用</li>
+<li>哨兵节点的数量应该是 奇数</li>
+<li>各个哨兵节点的配置应一致</li>
+<li>如果哨兵节点部署在 Docker 等容器里面，尤其要注意端口的正确映射</li>
+<li>哨兵集群 +  主从复制，并不能保证数据的零丢失<ul>
+<li>引出集群</li>
+</ul>
+</li>
+</ul>
+<h3 id="Redis-集群（cluster）"><a href="#Redis-集群（cluster）" class="headerlink" title="Redis 集群（cluster）"></a>Redis 集群（cluster）</h3><hr>
+<p><strong><font color='red'>由于数据量过大，单个 master 复制集</font></strong>  难以承担，因此需要对多个复制集进行集群，形成水平扩展。每个复制集只负责整个数据集的一部分，这就是 redis 集群，其作用就是在 多个 redis节点间  共享数据的程序集</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312110549308.png"
+                      alt="image-20230312110549308" style="zoom:50%;" 
+                >
+
+<br>
+
+<p>redis 集群是一个提供在 多个 redis 节点间的共享数据的程序集</p>
+<p>redis 集群可以支持多个 master</p>
+<h4 id="能干嘛-7"><a href="#能干嘛-7" class="headerlink" title="能干嘛"></a>能干嘛</h4><ul>
+<li>redis 集群支持多个 master，每个master 又可以挂载多个 slave <ul>
+<li>读写分离</li>
+<li>支持数据的高可用</li>
+<li>支持海量数据的读写存储操作</li>
+</ul>
+</li>
+<li>由于 cluster 自带的 sentinel 的故障转移机制，内置了 高可用的机制，**<font color='red'>无需再去使用 哨兵功能</font>**</li>
+<li>客户端与 redis 的节点连接，不再需要连接集群中的所有节点，只需要任意连接集群中的一个可用节点即可</li>
+<li><strong>槽位 slot 负责分配到各个物理服务节点，由对应的集群来负责维护节点、插槽和数据之间 的关系</strong></li>
+</ul>
+<h4 id="集群算法-分片-槽位-slot"><a href="#集群算法-分片-槽位-slot" class="headerlink" title="集群算法-分片-槽位 slot"></a>集群算法-分片-槽位 slot</h4><p>The cluster’s key space is split into 16384 slots, effectively setting an upper limit for the cluster size of 16384 master nodes (however, the suggested max size of nodes is on the order of ~ 1000 nodes).</p>
+<p>Each master node in a cluster handles a subset of the 16384 hash slots. The cluster is <strong>stable</strong> when there is no cluster reconfiguration in progress (i.e. where hash slots are being moved from one node to another). When the cluster is stable, a single hash slot will be served by a single node (however the serving node can have one or more replicas that will replace it in the case of net splits or failures, and that can be used in order to scale read operations where reading stale data is acceptable).</p>
+<p>The base algorithm used to map keys to hash slots is the following (read the next paragraph for the hash tag exception to this rule):</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HASH_SLOT = CRC16(key) mod 16384</span><br></pre></td></tr></table></figure></div>
+
+<p>The CRC16 is specified as follows:</p>
+<ul>
+<li>Name: XMODEM (also known as ZMODEM or CRC-16&#x2F;ACORN)</li>
+<li>Width: 16 bit</li>
+<li>Poly: 1021 (That is actually x^16 + x^12 + x^5 + 1)</li>
+<li>Initialization: 0000</li>
+<li>Reflect Input byte: False</li>
+<li>Reflect Output CRC: False</li>
+<li>Xor constant to output CRC: 0000</li>
+<li>Output for “123456789”: 31C3</li>
+</ul>
+<p>14 out of 16 CRC16 output bits are used (this is why there is a modulo 16384 operation in the formula above).</p>
+<p>In our tests CRC16 behaved remarkably well in distributing different kinds of keys evenly across the 16384 slots.</p>
+<p><strong>Note</strong>: A reference implementation of the CRC16 algorithm used is available in the Appendix A of this document.</p>
+<p>集群的密钥空间被分成16384个插槽，有效地设置了16384个主节点的集群大小上限(但是，建议的最大节点大小大约为1000个节点)。</p>
+<p>集群中的每个主节点处理16384个哈希槽的子集。当没有正在进行的群集重新配置时，集群是<strong>稳定的</strong> (即散列片段从一个节点移动到另一个节点)。当集群稳定时，单个哈希槽将由单个节点提供服务(但是，服务节点可以有一个或多个副本，在网络拆分或故障的情况下替换它，并且可以用于在读取陈旧数据是可接受的情况下扩展读取操作)。</p>
+<h5 id="redis集群的数据分片"><a href="#redis集群的数据分片" class="headerlink" title="redis集群的数据分片"></a>redis集群的数据分片</h5><p>redis 集群没有使用 一致性哈希，而是 引入了 <font color='red'><strong>哈希槽</strong></font> 的概念</p>
+<p>redis  集群有 16384 个 哈希槽，每个 key 通过 <strong>CRC16</strong>  校验后对 16384 进行取模 来决定 放置哪个槽。集群的每个节点负责一小部分的 hash 槽，举个例子，如果当前集群有三个节点，那么 ： </p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312112116663.png"
+                      alt="image-20230312112116663" style="zoom:50%;" 
+                >
+
+
+
+<h5 id="redis-集群的分片"><a href="#redis-集群的分片" class="headerlink" title="redis 集群的分片"></a>redis 集群的分片</h5><h6 id="分片"><a href="#分片" class="headerlink" title="分片"></a>分片</h6><p>使用 redis 集群时 我们会将存储的数据分散到多台redis 机器上，这称为 分片。简言之，集群中的每个 redis 实例 都被认为是整个数据的一个分片</p>
+<h6 id="如何找到给定key-的分片"><a href="#如何找到给定key-的分片" class="headerlink" title="如何找到给定key  的分片"></a>如何找到给定key  的分片</h6><p>为了找到给定 key  的 分片，我们 对key 进行 CRC16(key)  算法处理并通过对总分片数量取模。然后，**<font color='red'>使用 确定性哈希函数</font>**，这意味着 给定的 key **<font color='red'>将多次始终映射到同一个分片</font>**，我们可以推断将来读取特定 key 的位置</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312112603743.png"
+                      alt="image-20230312112603743" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="槽位-和-分片的优势"><a href="#槽位-和-分片的优势" class="headerlink" title="槽位 和 分片的优势"></a>槽位 和 分片的优势</h5><p><strong><font color='cornflowerblue'>最大优势 方便扩容缩容个数据分派查找</font></strong></p>
+<p>这种结构很容易添加或者删除节点，比如如果我想新添加一个 节点 D，我需要从 节点 A，B，C 中得部分槽到 D 上。如果 我想移除节点 A，需要 将 A 中的 槽移到 B和C 上，然后将没有任何槽的 A 节点从集群从 移除即可。由于 从一个节点将哈希槽移动到另一个节点 并不会停止服务，所以无论添加删除或者改变某个节点的哈希槽的数量都不会造成 集群 不可以 的状态</p>
+<h4 id="slot-槽位映射"><a href="#slot-槽位映射" class="headerlink" title="slot 槽位映射"></a>slot 槽位映射</h4><h5 id="哈希取余分区"><a href="#哈希取余分区" class="headerlink" title="哈希取余分区"></a>哈希取余分区</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312113334736.png"
+                      alt="image-20230312113334736" style="zoom:50%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312113356671.png"
+                      alt="image-20230312113356671"
+                ></p>
+<h5 id="一致性哈希算法分区"><a href="#一致性哈希算法分区" class="headerlink" title="一致性哈希算法分区"></a>一致性哈希算法分区</h5><h6 id="算法背景"><a href="#算法背景" class="headerlink" title="算法背景"></a>算法背景</h6><p>设计目标是为了解决 <strong>分布式缓存数据 <font color='cornflowerblue'>变动和映射</font>问题，某个机器 宕机了，分母数量变了，自然取余数不 OK 了</strong></p>
+<h6 id="能干嘛-8"><a href="#能干嘛-8" class="headerlink" title="能干嘛"></a>能干嘛</h6><p>提出 一致性 hash 解决方案。目的是当服务器个数发生改变的时候，尽量减少影响客户端到服务器的映射关系 </p>
+<h6 id="三大步骤"><a href="#三大步骤" class="headerlink" title="三大步骤"></a>三大步骤</h6><ul>
+<li><p>算法构建一致性哈希环</p>
+<p>一致性哈希算法必然有个 hash 函数并按照算法产生 hash 值，这个 算法的所有可能 hash值  构成一个全量集，这个集合可以成为一个 hash空间 [0,2^32 - 1]，这个是一个线性空间，但是在算法中，我们通过适当的逻辑控制将它首尾相连 （0 &#x3D; 2 ^ 32），这样让它逻辑上形成了一个环形空间</p>
+<br>
+
+<p>他也是按照使用取模的方法， **<font color='red'>前面笔记介绍的节点取模法是对节点（服务器）的数量进行取模。而一致性 Hash 算法是对 2 ^ 32 取模</font><strong>，简单来说，</strong><font color='red'>一致性 Hash 算法将整个哈希值空间组织成一个虚拟的圆环</font>**，如 假设某哈希函数 H 的值空间 为 0 - 2 ^ 32 - 1(即哈希值是一个 32 位 无符号整形)，整个 哈希环 如下图 ： 整个空间 **<font color='red'>按顺序针方向组织</font>**，圆环的正上方的点代表 0 ，0 点右侧的第一个点代表 1，以此类推，2，3，4 … … 直到 2 ^ 32 - 1 ，也就是说 0 点左侧的第一个点 代表 2 ^ 32 - 1， 0 和 2 ^ 32 - 1 在 零点中方向重合，我们把这个由 2 ^ 32 个点组成的圆环成为 hash 环</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312122518309.png"
+                      alt="image-20230312122518309" style="zoom:50%;" 
+                >
+</li>
+<li><p>redis 服务器 IP 节点映射</p>
+<p>将集群中各个 IP 节点映射到 环上的某一个位置</p>
+<br>
+
+<p>将各个服务器使用 hash 进行一个 hash，具体可以选择服务器的 IP 或 主机名作为关键字进行哈希，这样每台机器就能确定其在哈希环上的位置。假设 4 个节点 Node A、B、C、D，经过 IP 地址的 <strong><font color='red'>哈希函数</font></strong> 计算（hash(ip)）,使用 IP 地址 哈希后在环空间的位置如下</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312123059222.png"
+                      alt="image-20230312123059222" style="zoom:50%;" 
+                >
+</li>
+<li><p>key 落到服务器的落键规则</p>
+<p>当我们需要存储一个 kv 键值对时，首先计算 key 的hash 值，hash(key), 将这个key 使用相同的函数 Hash 计算出 哈希值 并确定在此数据环上的位置，**<font color='red'>从此位置沿环顺时针 “行走”</font>**，第一台遇到的服务器就是其应该定位到的服务器，并将该键值对存储在该节点上</p>
+<br>
+
+<p>如我们有Object A、Object B、Object C、Object D四个数据对象，经过哈希计算后，在环空间上的位置如下：根据一致性Hash算法，数据A会被定为到Node A上，B被定为到Node B上，C被定为到Node C上，D被定为到Node D上。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312123607085.png"
+                      alt="image-20230312123607085" style="zoom:50%;" 
+                ></li>
+</ul>
+<h6 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h6><ul>
+<li><p>一致性 哈希算法的 <strong><font color='red'>容错性</font></strong></p>
+<p>假设 Node C 宕机，可以看到此时 A、B、D 不会受到影响。一般的，在 一致性 Hash 算法中，如果一台服务器不可用，则 **<font color='red'>受影响的数据仅仅是此服务器到其环空间中前一台服务器（即沿逆时针方向行走遇到的第一台服务器） 之间数据</font>**，其他不会受到影响。简单说，C 挂了，受到影响的 只是 B、C 之间 的数据 <strong><font color='red'>且这些数据会转移到 D 进行存储</font></strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312124123568.png"
+                      alt="image-20230312124123568" style="zoom:50%;" 
+                >
+</li>
+<li><p>一致性 哈希算法的 <strong><font color='cornflowerblue'>扩展性</font></strong></p>
+<p>数据量增加了，需要增加一台 Node x,X  的位置在 A 和 B 之间，那受到影响的只有 A 到 X 之间的 数据，重新把从 A 到 X 的 数据录入到 X 上即可，不会导致 hash 取余全部数据重新洗牌</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312124457726.png"
+                      alt="image-20230312124457726" style="zoom:50%;" 
+                ></li>
+</ul>
+<h6 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h6><p>Hash 环的数据倾斜问题</p>
+<p>一致性 Hash 算法在服务 **<font color='red'>节点太少时</font>**，容易因为 节点分布不均而造成 **<font color='red'>数据倾斜</font>**（被缓存的对象大部分集中缓存在某一台服务器上） 问题，例如只有两台服务器时</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312124647270.png"
+                      alt="image-20230312124647270" style="zoom:50%;" 
+                >
+
+
+
+<h6 id="总结-7"><a href="#总结-7" class="headerlink" title="总结"></a>总结</h6><p>为了在节点数目发生改变时尽可能少的迁移数据</p>
+ <br>
+
+<p>将所有的存储节点排列在收尾相接的Hash环上，每个key在计算Hash后会顺时针找到临近的存储节点存放。</p>
+<p>而当有节点加入或退出时仅影响该节点在Hash环上顺时针相邻的后续节点。 </p>
+ <br>
+
+<p><strong>优点</strong></p>
+<p>加入和删除节点只影响哈希环中顺时针方向的相邻的节点，对其他节点无影响。</p>
+ <br>
+
+<p><strong>缺点</strong> </p>
+<p>数据的分布和节点的位置有关，因为这些节点不是均匀的分布在哈希环上的，所以数据在进行存储时达不到均匀分布的效果。</p>
+<h5 id="哈希槽分区"><a href="#哈希槽分区" class="headerlink" title="哈希槽分区"></a>哈希槽分区</h5><h6 id="是什么-6"><a href="#是什么-6" class="headerlink" title="是什么"></a>是什么</h6><p>哈希槽 实质就是一个数组，数组 [0,2 ^ 14 - 1] 形成 Hash slot 空间</p>
+<h6 id="能干什么"><a href="#能干什么" class="headerlink" title="能干什么"></a>能干什么</h6><p>为了 解决 <strong>一致性哈希算法 数据倾斜</strong> 问题而出现。**<font color='red'>在数据和节点之间又加入了一层，把这层成为 哈希槽（slot），用于管理数据与节点之间的关系</font>**，现在就相当于节点上放的是 槽，槽里放的是数据</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312125104245.png"
+                      alt="image-20230312125104245" style="zoom:50%;" 
+                >
+
+<br>
+
+<p>槽 解决的是 粒度问题，相当于把粒度变大了，这样便于数据移动。哈希解决的是映射问题，使用 key 的哈希值来计算所在的槽，便于数据分配</p>
+<h6 id="多少个-hash-slot"><a href="#多少个-hash-slot" class="headerlink" title="多少个 hash slot"></a>多少个 hash slot</h6><p>一个集群只能有 16384 个槽，编号 0 - 16383 （0，2^14 -1 ）。这些槽会分配给集群中的所有节点，分配策略没有要求。</p>
+<p>槽 会记录节点和槽的对应关系，解决了节点和槽的关系之后，接下来就需要对 key 求 hash值，然后 对 16384 取模，余数是几，key 就落入相对应的槽里</p>
+<p><code>HASH_SLOT = CRC16(key) mod 16384</code></p>
+<p>以槽为单位移动数据，因为槽的数目是固定的，处理起来比较容易，这样数据移动问题就解决了</p>
+<h6 id="hash-slot-计算"><a href="#hash-slot-计算" class="headerlink" title="hash slot 计算"></a>hash slot 计算</h6><p>Redis 集群中内置了 16384 个哈希槽，redis 会根据节点数量大致均等的将哈希槽映射到不同的节点。当需要在 Redis 集群中放置一个 key-value时，redis先对key使用crc16算法算出一个结果然后用结果对16384求余数[ CRC16(key) % 16384]，这样每个 key 都会对应一个编号在 0-16383 之间的哈希槽，也就是映射到某个节点上。如下代码，key之A 、B在Node2， key之C落在Node3上</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312125708103.png"
+                      alt="image-20230312125708103" style="zoom:50%;" 
+                >
+
+
+
+<h4 id="redis-集群-最大槽数为什么是-16384-个"><a href="#redis-集群-最大槽数为什么是-16384-个" class="headerlink" title="redis 集群 最大槽数为什么是 16384  个"></a>redis 集群 最大槽数为什么是 16384  个</h4><p>redis 集群并没有用 一致性 hash 而是引入了 哈希槽的 概念。 **<font color='red'>redis 集群有 16384 个哈希槽</font>**，每个 key 通过 CRC16 校验后 对 16384 进行取模来决定防止哪个槽，集群的每一个节点负责一部分槽。但是 为什么是 16384 个呢</p>
+<br>
+
+<blockquote>
+<p>CRC16算法产生的hash值有16bit，该算法可以产生2^16&#x3D;65536个值。</p>
+<p>换句话说值是分布在0~65535之间，有更大的65536不用为什么只用16384就够？</p>
+<p>作者在做mod运算的时候，为什么不mod65536，而选择mod16384？ HASH_SLOT &#x3D; CRC16(key) mod 65536为什么没启用</p>
+<p><strong><a class="link"   target="_blank" rel="noopener" href="https://github.com/redis/redis/issues/2576" >https://github.com/redis/redis/issues/2576<i class="fa-solid fa-up-right-from-square"></i></a></strong></p>
+</blockquote>
+<h5 id="说明一"><a href="#说明一" class="headerlink" title="说明一"></a>说明一</h5><p>The reason is:</p>
+<ol>
+<li>Normal heartbeat packets carry the full configuration of a node, that can be replaced in an idempotent way with the old in order to update an old config. This means they contain the slots configuration for a node, in raw form, that uses 2k of space with16k slots, but would use a prohibitive 8k of space using 65k slots.</li>
+<li>At the same time it is unlikely that Redis Cluster would scale to more than 1000 mater nodes because of other design tradeoffs.</li>
+</ol>
+<p>So 16k was in the right range to ensure enough slots per master with a max of 1000 maters, but a small enough number to propagate the slot configuration as a raw bitmap easily. Note that in small clusters the bitmap would be hard to compress because when N is small the bitmap would have slots&#x2F;N bits set that is a large percentage of bits set.</p>
+<br>
+
+<p>正常心跳包携带节点的完整配置，可以用旧配置以幂等的方式替换，以便更新旧配置。这意味着它们包含原始形式的节点插槽配置，该配置使用2k空间和16k插槽，但使用65k插槽时会使用禁止性的8k空间。<br>同时，由于其他设计上的权衡，Redis集群不太可能扩展到超过1000个主节点。<br>因此，16k是在正确的范围内，以确保每个主机有足够的插槽，最多1000个maters，但这个数字足够小，可以轻松地将插槽配置作为原始位图进行传播。注意，在小集群中，位图将很难压缩，因为当N较小时，位图将具有 slot &#x2F; N 位集 占设置为的很大百分比</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312194505703.png"
+                      alt="image-20230312194505703" style="zoom:50%;" 
+                >
+
+<br>
+
+<h6 id="1-如果槽位为65536，发送心跳信息的消息头达8k，发送的心跳包过于庞大"><a href="#1-如果槽位为65536，发送心跳信息的消息头达8k，发送的心跳包过于庞大" class="headerlink" title="(1 )如果槽位为65536，发送心跳信息的消息头达8k，发送的心跳包过于庞大"></a>(1 )如果槽位为65536，发送心跳信息的消息头达8k，发送的心跳包过于庞大</h6><p>在消息头中最占空间的是myslots[CLUSTER_SLOTS&#x2F;8]。 当槽位为65536时，这块的大小是: 65536÷8÷1024&#x3D;8kb </p>
+<p>在消息头中最占空间的是myslots[CLUSTER_SLOTS&#x2F;8]。 当槽位为16384时，这块的大小是: 16384÷8÷1024&#x3D;2kb </p>
+<p>因为每秒钟，redis节点需要发送一定数量的ping消息作为心跳包，如果槽位为65536，这个ping消息的消息头太大了，浪费带宽。</p>
+ <br>
+
+<h6 id="2-redis的集群主节点数量基本不可能超过1000个"><a href="#2-redis的集群主节点数量基本不可能超过1000个" class="headerlink" title="(2) redis的集群主节点数量基本不可能超过1000个"></a>(2) redis的集群主节点数量基本不可能超过1000个</h6><p>集群节点越多，心跳包的消息体内携带的数据越多。如果节点过1000个，也会导致网络拥堵。因此redis作者不建议redis cluster节点数量超过1000个。 那么，对于节点数在1000以内的redis cluster集群，16384个槽位够用了。没有必要拓展到65536个。</p>
+<br>
+
+<h6 id="3-槽位越小，节点少的情况下，压缩比高，容易传输"><a href="#3-槽位越小，节点少的情况下，压缩比高，容易传输" class="headerlink" title="(3) 槽位越小，节点少的情况下，压缩比高，容易传输"></a>(3) 槽位越小，节点少的情况下，压缩比高，容易传输</h6><p>Redis主节点的配置信息中它所负责的哈希槽是通过一张bitmap的形式来保存的，在传输过程中会对bitmap进行压缩，但是如果bitmap的填充率slots &#x2F; N很高的话(N表示节点数)，bitmap的压缩率就很低。 如果节点数很少，而哈希槽数量很多的话，bitmap的压缩率就很低。 </p>
+<h5 id="计算结论"><a href="#计算结论" class="headerlink" title="计算结论"></a>计算结论</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312194650243.png"
+                      alt="image-20230312194650243" style="zoom:67%;" 
+                >
+
+
+
+<h4 id="write-safety"><a href="#write-safety" class="headerlink" title="write safety"></a>write safety</h4><p>Redis Cluster uses asynchronous replication between nodes, and <strong>last failover wins</strong> implicit merge function. This means that the last elected master dataset eventually replaces all the other replicas. There is always a window of time when it is possible to lose writes during partitions. However these windows are very different in the case of a client that is connected to the majority of masters, and a client that is connected to the minority of masters.</p>
+<p>Redis集群使用节点间异步复制，最后一次故障转移赢得隐式合并功能。这意味着最后选择的主数据集最终会替换所有其他副本。在分区期间，总有一个时间窗口可能会丢失写入。然而，在一个客户端连接到大多数主机，一个客户端连接到少数主机的情况下，这些窗口是非常不同的。</p>
+<br>
+
+<blockquote>
+<p>redis 集群**<font color='red'>不保证强一致性</font>**，这意味着在特定的条件下，redis 集群可能会丢掉一些被系统收到的写入请求命令</p>
+</blockquote>
+<h4 id="集群环境案例步骤"><a href="#集群环境案例步骤" class="headerlink" title="集群环境案例步骤"></a>集群环境案例步骤</h4><h5 id="三主三从-redis-集群配置"><a href="#三主三从-redis-集群配置" class="headerlink" title="三主三从 redis 集群配置"></a>三主三从 redis 集群配置</h5><ul>
+<li><p>找三台真是虚拟机，各自新建</p>
+<ul>
+<li><code>mkdir -p /opt/myredis/cluster</code></li>
+</ul>
+</li>
+<li><p>新建 6 个独立的redis 实例服务</p>
+<ul>
+<li><p>IP ： 192.168.21.129 + 端口6381 &#x2F; 6382</p>
+<ul>
+<li><p><code>vim /opt/myredis/cluster/redisCluster6381.conf</code></p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 6381</span><br><span class="line">logfile &quot;/myredis/cluster/cluster6381.log&quot;</span><br><span class="line">pidfile /myredis/cluster6381.pid</span><br><span class="line">dir /myredis/cluster</span><br><span class="line">dbfilename dump6381.rdb</span><br><span class="line">appendonly yes</span><br><span class="line">appendfilename &quot;appendonly6381.aof&quot;</span><br><span class="line">requirepass 111111</span><br><span class="line">masterauth 111111</span><br><span class="line"> </span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes-6381.conf</span><br><span class="line">cluster-node-timeout 5000</span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+<li><p><code>vim /opt/myredis/cluster/redisCluster6382.conf</code></p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 6382</span><br><span class="line">logfile &quot;/myredis/cluster/cluster6382.log&quot;</span><br><span class="line">pidfile /myredis/cluster6382.pid</span><br><span class="line">dir /myredis/cluster</span><br><span class="line">dbfilename dump6382.rdb</span><br><span class="line">appendonly yes</span><br><span class="line">appendfilename &quot;appendonly6382.aof&quot;</span><br><span class="line">requirepass 111111</span><br><span class="line">masterauth 111111</span><br><span class="line"> </span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes-6382.conf</span><br><span class="line">cluster-node-timeout 5000</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p>IP ： 192.168.21.xx + 端口6383 &#x2F; 6384</p>
+<ul>
+<li><p><code>vim /opt/myredis/cluster/redisCluster6383.conf</code></p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 6383</span><br><span class="line">logfile &quot;/myredis/cluster/cluster6383.log&quot;</span><br><span class="line">pidfile /myredis/cluster6383.pid</span><br><span class="line">dir /myredis/cluster</span><br><span class="line">dbfilename dump6383.rdb</span><br><span class="line">appendonly yes</span><br><span class="line">appendfilename &quot;appendonly6383.aof&quot;</span><br><span class="line">requirepass 111111</span><br><span class="line">masterauth 111111</span><br><span class="line"></span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes-6383.conf</span><br><span class="line">cluster-node-timeout 5000</span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+<li><p><code>vim /opt/myredis/cluster/redisCluster6384.conf</code></p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 6384</span><br><span class="line">logfile &quot;/myredis/cluster/cluster6384.log&quot;</span><br><span class="line">pidfile /myredis/cluster6384.pid</span><br><span class="line">dir /myredis/cluster</span><br><span class="line">dbfilename dump6384.rdb</span><br><span class="line">appendonly yes</span><br><span class="line">appendfilename &quot;appendonly6384.aof&quot;</span><br><span class="line">requirepass 111111</span><br><span class="line">masterauth 111111</span><br><span class="line"> </span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes-6384.conf</span><br><span class="line">cluster-node-timeout 5000</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p>IP ： 192.168.21.xx + 端口6385 &#x2F; 6386</p>
+<ul>
+<li><p><code>vim /opt/myredis/cluster/redisCluster6385.conf</code></p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 6385</span><br><span class="line">logfile &quot;/myredis/cluster/cluster6385.log&quot;</span><br><span class="line">pidfile /myredis/cluster6385.pid</span><br><span class="line">dir /myredis/cluster</span><br><span class="line">dbfilename dump6385.rdb</span><br><span class="line">appendonly yes</span><br><span class="line">appendfilename &quot;appendonly6385.aof&quot;</span><br><span class="line">requirepass 111111</span><br><span class="line">masterauth 111111</span><br><span class="line"> </span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes-6385.conf</span><br><span class="line">cluster-node-timeout 5000</span><br></pre></td></tr></table></figure></div>
+
+
+</li>
+<li><p><code>vim /opt/myredis/cluster/redisCluster6386.conf</code></p>
+<div class="highlight-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">bind 0.0.0.0</span><br><span class="line">daemonize yes</span><br><span class="line">protected-mode no</span><br><span class="line">port 6386</span><br><span class="line">logfile &quot;/myredis/cluster/cluster6386.log&quot;</span><br><span class="line">pidfile /myredis/cluster6386.pid</span><br><span class="line">dir /myredis/cluster</span><br><span class="line">dbfilename dump6386.rdb</span><br><span class="line">appendonly yes</span><br><span class="line">appendfilename &quot;appendonly6386.aof&quot;</span><br><span class="line">requirepass 111111</span><br><span class="line">masterauth 111111</span><br><span class="line"> </span><br><span class="line">cluster-enabled yes</span><br><span class="line">cluster-config-file nodes-6386.conf</span><br><span class="line">cluster-node-timeout 5000</span><br></pre></td></tr></table></figure></div></li>
+</ul>
+</li>
+<li><p>启动 6 台 redis 实例</p>
+<ul>
+<li><code>redis-server /opt/myredis/cluster/redisCluster6381.conf</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>通过 redis-cli 命令为 6台机器构建集群关系</p>
+<ul>
+<li><p>构建主从关系</p>
+<ul>
+<li><p><code>redis-cli -a 111111 --cluster create --cluster-replicas 1 192.168.111.175:6381 192.168.111.175:6382 192.168.111.172:6383 192.168.111.172:6384 192.168.111.174:6385 192.168.111.174:6386</code></p>
+<p><strong><font color='red'>注意主机 IP</font></strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312200234000.png"
+                      alt="image-20230312200234000" style="zoom:80%;" 
+                >
+</li>
+<li><p>一切 OK </p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312200305092.png"
+                      alt="image-20230312200305092" style="zoom:33%;" 
+                ></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>连接进入 6381 作为切入点， <strong><font color='red'>查看并检验集群状态</font></strong></p>
+<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312200411648.png"
+                      alt="image-20230312200411648" style="zoom:50%;" 
+                >
+</li>
+<li><p><code>info replication</code></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312200522988.png"
+                      alt="image-20230312200522988" style="zoom:50%;" 
+                >
+</li>
+<li><p><code>cluster info</code></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312200451847.png"
+                      alt="image-20230312200451847" style="zoom:50%;" 
+                >
+</li>
+<li><p><code>cluster nodes</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312200509463.png"
+                      alt="image-20230312200509463"
+                ></p>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="主从容错切换迁移案例"><a href="#主从容错切换迁移案例" class="headerlink" title="主从容错切换迁移案例"></a>主从容错切换迁移案例</h5><ul>
+<li><p>容错切换转移</p>
+<ul>
+<li><p>主 6381 和 从机切换，先停止主机 6381</p>
+<ul>
+<li>6381 停了，对应的真实主机上位</li>
+<li>6381 作为 1 号主机分配的从机以实际情况为准，具体是几号机器就是几号机器</li>
+</ul>
+</li>
+<li><p>在此查看集群信息，本次 6381 主 和 6384从</p>
+<ul>
+<li><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312201901933.png"
+                      alt="image-20230312201901933"
+                ></li>
+</ul>
+</li>
+<li><p>停止主机 6381，再次查看集群信息</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312202010598.png"
+                      alt="image-20230312202010598"
+                ></p>
+<ul>
+<li><p>6384 成功上位并正常使用</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312202046706.png"
+                      alt="image-20230312202046706" style="zoom:50%;" 
+                ></li>
+</ul>
+</li>
+<li><p>随后，原来的主机 6381 回来了，是否会上位</p>
+<ul>
+<li><p>恢复前</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312202215337.png"
+                      alt="image-20230312202215337" style="zoom:50%;" 
+                >
+</li>
+<li><p>恢复后</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230312202232708.png"
+                      alt="image-20230312202232708"
+                ></p>
+</li>
+<li><p>6381  不会上位，并以节点形式回归</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>集群不保证数据一致性 100 %OK，一定会有数据丢失情况</p>
+<ul>
+<li>redis 集群不保证强一致性，这意味着在特定的条件下，redis 集群可能会丢掉一些被系统收到的写入请求命令</li>
+</ul>
+</li>
+<li><p>手动故障转移 or 节点从属调整该如何处理 </p>
+<ul>
+<li>上面 一换后 6381 和 6384 主从对调了，和原始不一样了，该怎么办</li>
+<li>重新登陆 6381 机器</li>
+<li>常用命令 <ul>
+<li><strong><code>cluster failover</code></strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="主从扩容案例"><a href="#主从扩容案例" class="headerlink" title="主从扩容案例"></a>主从扩容案例</h5>
             </div>
 
             
@@ -3915,7 +4711,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-text">Redis 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E5%8A%9F%E8%83%BD%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="nav-text">主流功能与应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="nav-text">总体功能概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-text">资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BD%BF%E7%94%A8"><span class="nav-text">Redis 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%9A%84-10-%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">Redis 的 10 大数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String-%EF%BC%89"><span class="nav-text">redis 字符串 （String ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">redis 列表（List）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88Hash%EF%BC%89"><span class="nav-text">redis 哈希表（Hash）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E9%9B%86%E5%90%88-%EF%BC%88Set%EF%BC%89"><span class="nav-text">redis 集合 （Set）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88-%EF%BC%88ZSet-%EF%BC%89"><span class="nav-text">redis 有序集合 （ZSet ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">redis 地理空间（GEO）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">redis 基数统计（HyperLogLog）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">redis 位图（bitmap）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">redis 位域（bitfield）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">redis 流（Stream）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%94%AE%EF%BC%88key%EF%BC%89"><span class="nav-text">Redis 键（key）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%90%BD%E5%9C%B0%E8%BF%90%E7%94%A8"><span class="nav-text">数据类型命令及落地运用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String%EF%BC%89"><span class="nav-text">Redis 字符串 （String）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-1"><span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SET-%E5%91%BD%E4%BB%A4"><span class="nav-text">SET 命令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%80%E5%B8%B8%E7%94%A8"><span class="nav-text">最常用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E8%AE%BE%E7%BD%AE-x2F-%E8%8E%B7%E5%8F%96%E5%A4%9A%E4%B8%AA-%E9%94%AE%E5%80%BC"><span class="nav-text">同时设置&#x2F;获取多个 键值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E5%80%BC"><span class="nav-text">获得指定区间范围内的值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E5%A2%9E%E5%87%8F"><span class="nav-text">数值增减</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6%E5%92%8C%E5%86%85%E5%AE%B9%E8%BF%BD%E5%8A%A0"><span class="nav-text">获取字符串的长度和内容追加</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#getset"><span class="nav-text">getset</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">Redis列表（List）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-2"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B4%E6%98%8E"><span class="nav-text">简单说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-2"><span class="nav-text">案例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lset-key-index-value"><span class="nav-text">lset key index value</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%93%88%E5%B8%8C%EF%BC%88Hash%EF%BC%89"><span class="nav-text">Redis哈希（Hash）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-3"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-3"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E9%9B%86%E5%90%88%EF%BC%88Set%EF%BC%89"><span class="nav-text">Redis集合（Set）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-4"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-4"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88Zset-sorted-set"><span class="nav-text">Redis 有序集合Zset (sorted set)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-5"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-5"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-3"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">Redis位图（bitmap）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-4"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">Redis基数统计（HyperLogLog）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-text">需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-5"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">Redis地理空间（GEO）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-1"><span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">Redis流（Stream）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-1"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84%E5%92%8C%E5%8E%9F%E7%90%86%E8%AF%B4%E6%98%8E"><span class="nav-text">底层结构和原理说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E7%90%86%E8%AE%BA"><span class="nav-text">基本命令理论</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">队列相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E7%BB%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">消费组相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-text">4 个特殊符号</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Redis-%E6%B5%81-%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-text">Redis 流 实例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4-1"><span class="nav-text">队列相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">消费者相关指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">Redis 位域（bitfield）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-2"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-1"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-text">命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-text">Redis 持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E4%BB%8B%E7%BB%8D"><span class="nav-text">总体介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RDB-Redis-DataBase"><span class="nav-text">RDB (Redis DataBase)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-2"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-text">操作步骤</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-1"><span class="nav-text">优势</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E8%AF%B4%E6%98%8E"><span class="nav-text">官网说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B0%8F%E6%80%BB%E7%BB%93"><span class="nav-text">小总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-text">劣势</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E8%AF%B4%E6%98%8E-1"><span class="nav-text">官网说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B0%8F%E6%80%BB%E7%BB%93-1"><span class="nav-text">小总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95-%E6%A3%80%E6%9F%A5%E4%BF%AE%E5%A4%8D-dump-rdb-%E6%96%87%E4%BB%B6"><span class="nav-text">如何 检查修复 dump.rdb 文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%82%A3%E4%BA%9B%E6%83%85%E5%86%B5%E4%BC%9A%E8%A7%A6%E5%8F%91-rdb-%E5%BF%AB%E7%85%A7"><span class="nav-text">那些情况会触发 rdb 快照</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A6%81%E7%94%A8%E5%BF%AB%E7%85%A7"><span class="nav-text">如何禁用快照</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rdb-%E4%BC%98%E5%8C%96%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%A6%E8%A7%A3"><span class="nav-text">rdb 优化配置项详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF%EF%BC%88Append-only-file%EF%BC%89"><span class="nav-text">AOF（Append only file）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-3"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E6%8C%81%E4%B9%85%E5%8C%96-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-text">AOF 持久化 工作流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E4%B8%89%E7%A7%8D%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5"><span class="nav-text">AOF 缓冲区的三种写回策略</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E5%86%99%E7%AD%96%E7%95%A5"><span class="nav-text">三种写策略</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA%E5%92%8C%E8%AF%B4%E6%98%8E"><span class="nav-text">案例演示和说明</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E%EF%BC%886-7%EF%BC%89"><span class="nav-text">配置文件说明（6 + 7）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AD%A3%E5%B8%B8%E6%81%A2%E5%A4%8D"><span class="nav-text">正常恢复</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%81%A2%E5%A4%8D"><span class="nav-text">异常恢复</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-2"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF-1"><span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E9%87%8D%E5%86%99%E6%9C%BA%E5%88%B6"><span class="nav-text">AOF 重写机制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E6%9C%BA%E5%88%B6"><span class="nav-text">触发机制</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-text">案例说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E5%8E%9F%E7%90%86"><span class="nav-text">重写原理</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E4%BC%98%E5%8C%96%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%A6%E8%A7%A3"><span class="nav-text">AOF 优化配置项详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RDB-AOF-%E6%B7%B7%E5%90%88%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-text">RDB-AOF 混合持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rdb-vs-aof"><span class="nav-text">rdb vs aof</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E6%96%87%E6%A1%A3"><span class="nav-text">官网文档</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%9B%9E%E6%81%A2%E5%A4%8D%E9%A1%BA%E5%BA%8F-%E5%92%8C-%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B"><span class="nav-text">数据回恢复顺序 和  加载流程</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%80%89"><span class="nav-text">怎么选</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E5%BC%80%E5%90%AF%E4%B8%A4%E7%A7%8D%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-text">同时开启两种持久化方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E6%96%B9%E5%BC%8F"><span class="nav-text">推荐方式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#rdb-aof-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-text">rdb + aof 混合模式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E6%B7%B7%E5%90%88%E6%96%B9%E5%BC%8F%E8%AE%BE%E7%BD%AE"><span class="nav-text">开启混合方式设置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#rdb-aof-%E7%9A%84%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F-%E7%BB%93%E8%AE%BA"><span class="nav-text">rdb + aof 的混合模式 结论</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%AF%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F"><span class="nav-text">纯缓存模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E5%85%B3%E9%97%ADrdb-aof"><span class="nav-text">同时关闭rdb + aof</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E4%BA%8B%E5%8A%A1"><span class="nav-text">Redis 事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-3"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E4%BA%8B%E5%8A%A1-Vs-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1"><span class="nav-text">Redis 事务 Vs 数据库事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-2"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-3"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%AE%A1%E9%81%93"><span class="nav-text">Redis 管道</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-4"><span class="nav-text">是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="nav-text">解决思路</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA-1"><span class="nav-text">案例演示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-4"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#pipeline-%E4%B8%8E%E5%8E%9F%E7%94%9F%E6%89%B9%E5%91%BD%E4%BB%A4%E5%AF%B9%E6%AF%94"><span class="nav-text">pipeline 与原生批命令对比</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pipelining-%E4%B8%8E-%E4%BA%8B%E5%8A%A1-%E5%AF%B9%E6%AF%94"><span class="nav-text">pipelining 与 事务 对比</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-pipelining-%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">使用 pipelining 的注意事项</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%8F%91%E5%B8%83-x2F-%E8%AE%A2%E9%98%85"><span class="nav-text">Redis 发布&#x2F;订阅</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-5"><span class="nav-text">是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%98%E7%BD%91"><span class="nav-text">官网</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-4"><span class="nav-text">能干嘛</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-5"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-3"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-6"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pub-x2F-sub-%E7%9A%84-%E7%BC%BA%E7%82%B9"><span class="nav-text">Pub&#x2F;sub 的 缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%A4%8D%E5%88%B6%EF%BC%88replication%EF%BC%89"><span class="nav-text">Redis 复制（replication）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-5"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%94%A8"><span class="nav-text">怎么用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%85%8D%E4%BB%8E%EF%BC%88%E5%BA%93%EF%BC%89%E4%B8%8D%E9%85%8D%E4%B8%BB%EF%BC%88%E5%BA%93%EF%BC%89"><span class="nav-text">配从（库）不配主（库）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%BB%86%E8%8A%82%EF%BC%8C%E9%87%8D%E8%A6%81"><span class="nav-text">权限细节，重要</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="nav-text">基本操作命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA-2"><span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E"><span class="nav-text">架构说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%A3%E8%AF%80"><span class="nav-text">口诀</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%86%E8%8A%82%E6%93%8D%E4%BD%9C"><span class="nav-text">修改配置文件细节操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-6"><span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%86"><span class="nav-text">一主二仆</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%96%AA%E7%81%AB%E7%9B%B8%E4%BC%A0"><span class="nav-text">薪火相传</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%8D%E5%AE%A2%E4%B8%BA%E4%B8%BB"><span class="nav-text">反客为主</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">复制原理和工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-text">复制的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%BB%B6%E6%97%B6%EF%BC%8C%E4%BF%A1%E5%8F%B7%E8%A1%B0%E5%87%8F"><span class="nav-text">复制延时，信号衰减</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#master-%E6%8C%82%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-text">master 挂了怎么办</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%93%A8%E5%85%B5%EF%BC%88sentinel%EF%BC%89"><span class="nav-text">Redis 哨兵（sentinel）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-6"><span class="nav-text">能干嘛</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E7%9B%91%E6%8E%A7"><span class="nav-text">主从监控</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5"><span class="nav-text">消息通知</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="nav-text">故障转移</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-text">配置中心</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA-3"><span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#redis-sentinel-%E6%9E%B6%E6%9E%84"><span class="nav-text">redis sentinel 架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%AD%A5%E9%AA%A4"><span class="nav-text">案例步骤</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis"><span class="nav-text">Redis</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BB%8B%E7%BB%8D"><span class="nav-text">Redis 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E6%B5%81%E5%8A%9F%E8%83%BD%E4%B8%8E%E5%BA%94%E7%94%A8"><span class="nav-text">主流功能与应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E5%8A%9F%E8%83%BD%E6%A6%82%E8%BF%B0"><span class="nav-text">总体功能概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%96%99"><span class="nav-text">资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis-%E4%BD%BF%E7%94%A8"><span class="nav-text">Redis 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%9A%84-10-%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-text">Redis 的 10 大数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String-%EF%BC%89"><span class="nav-text">redis 字符串 （String ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">redis 列表（List）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%88Hash%EF%BC%89"><span class="nav-text">redis 哈希表（Hash）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E9%9B%86%E5%90%88-%EF%BC%88Set%EF%BC%89"><span class="nav-text">redis 集合 （Set）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88-%EF%BC%88ZSet-%EF%BC%89"><span class="nav-text">redis 有序集合 （ZSet ）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">redis 地理空间（GEO）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">redis 基数统计（HyperLogLog）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">redis 位图（bitmap）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">redis 位域（bitfield）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">redis 流（Stream）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%94%AE%EF%BC%88key%EF%BC%89"><span class="nav-text">Redis 键（key）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%91%BD%E4%BB%A4%E5%8F%8A%E8%90%BD%E5%9C%B0%E8%BF%90%E7%94%A8"><span class="nav-text">数据类型命令及落地运用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E5%AD%97%E7%AC%A6%E4%B8%B2-%EF%BC%88String%EF%BC%89"><span class="nav-text">Redis 字符串 （String）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-1"><span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SET-%E5%91%BD%E4%BB%A4"><span class="nav-text">SET 命令</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1"><span class="nav-text">案例</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%80%E5%B8%B8%E7%94%A8"><span class="nav-text">最常用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E8%AE%BE%E7%BD%AE-x2F-%E8%8E%B7%E5%8F%96%E5%A4%9A%E4%B8%AA-%E9%94%AE%E5%80%BC"><span class="nav-text">同时设置&#x2F;获取多个 键值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E5%80%BC"><span class="nav-text">获得指定区间范围内的值</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E5%80%BC%E5%A2%9E%E5%87%8F"><span class="nav-text">数值增减</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6%E5%92%8C%E5%86%85%E5%AE%B9%E8%BF%BD%E5%8A%A0"><span class="nav-text">获取字符串的长度和内容追加</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#getset"><span class="nav-text">getset</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%88%97%E8%A1%A8%EF%BC%88List%EF%BC%89"><span class="nav-text">Redis列表（List）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-2"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B4%E6%98%8E"><span class="nav-text">简单说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-2"><span class="nav-text">案例</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lset-key-index-value"><span class="nav-text">lset key index value</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%93%88%E5%B8%8C%EF%BC%88Hash%EF%BC%89"><span class="nav-text">Redis哈希（Hash）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-3"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-3"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-1"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E9%9B%86%E5%90%88%EF%BC%88Set%EF%BC%89"><span class="nav-text">Redis集合（Set）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-4"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-4"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-2"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88Zset-sorted-set"><span class="nav-text">Redis 有序集合Zset (sorted set)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-5"><span class="nav-text">常用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-5"><span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-3"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E4%BD%8D%E5%9B%BE%EF%BC%88bitmap%EF%BC%89"><span class="nav-text">Redis位图（bitmap）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-text">基本命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-4"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1%EF%BC%88HyperLogLog%EF%BC%89"><span class="nav-text">Redis基数统计（HyperLogLog）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9C%80%E6%B1%82"><span class="nav-text">需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-5"><span class="nav-text">应用场景</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E5%9C%B0%E7%90%86%E7%A9%BA%E9%97%B4%EF%BC%88GEO%EF%BC%89"><span class="nav-text">Redis地理空间（GEO）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-text">原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-1"><span class="nav-text">常用命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E6%B5%81%EF%BC%88Stream%EF%BC%89"><span class="nav-text">Redis流（Stream）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-1"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84%E5%92%8C%E5%8E%9F%E7%90%86%E8%AF%B4%E6%98%8E"><span class="nav-text">底层结构和原理说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E7%90%86%E8%AE%BA"><span class="nav-text">基本命令理论</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">队列相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E7%BB%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">消费组相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-%E4%B8%AA%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="nav-text">4 个特殊符号</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Redis-%E6%B5%81-%E5%AE%9E%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-text">Redis 流 实例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4-1"><span class="nav-text">队列相关指令</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4"><span class="nav-text">消费者相关指令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E4%BD%8D%E5%9F%9F%EF%BC%88bitfield%EF%BC%89"><span class="nav-text">Redis 位域（bitfield）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-2"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-1"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4"><span class="nav-text">命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88RDB-AOF%EF%BC%89"><span class="nav-text">Redis 持久化（RDB + AOF）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E4%BD%93%E4%BB%8B%E7%BB%8D"><span class="nav-text">总体介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RDB-Redis-DataBase"><span class="nav-text">RDB (Redis DataBase)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-2"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA"><span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E6%AD%A5%E9%AA%A4"><span class="nav-text">操作步骤</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-1"><span class="nav-text">优势</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E8%AF%B4%E6%98%8E"><span class="nav-text">官网说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B0%8F%E6%80%BB%E7%BB%93"><span class="nav-text">小总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF"><span class="nav-text">劣势</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E8%AF%B4%E6%98%8E-1"><span class="nav-text">官网说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B0%8F%E6%80%BB%E7%BB%93-1"><span class="nav-text">小总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95-%E6%A3%80%E6%9F%A5%E4%BF%AE%E5%A4%8D-dump-rdb-%E6%96%87%E4%BB%B6"><span class="nav-text">如何 检查修复 dump.rdb 文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%82%A3%E4%BA%9B%E6%83%85%E5%86%B5%E4%BC%9A%E8%A7%A6%E5%8F%91-rdb-%E5%BF%AB%E7%85%A7"><span class="nav-text">那些情况会触发 rdb 快照</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A6%81%E7%94%A8%E5%BF%AB%E7%85%A7"><span class="nav-text">如何禁用快照</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rdb-%E4%BC%98%E5%8C%96%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%A6%E8%A7%A3"><span class="nav-text">rdb 优化配置项详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-1"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AOF%EF%BC%88Append-only-file%EF%BC%89"><span class="nav-text">AOF（Append only file）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-3"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E6%8C%81%E4%B9%85%E5%8C%96-%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-text">AOF 持久化 工作流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E4%B8%89%E7%A7%8D%E5%86%99%E5%9B%9E%E7%AD%96%E7%95%A5"><span class="nav-text">AOF 缓冲区的三种写回策略</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E7%A7%8D%E5%86%99%E7%AD%96%E7%95%A5"><span class="nav-text">三种写策略</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA%E5%92%8C%E8%AF%B4%E6%98%8E"><span class="nav-text">案例演示和说明</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E%EF%BC%886-7%EF%BC%89"><span class="nav-text">配置文件说明（6 + 7）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AD%A3%E5%B8%B8%E6%81%A2%E5%A4%8D"><span class="nav-text">正常恢复</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%81%A2%E5%A4%8D"><span class="nav-text">异常恢复</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8A%BF-2"><span class="nav-text">优势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A3%E5%8A%BF-1"><span class="nav-text">劣势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E9%87%8D%E5%86%99%E6%9C%BA%E5%88%B6"><span class="nav-text">AOF 重写机制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%A7%A6%E5%8F%91%E6%9C%BA%E5%88%B6"><span class="nav-text">触发机制</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E8%AF%B4%E6%98%8E"><span class="nav-text">案例说明</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%87%8D%E5%86%99%E5%8E%9F%E7%90%86"><span class="nav-text">重写原理</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#AOF-%E4%BC%98%E5%8C%96%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%A6%E8%A7%A3"><span class="nav-text">AOF 优化配置项详解</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-2"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RDB-AOF-%E6%B7%B7%E5%90%88%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-text">RDB-AOF 混合持久化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rdb-vs-aof"><span class="nav-text">rdb vs aof</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-text">问题</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E6%96%87%E6%A1%A3"><span class="nav-text">官网文档</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%9B%9E%E6%81%A2%E5%A4%8D%E9%A1%BA%E5%BA%8F-%E5%92%8C-%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B"><span class="nav-text">数据回恢复顺序 和  加载流程</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E9%80%89"><span class="nav-text">怎么选</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E5%BC%80%E5%90%AF%E4%B8%A4%E7%A7%8D%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E5%BC%8F"><span class="nav-text">同时开启两种持久化方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E6%96%B9%E5%BC%8F"><span class="nav-text">推荐方式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#rdb-aof-%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F"><span class="nav-text">rdb + aof 混合模式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E6%B7%B7%E5%90%88%E6%96%B9%E5%BC%8F%E8%AE%BE%E7%BD%AE"><span class="nav-text">开启混合方式设置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#rdb-aof-%E7%9A%84%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F-%E7%BB%93%E8%AE%BA"><span class="nav-text">rdb + aof 的混合模式 结论</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%AF%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F"><span class="nav-text">纯缓存模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%8C%E6%97%B6%E5%85%B3%E9%97%ADrdb-aof"><span class="nav-text">同时关闭rdb + aof</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E4%BA%8B%E5%8A%A1%EF%BC%88transactional%EF%BC%89"><span class="nav-text">Redis 事务（transactional）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-3"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis-%E4%BA%8B%E5%8A%A1-Vs-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1"><span class="nav-text">Redis 事务 Vs 数据库事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-2"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-3"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E7%AE%A1%E9%81%93%EF%BC%88pipelining%EF%BC%89"><span class="nav-text">Redis 管道（pipelining）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-4"><span class="nav-text">是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF"><span class="nav-text">解决思路</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA-1"><span class="nav-text">案例演示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-4"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#pipeline-%E4%B8%8E%E5%8E%9F%E7%94%9F%E6%89%B9%E5%91%BD%E4%BB%A4%E5%AF%B9%E6%AF%94"><span class="nav-text">pipeline 与原生批命令对比</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#pipelining-%E4%B8%8E-%E4%BA%8B%E5%8A%A1-%E5%AF%B9%E6%AF%94"><span class="nav-text">pipelining 与 事务 对比</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-pipelining-%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-text">使用 pipelining 的注意事项</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%8F%91%E5%B8%83-x2F-%E8%AE%A2%E9%98%85%EF%BC%88pub-x2F-sub%EF%BC%89"><span class="nav-text">Redis 发布&#x2F;订阅（pub&#x2F;sub）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-5"><span class="nav-text">是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-text">定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%98%E7%BD%91"><span class="nav-text">官网</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-4"><span class="nav-text">能干嘛</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-5"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-3"><span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-6"><span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Pub-x2F-sub-%E7%9A%84-%E7%BC%BA%E7%82%B9"><span class="nav-text">Pub&#x2F;sub 的 缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%A4%8D%E5%88%B6%EF%BC%88replication%EF%BC%89"><span class="nav-text">Redis 复制（replication）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-5"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%94%A8"><span class="nav-text">怎么用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%85%8D%E4%BB%8E%EF%BC%88%E5%BA%93%EF%BC%89%E4%B8%8D%E9%85%8D%E4%B8%BB%EF%BC%88%E5%BA%93%EF%BC%89"><span class="nav-text">配从（库）不配主（库）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%BB%86%E8%8A%82%EF%BC%8C%E9%87%8D%E8%A6%81"><span class="nav-text">权限细节，重要</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4"><span class="nav-text">基本操作命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA-2"><span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%B6%E6%9E%84%E8%AF%B4%E6%98%8E"><span class="nav-text">架构说明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%A3%E8%AF%80"><span class="nav-text">口诀</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%BB%86%E8%8A%82%E6%93%8D%E4%BD%9C"><span class="nav-text">修改配置文件细节操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8-6"><span class="nav-text">常用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%80%E4%B8%BB%E4%BA%8C%E4%BB%86"><span class="nav-text">一主二仆</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%96%AA%E7%81%AB%E7%9B%B8%E4%BC%A0"><span class="nav-text">薪火相传</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%8D%E5%AE%A2%E4%B8%BA%E4%B8%BB"><span class="nav-text">反客为主</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E5%92%8C%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">复制原理和工作原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-text">复制的缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%BB%B6%E6%97%B6%EF%BC%8C%E4%BF%A1%E5%8F%B7%E8%A1%B0%E5%87%8F"><span class="nav-text">复制延时，信号衰减</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#master-%E6%8C%82%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-text">master 挂了怎么办</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E5%93%A8%E5%85%B5%EF%BC%88sentinel%EF%BC%89"><span class="nav-text">Redis 哨兵（sentinel）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-6"><span class="nav-text">能干嘛</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E7%9B%91%E6%8E%A7"><span class="nav-text">主从监控</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%80%9A%E7%9F%A5"><span class="nav-text">消息通知</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E8%BD%AC%E7%A7%BB"><span class="nav-text">故障转移</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83"><span class="nav-text">配置中心</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%BC%94%E7%A4%BA-3"><span class="nav-text">案例演示</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#redis-sentinel-%E6%9E%B6%E6%9E%84"><span class="nav-text">redis sentinel 架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E6%AD%A5%E9%AA%A4"><span class="nav-text">案例步骤</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%92%8C%E9%80%89%E4%B8%BE%E5%8E%9F%E7%90%86"><span class="nav-text">哨兵运行流程和选举原理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B%EF%BC%8C%E6%95%85%E9%9A%9C%E5%88%87%E6%8D%A2"><span class="nav-text">运行流程，故障切换</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#SDown-%E4%B8%BB%E8%A7%82%E4%B8%8B%E7%BA%BF%EF%BC%88Subjectively-Down%EF%BC%89"><span class="nav-text">SDown 主观下线（Subjectively Down）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ODwown-%E5%AE%A2%E8%A7%82%E4%B8%8B%E7%BA%BF%EF%BC%88Objectively-Down"><span class="nav-text">ODwown 客观下线（Objectively Down)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%89%E4%B8%BE%E5%87%BA-leader%EF%BC%88%E9%A2%86%E5%AF%BC%E8%80%85%EF%BC%89-%E5%93%A8%E5%85%B5"><span class="nav-text">选举出 leader（领导者） 哨兵</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%89%E4%B8%BE%E7%AE%97%E6%B3%95%EF%BC%88Raft-%E7%AE%97%E6%B3%95%EF%BC%89"><span class="nav-text">选举算法（Raft 算法）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%94%B1-%E9%A2%86%E5%AF%BC%E8%80%85-%E5%BC%80%E5%A7%8B%E6%8E%A8%E5%8A%A8%E6%95%85%E9%9A%9C%E5%88%87%E6%8D%A2%E6%B5%81%E7%A8%8B%E5%B9%B6%E9%80%89%E5%87%BA%E6%96%B0%E7%9A%84-master"><span class="nav-text">由 领导者 开始推动故障切换流程并选出新的 master</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%A8%E5%85%B5%E4%BD%BF%E7%94%A8-%E5%BB%BA%E8%AE%AE"><span class="nav-text">哨兵使用 建议</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis-%E9%9B%86%E7%BE%A4%EF%BC%88cluster%EF%BC%89"><span class="nav-text">Redis 集群（cluster）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-7"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E7%AE%97%E6%B3%95-%E5%88%86%E7%89%87-%E6%A7%BD%E4%BD%8D-slot"><span class="nav-text">集群算法-分片-槽位 slot</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#redis%E9%9B%86%E7%BE%A4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%88%86%E7%89%87"><span class="nav-text">redis集群的数据分片</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#redis-%E9%9B%86%E7%BE%A4%E7%9A%84%E5%88%86%E7%89%87"><span class="nav-text">redis 集群的分片</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E7%89%87"><span class="nav-text">分片</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E7%BB%99%E5%AE%9Akey-%E7%9A%84%E5%88%86%E7%89%87"><span class="nav-text">如何找到给定key  的分片</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A7%BD%E4%BD%8D-%E5%92%8C-%E5%88%86%E7%89%87%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-text">槽位 和 分片的优势</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slot-%E6%A7%BD%E4%BD%8D%E6%98%A0%E5%B0%84"><span class="nav-text">slot 槽位映射</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E5%8F%96%E4%BD%99%E5%88%86%E5%8C%BA"><span class="nav-text">哈希取余分区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E5%88%86%E5%8C%BA"><span class="nav-text">一致性哈希算法分区</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E8%83%8C%E6%99%AF"><span class="nav-text">算法背景</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E5%98%9B-8"><span class="nav-text">能干嘛</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E6%AD%A5%E9%AA%A4"><span class="nav-text">三大步骤</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%BB%E7%BB%93-7"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E6%A7%BD%E5%88%86%E5%8C%BA"><span class="nav-text">哈希槽分区</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%98%AF%E4%BB%80%E4%B9%88-6"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%83%BD%E5%B9%B2%E4%BB%80%E4%B9%88"><span class="nav-text">能干什么</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%9A%E5%B0%91%E4%B8%AA-hash-slot"><span class="nav-text">多少个 hash slot</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#hash-slot-%E8%AE%A1%E7%AE%97"><span class="nav-text">hash slot 计算</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis-%E9%9B%86%E7%BE%A4-%E6%9C%80%E5%A4%A7%E6%A7%BD%E6%95%B0%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF-16384-%E4%B8%AA"><span class="nav-text">redis 集群 最大槽数为什么是 16384  个</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E%E4%B8%80"><span class="nav-text">说明一</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-%E5%A6%82%E6%9E%9C%E6%A7%BD%E4%BD%8D%E4%B8%BA65536%EF%BC%8C%E5%8F%91%E9%80%81%E5%BF%83%E8%B7%B3%E4%BF%A1%E6%81%AF%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%B4%E8%BE%BE8k%EF%BC%8C%E5%8F%91%E9%80%81%E7%9A%84%E5%BF%83%E8%B7%B3%E5%8C%85%E8%BF%87%E4%BA%8E%E5%BA%9E%E5%A4%A7"><span class="nav-text">(1 )如果槽位为65536，发送心跳信息的消息头达8k，发送的心跳包过于庞大</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-redis%E7%9A%84%E9%9B%86%E7%BE%A4%E4%B8%BB%E8%8A%82%E7%82%B9%E6%95%B0%E9%87%8F%E5%9F%BA%E6%9C%AC%E4%B8%8D%E5%8F%AF%E8%83%BD%E8%B6%85%E8%BF%871000%E4%B8%AA"><span class="nav-text">(2) redis的集群主节点数量基本不可能超过1000个</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-%E6%A7%BD%E4%BD%8D%E8%B6%8A%E5%B0%8F%EF%BC%8C%E8%8A%82%E7%82%B9%E5%B0%91%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E5%8E%8B%E7%BC%A9%E6%AF%94%E9%AB%98%EF%BC%8C%E5%AE%B9%E6%98%93%E4%BC%A0%E8%BE%93"><span class="nav-text">(3) 槽位越小，节点少的情况下，压缩比高，容易传输</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E7%BB%93%E8%AE%BA"><span class="nav-text">计算结论</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#write-safety"><span class="nav-text">write safety</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%A1%88%E4%BE%8B%E6%AD%A5%E9%AA%A4"><span class="nav-text">集群环境案例步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%89%E4%B8%BB%E4%B8%89%E4%BB%8E-redis-%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE"><span class="nav-text">三主三从 redis 集群配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%AE%B9%E9%94%99%E5%88%87%E6%8D%A2%E8%BF%81%E7%A7%BB%E6%A1%88%E4%BE%8B"><span class="nav-text">主从容错切换迁移案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E6%89%A9%E5%AE%B9%E6%A1%88%E4%BE%8B"><span class="nav-text">主从扩容案例</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
