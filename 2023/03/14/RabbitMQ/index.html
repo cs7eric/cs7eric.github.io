@@ -9,7 +9,7 @@
     
     <title>
         
-            设计模式 |
+            RabblitMQ |
         
         Cs7eric&#39;s BLOG
     </title>
@@ -308,7 +308,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">设计模式</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">RabblitMQ</h1></span>
             </div>
 
             
@@ -327,8 +327,8 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2023-03-10 20:12:10</span>
-        <span class="mobile">2023-03-10 20:12</span>
+        <span class="pc">2023-03-14 00:00:00</span>
+        <span class="mobile">2023-03-14 00:00</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -340,7 +340,15 @@
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/Java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>&nbsp;
+                        &gt; <a href="/categories/Java/RabbitMQ/">RabbitMQ</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/RabbitMQ/">RabbitMQ</a>&nbsp;
                     </li>
                 
             </ul>
@@ -356,7 +364,11 @@
                     </li>
                 
                     <li>
-                        | <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>&nbsp;
+                        | <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/RabbitMQ/">RabbitMQ</a>&nbsp;
                     </li>
                 
             </ul>
@@ -379,170 +391,74 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p>参考 &lt;图解设计模式&gt;、&lt;重学Java设计模式&gt;</p>
-<br>
-
-<h2 id="设计模式遵循六大原则；"><a href="#设计模式遵循六大原则；" class="headerlink" title="设计模式遵循六大原则；"></a>设计模式遵循六大原则；</h2><ul>
-<li>单一职责原则 ： 一个类和方法只做一个事情</li>
-<li>里式替换：多态，子类可扩展父类</li>
-<li>开闭原则：抽象架构，拓展实现（对修改关闭，对扩展开放） 继承父类扩展需要的方法，同时保留原有的方法，新增自己需要的方法</li>
-<li>依赖倒置原则<ul>
-<li>实现开闭原则的重要途径之一，它降低了客户与实现模块之间的耦合</li>
-<li>细节依赖抽象，下层依赖上层</li>
-</ul>
-</li>
-<li>迪米特法原则<ul>
-<li>最少知道，降低耦合</li>
-</ul>
-</li>
-<li>接口隔离原则<ul>
-<li>建立单一接口，尽量将庞大的接口拆分成更小 &amp; 更具体的接口</li>
-</ul>
-</li>
-</ul>
-<br>
-
-<h2 id="创建型"><a href="#创建型" class="headerlink" title="创建型"></a>创建型</h2><p>这类模式提供创建对象的机制，能够提升已有代码的灵活性和可复用性</p>
-<br>
-
-<h3 id="工厂方法-（Factory-Method）"><a href="#工厂方法-（Factory-Method）" class="headerlink" title="工厂方法 （Factory Method）"></a>工厂方法 （Factory Method）</h3><hr>
-<p>定义一个用于<strong>创建产品</strong>的接口，<strong>由子类决定生产什么产品</strong></p>
-<p>工厂模式又称工厂方法模式，是一种创建型设计模式，其在父类中提供一个创建对象的方法，允许子类决定实例化对象的类型</p>
-<p>这种设计模式也是 Java 开发中最常见的一种模式，它的主要意图是定义一个 <strong>创建对象的接口</strong>，让其子类自己决定实例化哪一个工厂类，工厂模式<strong>使其创建过程延迟到  子类进行</strong></p>
-<p>简单来说，就是为了 <strong>提供代码结构的扩展性，屏蔽每一个功能类中的具体实现逻辑</strong>。让外部可以更加简单的只是知道调用即可，同时，这也是去掉众多 if-else 的方法。当然，这也可能存在一些缺点，比如 <strong>需要实现的类非常多，如何去维护，如何去降低开发成本</strong>，但是以上问题都可以在后续设计模式的结合使用后，逐步降低。</p>
-<br>
-
-<p><strong>业务场景</strong></p>
-<p>多种类型商品不同接口，统一发奖服务搭建场景</p>
+                <h1 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h1><p>RabbitMQ是一个开源的消息代理和消息队列系统，使用Erlang编写，支持多种消息协议，如AMQP（高级消息队列协议），STOMP（可扩展的文本协议）和MQTT（物联网协议）。RabbitMQ允许应用程序之间通过异步消息传递来实现解耦和松散耦合，可以用于实现各种消息传递场景，如任务队列、事件驱动架构、日志收集、消息广播等。RabbitMQ的特点包括高可用性、可靠性、可扩展性和灵活性，可以满足大部分分布式系统的需求。</p>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><p>MQ（Message Queue），从字面意思上看，本质上是个队列，FIFO 先入先出，只不过 队列中存放的内容是 message 而已，还是一种跨进程的通信机制，用于上下游传递信息。 在互联网架构中，MQ 是一种非常常见的上下游 “逻辑解耦 + 物理解耦”  的消息通信服务。使用 了 MQ 之后，信息发送只需要 依赖 MQ，不用依赖其他服务。</p>
+<h3 id="为什么要用-MQ"><a href="#为什么要用-MQ" class="headerlink" title="为什么要用 MQ"></a>为什么要用 MQ</h3><hr>
+<h4 id="流量高峰"><a href="#流量高峰" class="headerlink" title="流量高峰"></a>流量高峰</h4><p>举个例子，如果订单系统最多能处理一万次订单，这个处理能力应付正常时段的下单时绰绰有余，正常时段我们下单一秒后就能返回结果。但是在高峰期，如果有两万次下单操作系统是处理不了的，只能限制订单超过一万后不允许用户下单。使用消息队列做缓冲，我们可以取消这个限制，把一秒内下的订单分散成一段时间来处理，这时有些用户可能在下单十几秒后才能收到下单成功的操作，但是比不能下单的体验要好。</p>
+<h4 id="应用解耦"><a href="#应用解耦" class="headerlink" title="应用解耦"></a>应用解耦</h4><p>以电商应用为例，应用中有订单系统、库存系统、物流系统、支付系统。用户创建订单后，如果耦合调用库存系统、物流系统、支付系统，任何一个子系统出了故障，都会造成下单操作异常。当转变成基于消息队列的方式后，系统间调用的问题会减少很多，比如物流系统因为发生故障，需要几分钟来修复。在这几分钟的时间里，物流系统要处理的内存被缓存在消息队列中，用户的下单操作可以正常完成。当物流系统恢复后，继续处理订单信息即可，中单用户感受不到物流系统的故障，提升系统的可用性。</p>
 <img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230302205320156.png"
-                      alt="image-20230302205320156" style="zoom:50%;" 
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230314183427716.png"
+                      alt="image-20230314183427716" style="zoom:50%;" 
                 >
 
+
+
+<h4 id="异步处理"><a href="#异步处理" class="headerlink" title="异步处理"></a>异步处理</h4><p>有些服务间调用是异步的，例如A调用B,B需要花费很长时间执行，但是A需要知道B什么时候可以执行完，以前一般有两种方式，A过一段时间去调用B的查询api查询。或者A提供一个callback api,B执行完之后调用api通知A服务。这两种方式都不是很优雅，<strong>使用消息总线，可以很方便解决这个问题，A调用B服务后，只需要监听B处理完成的消息，当B处理完成后，会发送一条消息给MQ,MQ会将此消息转发给A服务</strong>。这样A服务既不用循环调用B的查询api,也不用提供callback api。同样B服务也不用做这些操作。A服务还能及时的得到异步处理成功的消息。</p>
 <br>
 
-<p><strong>角色</strong></p>
-<ul>
-<li>Product ： 定义产品的接口，是工厂方法模式所创建的产品的父类</li>
-<li>Concrete Product：具体产品</li>
-<li>Factory ：抽象工厂类中声明了工厂方法</li>
-<li>Concrete Factory：具体的工厂方法，继承了抽象工厂类，用来生产具体的对象</li>
-<li></li>
-</ul>
-<br>
-
-<h3 id="抽象工厂（Abstract-Factory）"><a href="#抽象工厂（Abstract-Factory）" class="headerlink" title="抽象工厂（Abstract Factory）"></a>抽象工厂（Abstract Factory）</h3><hr>
-<br>
-
-<h3 id="建造者（Builder）"><a href="#建造者（Builder）" class="headerlink" title="建造者（Builder）"></a>建造者（Builder）</h3><hr>
-<br>
-
-<h3 id="原型-Prototype"><a href="#原型-Prototype" class="headerlink" title="原型 (Prototype)"></a>原型 (Prototype)</h3><hr>
-<br>
-
-<h3 id="单例（Singleton）"><a href="#单例（Singleton）" class="headerlink" title="单例（Singleton）"></a>单例（Singleton）</h3><hr>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230314183629193.png"
+                      alt="image-20230314183629193" style="zoom:50%;" 
+                >
+
+
+
+<h3 id="Message-Queue-分类"><a href="#Message-Queue-分类" class="headerlink" title="Message Queue 分类"></a>Message Queue 分类</h3><hr>
+<h4 id="ActiveMQ"><a href="#ActiveMQ" class="headerlink" title="ActiveMQ"></a>ActiveMQ</h4><h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>单机吞吐量万级，时效性 ms 级，可用性高，基于主从架构实现高可用性，消息可靠性较低的概率丢失数据</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>官方社区现在 对 ActiveMQ 5.x  <strong>维护越来越少，高吞吐量场景较少使用</strong></p>
+<h4 id="Kafka"><a href="#Kafka" class="headerlink" title="Kafka"></a>Kafka</h4><p>大数据的杀手铜，谈到大数据领域内的消息传输，则绕不开Kafka,这款为<strong>大数据而生</strong>的消息中间件，以其<strong>百万级TPS</strong>的吞吐量名声大噪，迅速成为大数据领域的宠儿，在数据采集、传输、存储的过程中发挥着举足轻重的作用。目前已经被LinkedIn,Uber,Twitter,Netflix等大公司所采纳。</p>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h5><p>优点：性能卓越，单机写入 TPS 约在百万条&#x2F;秒，最大的优点，就是<strong>吞吐量高</strong>。时效性ms级可用性非常高，kafka是分布式的，一个数据多个副本，少数机器启机，不会丢失数据，不会导致不可用，消费者采用Pull方式获取消息，消息有序，通过控制能够保证所有消息被消费且仅被消费一次；有优秀的第三方Kafka Web 管理界面 Kafka-Manager;在日志领域比较成熟，被多家公司和多个开源项目使用；功能支持：功能较为简单，主要支持简单的MQ功能，在大数据领域的实时计算以及<strong>日志采集</strong>被大规模使用</p>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h5><p>Kafka单机超过64个队列&#x2F;分区，Load会发生明显的飘高现象，队列越多，load越高，发送消息响应时间变长，使用短轮询方式，实时性取决于轮询间隔时间，消费失败不支持重试；支持消息顺序，但是一台代理容机后，就会产生消息乱序，<strong>社区更新较慢</strong>；</p>
+<h4 id="RocketMQ"><a href="#RocketMQ" class="headerlink" title="RocketMQ"></a>RocketMQ</h4><p>RocketMQ 出自阿里巴巴的开源产品，用Java语言实现，在设计时参考了 Kafka,并做出了自己的一些改进。被阿里巴巴广泛应用在订单，交易，充值，流计算，消息推送，日志流式处理，binglog分发等场景。</p>
+<p><strong>优点</strong></p>
+<p>单机吞吐量十万级，可用性非常高，分布式架构，消息可以做到0丢失，MQ功能较为完善，还是分布式的，扩展性好，支持10亿级别的消息堆积，不会因为堆积导致性能下降，源码是java我们可以自己阅读源码，定制自己公司的MQ</p>
+<p><strong>缺点</strong></p>
+<p>支持的客户端语言不多，目前是java及c++,其中c++不成熟；社区活跃度一般，没有在MQ核心中去实现JMS等接口，有些系统要迁移需要修改大量代码</p>
+<h4 id="RabbitMQ-1"><a href="#RabbitMQ-1" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h4><p>2007 年发布，是一个 在 AMQP（高级消息队列协议） 基础上完成，可复用的企业消息系统，是 <strong>当前最主流的消息中间件之一</strong></p>
+<h5 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h5><p>由于erlang 语言的 <strong>高并发性</strong>，性能较好；<strong>吞吐量到万级</strong>，MQ 功能比较完备，健壮，稳定，易用，跨平台，支持多语言，支持Ajax文档齐全；开源提供的管理页面非常棒，社区活跃度高，更新频率高</p>
+<h5 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h5><p>商业版需要付费，学习成本高</p>
+<h3 id="MQ-的选择"><a href="#MQ-的选择" class="headerlink" title="MQ 的选择"></a>MQ 的选择</h3><hr>
+<h4 id="kafka"><a href="#kafka" class="headerlink" title="kafka"></a>kafka</h4><p>Kafka主要特点是基于Pull的模式来处理消息消费，追求高吞吐量，一开始的目的就是用于日志收集和传输，适合产生大量数据的互联网服务的数据收集业务。大型公司建议可以选用，如果有日志采集功能，肯定是首选kafka了。</p>
+<h4 id="RocketMQ-1"><a href="#RocketMQ-1" class="headerlink" title="RocketMQ"></a>RocketMQ</h4><p>天生为金融互联网领域而生，对于可靠性要求很高的场景，尤其是电商里面的订单扣款，以及业务削峰，在大量交易涌入时，后端可能无法及时处理的情况。RoketMQ在稳定性上可能更值得信赖，这些业务场景在阿里双11已经经历了多次考验，如果你的业务有上述并发场景，建议可以选择RocketMQ。</p>
+<h4 id="RabbitMQ-2"><a href="#RabbitMQ-2" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h4><p>结合erlang语言本身的并发优势，性能好时效性微秒级，社区活跃度也比较高，管理界面用起来十分方便，如果你的数据量没有那么大，中小型公司优先选择功能比较完备的RabbitMQ。</p>
+<h2 id="RabbitMQ-使用"><a href="#RabbitMQ-使用" class="headerlink" title="RabbitMQ 使用"></a>RabbitMQ 使用</h2><h3 id="RabbitMQ-的介绍"><a href="#RabbitMQ-的介绍" class="headerlink" title="RabbitMQ 的介绍"></a>RabbitMQ 的介绍</h3><h4 id="RabbitMQ-的概念"><a href="#RabbitMQ-的概念" class="headerlink" title="RabbitMQ 的概念"></a>RabbitMQ 的概念</h4><p>RabbitMQ  是一个消息中间件 ： 他接受并转发消息。你可以把它当成一个快递站点，当你要发送一个包裹时，你把你的包裹放到快递站，快递员最终会把你的快递送到收件人那里，按照这种逻辑 RabbitMQ 是一个快递站，一个快递员帮你传递快件。RabbitMQ 与快递站的主要区别在于， <strong>他不处理快件而是接收、存储和转发消息数据</strong></p>
+<h4 id="四大核心概念"><a href="#四大核心概念" class="headerlink" title="四大核心概念"></a>四大核心概念</h4><h5 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h5><p><strong>产生数据发送消息的</strong>  程序是生产者</p>
+<h5 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h5><p>交换机是 RabbitMQ 非常重要的一个部件，一方面它接收来自生产者的消息，另一方面它将消息推送到队列中。交换机必须确切知道如何处理它接收到的消息，是将这些消息推送到特定队列还是推送到多个队列，亦或是把消息丢弃，这个得由交换机类型决定</p>
+<h5 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h5><p>队列是 RabbitMQ 内部使用的一种数据结构，尽管消息流经 RabbitMQ 和 应用程序，但他们只能存储在队列中。队列仅受主机的内存和磁盘限制的约束，本质上是一个大的消息缓冲区。许多生产者可以将消息发送到一个队列，许多消费者可以尝试从一个队列接收数据。这就是我们使用队列的方式</p>
+<h5 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h5><p>消费和接收具有相似的定义。消费者大多时候是一个等待接收消息的程序。请注意 生产者，消费者和消息中间件 很多时候并不在同一台机器上。同一个应用程序既可以是生产者又可以是消费者</p>
+<h4 id="RabbitMQ-核心部分"><a href="#RabbitMQ-核心部分" class="headerlink" title="RabbitMQ 核心部分"></a>RabbitMQ 核心部分</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230314205920619.png"
+                      alt="image-20230314205920619"
+                ></p>
+<h4 id="名词介绍"><a href="#名词介绍" class="headerlink" title="名词介绍"></a>名词介绍</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230314205949619.png"
+                      alt="image-20230314205949619"
+                ></p>
+<h5 id="Broker"><a href="#Broker" class="headerlink" title="Broker"></a>Broker</h5><p>接收和分发消息的应用，RabbitMQ Server 就是 Message Broker</p>
+<h5 id="Virtual-host"><a href="#Virtual-host" class="headerlink" title="Virtual host"></a>Virtual host</h5><p>出于多租户和安全因素设计的，把 AMQP 的基本组件划分到一个虚拟的分组中，类似于网络中的 namespace 概念。当多个不同的用户使用同一个 RabbitMQ server 提供的服务时候，可以划分多个 vhost，每个用户在自己的 vhost 创建 exchange &#x2F; queue 等</p>
+<h5 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h5><p>publisher &#x2F; consumer 和 broker 之间的 tcp 连接</p>
+<h5 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h5><p>如果每一次访问 RabbitMQ 都建立一个 Connection，在消息量大的时候建立 tcp connection 的开销将是巨大的，效率也较低。Channel 是在 Connection 内部建立的逻辑连接，如果应用程序支持多线程，通常每个 thread 创建单独的 channel 进行通讯，AMQP method 包含了 channel id 帮助客户端和 message broker 识别 channel，所以 channel 之间是 完全隔离的。channel 作为轻量级的 <strong>connection极大地减少了操作系统建立 tcp connection 的开销</strong></p>
+<h5 id="Exchange"><a href="#Exchange" class="headerlink" title="Exchange"></a>Exchange</h5><p>message 到达 broker 的第一站，根据分发规则，匹配查询表中的 routing key ，分发消息到 queue 中去。常用的类型有 direct（point-to-point），topic（publish-subscribe） and   fanout （multicast）</p>
+<h5 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h5><p>消息最终被送到这里等待 consumer 取走</p>
+<h5 id="Binding"><a href="#Binding" class="headerlink" title="Binding"></a>Binding</h5><p>exchange 和 queue 之间的虚拟连接，binding 中可以包含 routing key，Binding 信息被保存到 exchange 中的查询表中，用于 message 的分发依据</p>
 
             </div>
 
@@ -550,11 +466,11 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：设计模式</li>
+        <li>Post title：RabblitMQ</li>
         <li>Post author：Cs7eric</li>
-        <li>Create time：2023-03-10 20:12:10</li>
+        <li>Create time：2023-03-14 00:00:00</li>
         <li>
-            Post link：https://cs7eric.github.io/2023/03/10/设计模式/
+            Post link：https://cs7eric.github.io/2023/03/14/RabbitMQ/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -573,7 +489,11 @@
                         </li>
                     
                         <li class="tag-item">
-                            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">#设计模式</a>&nbsp;
+                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">#中间件</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/RabbitMQ/">#RabbitMQ</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -582,29 +502,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/03/14/RabbitMQ/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">RabblitMQ</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/02/27/Linux/"
+                            href="/2023/03/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Linux</span>
+                                    <span class="post-nav-title-item">设计模式</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -669,7 +574,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E9%81%B5%E5%BE%AA%E5%85%AD%E5%A4%A7%E5%8E%9F%E5%88%99%EF%BC%9B"><span class="nav-text">设计模式遵循六大原则；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%9E%8B"><span class="nav-text">创建型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95-%EF%BC%88Factory-Method%EF%BC%89"><span class="nav-text">工厂方法 （Factory Method）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%EF%BC%88Abstract-Factory%EF%BC%89"><span class="nav-text">抽象工厂（Abstract Factory）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E9%80%A0%E8%80%85%EF%BC%88Builder%EF%BC%89"><span class="nav-text">建造者（Builder）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B-Prototype"><span class="nav-text">原型 (Prototype)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%EF%BC%88Singleton%EF%BC%89"><span class="nav-text">单例（Singleton）</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RabbitMQ"><span class="nav-text">RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-text">消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8-MQ"><span class="nav-text">为什么要用 MQ</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E9%87%8F%E9%AB%98%E5%B3%B0"><span class="nav-text">流量高峰</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E8%A7%A3%E8%80%A6"><span class="nav-text">应用解耦</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86"><span class="nav-text">异步处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Message-Queue-%E5%88%86%E7%B1%BB"><span class="nav-text">Message Queue 分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ActiveMQ"><span class="nav-text">ActiveMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kafka"><span class="nav-text">Kafka</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-1"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-1"><span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RocketMQ"><span class="nav-text">RocketMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RabbitMQ-1"><span class="nav-text">RabbitMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E7%82%B9-2"><span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9-2"><span class="nav-text">缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MQ-%E7%9A%84%E9%80%89%E6%8B%A9"><span class="nav-text">MQ 的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#kafka"><span class="nav-text">kafka</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RocketMQ-1"><span class="nav-text">RocketMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RabbitMQ-2"><span class="nav-text">RabbitMQ</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RabbitMQ-%E4%BD%BF%E7%94%A8"><span class="nav-text">RabbitMQ 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RabbitMQ-%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-text">RabbitMQ 的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RabbitMQ-%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">RabbitMQ 的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E5%A4%A7%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5"><span class="nav-text">四大核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85"><span class="nav-text">生产者</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%A4%E6%8D%A2%E6%9C%BA"><span class="nav-text">交换机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-text">队列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-text">消费者</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RabbitMQ-%E6%A0%B8%E5%BF%83%E9%83%A8%E5%88%86"><span class="nav-text">RabbitMQ 核心部分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8D%E8%AF%8D%E4%BB%8B%E7%BB%8D"><span class="nav-text">名词介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Broker"><span class="nav-text">Broker</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Virtual-host"><span class="nav-text">Virtual host</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Connection"><span class="nav-text">Connection</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Channel"><span class="nav-text">Channel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Exchange"><span class="nav-text">Exchange</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Queue"><span class="nav-text">Queue</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Binding"><span class="nav-text">Binding</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
