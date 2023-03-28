@@ -391,7 +391,9 @@
 <p>也就是说，Netty 是一个基于NIO的客户、服务器端的编程框架，使用Netty 可以确保你快速和简单的开发出一个网络应用，例如实现了某种协议的客户、<a class="link"   target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9C%8D%E5%8A%A1%E7%AB%AF/6492316?fromModule=lemma_inlink" >服务端<i class="fa-solid fa-up-right-from-square"></i></a>应用。Netty相当于简化和流线化了网络应用的编程开发过程，例如：基于TCP和UDP的socket服务开发。</p>
 <p>“快速”和“简单”并不用产生维护性或性能上的问题。Netty 是一个吸收了多种协议（包括FTP、SMTP、HTTP等各种二进制文本协议）的实现经验，并经过相当精心设计的项目。最终，Netty 成功的找到了一种方式，在保证易于开发的同时还保证了其应用的性能，稳定性和伸缩性。 [1] </p>
 <h2 id="NIO-基础"><a href="#NIO-基础" class="headerlink" title="NIO 基础"></a>NIO 基础</h2><h3 id="三大组件"><a href="#三大组件" class="headerlink" title="三大组件"></a>三大组件</h3><h4 id="Channel-amp-Buffer"><a href="#Channel-amp-Buffer" class="headerlink" title="Channel &amp; Buffer"></a>Channel &amp; Buffer</h4><p>channel 有一点类似于 stream，它就是读写数据的 <strong>双向通道</strong>，可以从 channel 将数据读入 buffer，也可以 将 buffer的 数据 写入 channel，而之前的 stream 要么是输入，要么是输出，channel 比 stream 更为底层</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">channel --&gt; buffer</span><br><span class="line">buffer --&gt; channel</span><br></pre></td></tr></table></figure></div>
+<pre class="mermaid">graph LR
+channel --> buffer
+buffer --> channel</pre>
 
 <br>
 
@@ -420,14 +422,25 @@
 <li>CharBuffer</li>
 </ul>
 <h4 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h4><p>selector 单从字面意思不好理解，需要结合 服务器的 设计演化来理解它的用途</p>
-<h5 id="多线程版设计"><a href="#多线程版设计" class="headerlink" title="多线程版设计"></a>多线程版设计</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">subgraph 多线程版</span><br><span class="line">t1(thread) --&gt; s1(socket1)</span><br><span class="line">t2(thread) --&gt; s2(socket2)</span><br><span class="line">t3(thread) --&gt; s3(socket3)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></div>
+<h5 id="多线程版设计"><a href="#多线程版设计" class="headerlink" title="多线程版设计"></a>多线程版设计</h5><pre class="mermaid">graph TD
+subgraph 多线程版
+t1(thread) --> s1(socket1)
+t2(thread) --> s2(socket2)
+t3(thread) --> s3(socket3)
+end</pre>
 
 <h5 id="多线程版缺点"><a href="#多线程版缺点" class="headerlink" title="多线程版缺点"></a>多线程版缺点</h5><ul>
 <li>内存占用高</li>
 <li>线程上下文切换成本高</li>
 <li>只适合连接较少的场景</li>
 </ul>
-<h5 id="线程池版设计"><a href="#线程池版设计" class="headerlink" title="线程池版设计"></a>线程池版设计</h5><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">subgraph 线程池版</span><br><span class="line">t4(thread) --&gt; s4(socket1)</span><br><span class="line">t5(thread) --&gt; s5(socket2)</span><br><span class="line">t4(thread) -.-&gt; s6(socket3)</span><br><span class="line">t5(thread) -.-&gt; s7(socket4)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></div>
+<h5 id="线程池版设计"><a href="#线程池版设计" class="headerlink" title="线程池版设计"></a>线程池版设计</h5><pre class="mermaid">graph TD
+subgraph 线程池版
+t4(thread) --> s4(socket1)
+t5(thread) --> s5(socket2)
+t4(thread) -.-> s6(socket3)
+t5(thread) -.-> s7(socket4)
+end</pre>
 
 
 
@@ -436,7 +449,13 @@
 <li>仅适合短连接场景</li>
 </ul>
 <h5 id="selector-版设计"><a href="#selector-版设计" class="headerlink" title="selector 版设计"></a>selector 版设计</h5><p>selector 的作用 就是配合一个线程来管理多个 channel，获取这些 channel 上发生的事情，这些channel 工作在非阻塞模式下，不会让线程吊死在一个 channel 上。适合 连接数特别多，但流量地的场景 （low traffic）</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">subgraph selector 版</span><br><span class="line">thread --&gt; selector</span><br><span class="line">selector --&gt; c1(channel)</span><br><span class="line">selector --&gt; c2(channel)</span><br><span class="line">selector --&gt; c3(channel)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></div>
+<pre class="mermaid">graph TD
+subgraph selector 版
+thread --> selector
+selector --> c1(channel)
+selector --> c2(channel)
+selector --> c3(channel)
+end</pre>
 
 <p>调用 selector 的 <code>select()</code> 会阻塞  直到 channel 发生了 读写就绪事件，这些事件发生，<code>select()</code> 方法就会返回这些事件交给 thread 来处理</p>
 <h3 id="ByteBuffer"><a href="#ByteBuffer" class="headerlink" title="ByteBuffer"></a>ByteBuffer</h3><hr>
