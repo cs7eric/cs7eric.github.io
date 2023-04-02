@@ -9,7 +9,7 @@
     
     <title>
         
-            tumx 使用教程 |
+            ShardingSphere遇到的错误 |
         
         Cs7eric&#39;s BLOG
     </title>
@@ -308,7 +308,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">tumx 使用教程</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">ShardingSphere遇到的错误</h1></span>
             </div>
 
             
@@ -327,8 +327,8 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2023-03-21 13:10:22</span>
-        <span class="mobile">2023-03-21 13:10</span>
+        <span class="pc">2023-04-01 20:12:22</span>
+        <span class="mobile">2023-04-01 20:12</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -336,11 +336,23 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>&nbsp;
+                        <a href="/categories/Java/">Java</a>&nbsp;
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/%E5%B7%A5%E5%85%B7/tmux/">tmux</a>&nbsp;
+                        &gt; <a href="/categories/SQL/">SQL</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/Java/Spring/">Spring</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/SQL/MySQL/">MySQL</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        &gt; <a href="/categories/Java/Spring/SpringBoot/">SpringBoot</a>&nbsp;
                     </li>
                 
             </ul>
@@ -352,15 +364,19 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Linux/">Linux</a>&nbsp;
+                        <a href="/tags/Java/">Java</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>&nbsp;
+                        | <a href="/tags/MySQL/">MySQL</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/tmux/">tmux</a>&nbsp;
+                        | <a href="/tags/SpringBoot/">SpringBoot</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/ShardingSphere/">ShardingSphere</a>&nbsp;
                     </li>
                 
             </ul>
@@ -383,41 +399,39 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="Tmux-使用教程"><a href="#Tmux-使用教程" class="headerlink" title="Tmux 使用教程"></a>Tmux 使用教程</h1><p>Tmux 是一个 终端复用器，属于常用的 开发工具</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/bg2019102005.png"
-                      alt="img"
-                ></p>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>tmux  需要自己安装，命令如下  (以 centos 为例)</p>
-<p><code>sudo yum -y install tmux</code></p>
-<h3 id="启动与退出"><a href="#启动与退出" class="headerlink" title="启动与退出"></a>启动与退出</h3><p>安装完之后，输入 <code>tmux </code> 命令</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230329175243590.png"
-                      alt="image-20230329175243590"
-                ></p>
-<img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230329175203627.png"
-                      alt="image-20230329175203627" style="zoom: 25%;" 
-                >
+                <h1 id="ShardingSphere-实现-数据库读写分离"><a href="#ShardingSphere-实现-数据库读写分离" class="headerlink" title="ShardingSphere 实现 数据库读写分离"></a>ShardingSphere 实现 数据库读写分离</h1><p>记录一下 SpringBoot 整合 ShardingSphere 时所遇到的问题。</p>
+<p>在第一次尝试 使用 ShardingSphere 实现数据库读写分离时，引入以下依赖</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shardingsphere<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sharding-jdbc-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
 
 <br>
 
-<p>按下 <code>ctrl + d</code> 或者 输入 <code>exit</code> ，即可退出 tmux</p>
-<h3 id="前缀键"><a href="#前缀键" class="headerlink" title="前缀键"></a>前缀键</h3><p>Tmux 窗口有大量的快捷键。所有快捷键都要通过前缀键唤起。默认的前缀键是<code>Ctrl+b</code>，即先按下<code>Ctrl+b</code>，快捷键才会生效。举例来说，帮助命令的快捷键是<code>Ctrl+b </code>它的用法是，在 Tmux 窗口中，先按下<code>Ctrl+b</code>，再按下<code>?</code>，就会显示帮助信息。然后，按下 ESC 键或<code>q</code>键，就可以退出帮助</p>
-<h2 id="会话管理"><a href="#会话管理" class="headerlink" title="会话管理"></a>会话管理</h2><h3 id="新建会话"><a href="#新建会话" class="headerlink" title="新建会话"></a>新建会话</h3><p>第一个启动的 Tmux 窗口，编号是<code>0</code>，第二个窗口的编号是<code>1</code>，以此类推。这些窗口对应的会话，就是 0 号会话、1 号会话。使用编号区分会话，不太直观，更好的方法是为会话起名。</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -s&lt;session-name&gt;</span><br></pre></td></tr></table></figure></div>
+<p>配置 主从库</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">shardingsphere:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">      <span class="attr">names:</span></span><br><span class="line">        <span class="string">master,slave</span></span><br><span class="line">      <span class="comment"># 主数据源</span></span><br><span class="line">    <span class="attr">master:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.21.135:3306/eatmore?characterEncoding=utf-8</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">xxxxxx</span></span><br><span class="line">      <span class="comment"># 从数据源</span></span><br><span class="line">    <span class="attr">slave:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.21.136:3306/eatmore?characterEncoding=utf-8</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">xxxxxx</span></span><br><span class="line">    <span class="attr">masterslave:</span></span><br><span class="line">      <span class="comment"># 读写分离配置</span></span><br><span class="line">      <span class="attr">load-balance-algorithm-type:</span> <span class="string">round_robin</span>  <span class="comment">#轮询策略，负载均衡</span></span><br><span class="line">      <span class="comment"># 最终的数据源名称</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">dataSource</span></span><br><span class="line">      <span class="comment"># 主库数据源名称</span></span><br><span class="line">      <span class="attr">master-data-source-name:</span> <span class="string">master</span></span><br><span class="line">      <span class="comment"># 从库数据源名称列表，多个逗号分隔</span></span><br><span class="line">      <span class="attr">slave-data-source-names:</span> <span class="string">slave</span></span><br><span class="line">    <span class="attr">props:</span></span><br><span class="line">      <span class="attr">sql:</span></span><br><span class="line">        <span class="attr">show:</span> <span class="literal">true</span> <span class="comment">#开启SQL显示，默认false</span></span><br></pre></td></tr></table></figure></div>
 
-<p>上述命令为 ： <strong>新建一个指定名称的会话</strong></p>
-<h3 id="分离会话"><a href="#分离会话" class="headerlink" title="分离会话"></a>分离会话</h3><p>在 tmux 窗口下，按下 <code>ctrl + b     d</code>  或者</p>
-<div class="highlight-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux detach</span><br></pre></td></tr></table></figure></div>
+<br>
 
-<p>就会将当前会话与窗口分开</p>
+<p>但是 项目启动之后，报了 dataSource 的错误。</p>
+<p>之后我就根据 ShardingSphere 官网修改了 相关配置。重新改了 pom 文件和application，如下</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shardingsphere<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shardingsphere-jdbc-core-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.0.0-alpha<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.main.allow-bean-definition-overriding</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">spring.shardingsphere.props.sql-show</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.names</span>=<span class="string">&quot;write-ds,read-ds&quot;</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.common.type</span>=<span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.common.driver-class-name</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.write-ds.jdbc-url</span>=<span class="string">jdbc:mysql://192.168.21.135/eatmore?serverTimezone=UTC&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.write-ds.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.write-ds.password</span>=<span class="string">C020611.</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.read-ds.jdbc-url</span>=<span class="string">jdbc:mysql://192.168.21.136/eatmore?serverTimezone=UTC&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.read-ds.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.read-ds.password</span>=<span class="string">C020611.</span></span><br><span class="line"><span class="attr">spring.shardingsphere.rules.replica-query.data-sources.db0.primary-data-source-name</span>=<span class="string">write-ds</span></span><br><span class="line"><span class="attr">spring.shardingsphere.rules.replica-query.data-sources.db0.replica-data-source-names</span>=<span class="string">read-ds</span></span><br><span class="line"><span class="attr">spring.shardingsphere.rules.replica-query.load-balancers.db0.type</span>=<span class="string">ROUND_ROBIN</span></span><br><span class="line"><span class="attr">spring.shardingsphere.rules.replica-query.load-balancers.db0.props.test</span>=<span class="string">test</span></span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<blockquote>
+<p>在这里与之前不同的是，master 和  slave 的**<code>datasource </code> 的 <code>type</code>、<code>driver-class-name</code>** 是 写在了  <code>common</code> 属性下</p>
+</blockquote>
+<br>
+
+<p>但是 依旧报错，报错信息如下：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &#x27;addressBookController&#x27;: Unsatisfied dependency expressed through field &#x27;addressBookService&#x27;; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &#x27;addressBookServiceImpl&#x27;: Unsatisfied dependency expressed through field &#x27;baseMapper&#x27;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#x27;addressBookMapper&#x27; defined in file [D:\C\eatmore\target\classes\com\cs7eric\eatmore\mapper\AddressBookMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Property &#x27;sqlSessionFactory&#x27; or &#x27;sqlSessionTemplate&#x27; are required</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:660) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at com.cs7eric.eatmore.EatmoreApplication.main(EatmoreApplication.java:20) [classes/:na]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_333]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_333]</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_333]</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_333]</span><br><span class="line">	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.7.7.jar:2.7.7]</span><br></pre></td></tr></table></figure></div>
+
+<p>不满足 相关 Bean  的注入，</p>
+<br>
+
+<p>检查 AddressBookService 发现 该Service 的实现类 不小心写成 <code>AddressBookService</code> 了，但是之前项目能够启动成功，在引入 ShardingSphere 之后，启动就报错了，最深嵌套的 不满足的 依赖注入是 MyBatis 的 <code>sqlSessionFactory、sqlSessionTemplate</code> ，分析之后觉得可能是 两个数据源的问题，在修改 AddressBookServiceImpl 和 application.properties 之后，项目能够正常运行。 </p>
 
             </div>
 
@@ -425,11 +439,11 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：tumx 使用教程</li>
+        <li>Post title：ShardingSphere遇到的错误</li>
         <li>Post author：Cs7eric</li>
-        <li>Create time：2023-03-21 13:10:22</li>
+        <li>Create time：2023-04-01 20:12:22</li>
         <li>
-            Post link：https://cs7eric.github.io/2023/03/21/tumx-使用教程/
+            Post link：https://cs7eric.github.io/2023/04/01/ShardingSphere遇到的错误/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -444,15 +458,19 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/Linux/">#Linux</a>&nbsp;
+                            <a href="/tags/Java/">#Java</a>&nbsp;
                         </li>
                     
                         <li class="tag-item">
-                            <a href="/tags/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">#工具使用</a>&nbsp;
+                            <a href="/tags/MySQL/">#MySQL</a>&nbsp;
                         </li>
                     
                         <li class="tag-item">
-                            <a href="/tags/tmux/">#tmux</a>&nbsp;
+                            <a href="/tags/SpringBoot/">#SpringBoot</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/ShardingSphere/">#ShardingSphere</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -461,29 +479,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/03/21/Linux-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">Linux 常用命令</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/03/14/RabbitMQ/"
+                            href="/2023/04/01/SpringBoot-%E9%9B%86%E6%88%90-ShardingSphere-jdbc/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">RabblitMQ</span>
+                                    <span class="post-nav-title-item">SpringBoot 集成 ShardingSphere-jdbc</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -548,7 +551,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tmux-%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="nav-text">Tmux 使用教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-text">基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%B8%8E%E9%80%80%E5%87%BA"><span class="nav-text">启动与退出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E9%94%AE"><span class="nav-text">前缀键</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86"><span class="nav-text">会话管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E4%BC%9A%E8%AF%9D"><span class="nav-text">新建会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%A6%BB%E4%BC%9A%E8%AF%9D"><span class="nav-text">分离会话</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ShardingSphere-%E5%AE%9E%E7%8E%B0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB"><span class="nav-text">ShardingSphere 实现 数据库读写分离</span></a></li></ol>
     </div>
 </div>
             </div>
