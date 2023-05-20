@@ -375,7 +375,248 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1>
+                <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><p><strong>南京大学 - 蒋炎岩老师 操作系统的设计与实现</strong></p>
+<p><strong>哈尔滨工业大学 - 李治军老师 操作系统</strong></p>
+<p><strong>王道考研  - 408操作系统</strong></p>
+<p>参考教材： <strong>现代操作系统 原书第四版</strong>      **王道考研408 - 操作系统教材 **</p>
+<hr>
+<p>操作系统（Operating System，简称 OS）是一种控制和管理计算机硬件和软件资源的系统软件，它充当计算机系统与用户之间的接口，管理计算机的硬件、软件和资源，并提供基本的服务和功能，使计算机能够执行各种应用程序。</p>
+<p>操作系统通常执行以下几个主要功能：</p>
+<ol>
+<li><p>管理计算机的硬件资源，包括处理器、内存、硬盘、输入输出设备等。</p>
+</li>
+<li><p>提供用户和应用程序的接口，允许用户和应用程序与计算机系统进行交互。</p>
+</li>
+<li><p>管理和分配计算机的软件资源，包括操作系统本身和各种应用程序。</p>
+</li>
+<li><p>提供安全和保护机制，以确保计算机系统的安全性和稳定性。</p>
+</li>
+<li><p>提供各种系统服务和功能，如文件管理、网络通信、进程管理、内存管理等。</p>
+</li>
+</ol>
+<p>常见的操作系统包括 Windows、macOS、Linux、Unix 等。它们有各自的特点和优势，在不同的场景和需求下可以选择不同的操作系统。</p>
+<p>操作系统的发展可以分为几个阶段，最早的操作系统是单道批处理系统，它能够处理一批作业，但只能处理一个作业，没有多任务处理能力。后来出现了多道批处理系统，它允许多个作业同时进入系统，提高了系统的效率。随着计算机技术的发展，出现了分时系统和实时系统，提供了更加高效和实时的计算机服务。现代操作系统还包括了图形用户界面、多任务处理、虚拟内存、网络通信等功能，提供了更为丰富的计算机服务和应用。</p>
+<p>总体而言，操作系统是计算机系统的核心组成部分，它提供了基本的服务和功能，使计算机能够执行各种应用程序和任务。操作系统的不断发展和改进，为计算机技术的进步和发展提供了坚实的基础。</p>
+<h2 id="计算机系统概述"><a href="#计算机系统概述" class="headerlink" title="计算机系统概述"></a>计算机系统概述</h2><p><strong>知识框架</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520195652009.png"
+                      alt="image-20230520195652009" style="zoom: 33%;" 
+                >
+
+
+
+<h3 id="操作系统的概念、功能和目标"><a href="#操作系统的概念、功能和目标" class="headerlink" title="操作系统的概念、功能和目标"></a>操作系统的概念、功能和目标</h3><hr>
+<p><strong>知识总览</strong></p>
+<p>操作系统的概念、功能和目标</p>
+<ul>
+<li>概念（定义）<ul>
+<li>什么是  操作系统</li>
+</ul>
+</li>
+<li>功能和目标<ul>
+<li>操作系统要做些什么</li>
+</ul>
+</li>
+</ul>
+<h4 id="操作系统的概念"><a href="#操作系统的概念" class="headerlink" title="操作系统的概念"></a>操作系统的概念</h4><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520200945754.png"
+                      alt="image-20230520200945754" style="zoom:50%;" 
+                >
+
+<p><font color='red'><strong>操作系统（Operating System，OS）</strong></font> 是指  控制和<strong>管理</strong> 整个计算机系统的  $硬件和软件^1$资源，并合理地组织调度计算机的工作和资源的分配；以 $提供给用户和其他软件方便的接口和环境^2$；它是计算机系统中 最基本的 $系统软件^3$</p>
+<blockquote>
+<p>:one: 操作系统是系统资源的管理者</p>
+<p>:two:向上层提供方便易用的服务</p>
+<p>:three:是最接近硬件的一层软件</p>
+</blockquote>
+<h4 id="功能和目标"><a href="#功能和目标" class="headerlink" title="功能和目标"></a>功能和目标</h4><p>操作系统的功能和目标： <strong>作为系统资源的管理者</strong></p>
+<p><strong>提供的功能</strong></p>
+<ul>
+<li>处理机管理</li>
+<li>存储器管理</li>
+<li>文件管理</li>
+<li>设备管理</li>
+</ul>
+<p><strong>目标</strong></p>
+<ul>
+<li>安全、高效</li>
+</ul>
+<blockquote>
+<p>补充：执行一个 程序之前，<strong>需要将该程序放到内存中</strong>，才能被 CPU 处理</p>
+</blockquote>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520201236144.png"
+                      alt="image-20230520201236144" style="zoom:67%;" 
+                >
+
+
+
+<h5 id="向上层提供方便易用的服务"><a href="#向上层提供方便易用的服务" class="headerlink" title="向上层提供方便易用的服务"></a>向上层提供方便易用的服务</h5><p>操作系统的功能和目标： <strong>向上层提供方便易用的服务</strong></p>
+<blockquote>
+<p><strong>封装思想</strong></p>
+<p>操作系统把一些 丑陋的硬件功能封装成简单易用的服务，使用户能更方便地使用计算机，用户无需关心底层 硬件的原理，只需要对操作系统发出命令即可</p>
+</blockquote>
+<h6 id="GUI"><a href="#GUI" class="headerlink" title="GUI"></a>GUI</h6><p> 图形化用户接口（Graphical User Interface）</p>
+<p>用户可以使用形象的图形界面进行操作，而不需要记忆复杂的命令、参数</p>
+<h6 id="联机命令接口"><a href="#联机命令接口" class="headerlink" title="联机命令接口"></a>联机命令接口</h6><p>联机命令接口 &#x3D;  <strong>交互式</strong> 命令接口</p>
+<p>特点：用户说一句，系统就跟着做一句</p>
+<h6 id="脱机命令接口"><a href="#脱机命令接口" class="headerlink" title="脱机命令接口"></a>脱机命令接口</h6><p>脱机命令接口 &#x3D;  <strong>批处理</strong> 命令接口</p>
+<p>特点：用户说一堆，系统跟着做一堆</p>
+<p>eg: bat 脚本</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520205817531.png"
+                      alt="image-20230520205817531" style="zoom:50%;" 
+                >
+
+
+
+<h6 id="程序接口"><a href="#程序接口" class="headerlink" title="程序接口"></a>程序接口</h6><p>可以在 程序中进行 <strong>系统调用</strong> 来使用程序接口。普通用户不能直接使用程序接口，只能通过程序代码 <strong>间接</strong> 调用</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520205945357.png"
+                      alt="image-20230520205945357" style="zoom:50%;" 
+                >
+
+
+
+<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520210338199.png"
+                      alt="image-20230520210338199" style="zoom:50%;" 
+                >
+
+
+
+<h5 id="作为最接近硬件的层次"><a href="#作为最接近硬件的层次" class="headerlink" title="作为最接近硬件的层次"></a>作为最接近硬件的层次</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520210423627.png"
+                      alt="image-20230520210423627" style="zoom:50%;" 
+                >
+
+<p>需要实现 <strong>对硬件机器的扩展</strong>     </p>
+<p>没有任何软件支持的 计算机成为 <strong>裸机</strong>  。在 裸机上安装的操作系统可以提供资源管理的功能和方便用户的服务功能，将裸机改造成更强、使用更方便的机器</p>
+<p>通常把 覆盖了软件的机器 称为  <strong>扩充机器</strong> ，又称之为 <strong>虚拟机</strong></p>
+<p>操作系统对硬件机器的扩展： 将 CPU 、内存、键盘、显示器、磁盘 等的硬件结合起来，让各种硬件能够相互协调配合，实现更多复杂的功能</p>
+<p>普通用户不用关心这些硬件在底层是怎么组织起来工作的，只需直接使用操作系统提供的接口即可</p>
+<h4 id="知识回顾与重要考点"><a href="#知识回顾与重要考点" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h4><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520211139824.png"
+                      alt="image-20230520211139824" style="zoom:50%;" 
+                >
+
+
+
+<h3 id="操作系统的特征"><a href="#操作系统的特征" class="headerlink" title="操作系统的特征"></a>操作系统的特征</h3><hr>
+<p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520212301869.png"
+                      alt="image-20230520212301869" style="zoom:50%;" 
+                >
+
+
+
+<h4 id="并发-与-并行"><a href="#并发-与-并行" class="headerlink" title="并发 与 并行"></a>并发 与 并行</h4><p>指两个或者多个事件在同一时间间隔内发生。 这些事情 <strong>宏观上是同时发生的</strong>，但  <strong>微观上是交替发生的</strong>。</p>
+<blockquote>
+<p>易混 ： <strong>并行</strong>： 指两个或 多个时间在同一时刻同时发生</p>
+<p>并发和并行是计算机领域中经常被提到的两个概念，它们都与多任务处理有关，但是含义却不同。</p>
+<p>并发指的是在同一时间段内，有多个任务在交替执行，这些任务之间不一定是同时执行的，而是通过操作系统的调度算法分时使用 CPU 资源，让用户感觉多个任务同时在运行。例如，现在常见的多线程编程就是一种并发的实现方式。</p>
+<p>而并行是指在同一时刻，有多个任务同时执行，这些任务可以通过多个处理器或多个计算机实现并行执行。并行处理通常用于处理大规模的数据或者需要进行高性能计算的任务，例如，科学计算、图像处理和机器学习等。</p>
+<p>可以说，并发是在同一个处理器上同时运行多个任务，而并行是在多个处理器上同时执行多个任务。并发通常是通过时间片轮转等算法实现，而并行则需要更多的硬件资源和更复杂的算法。</p>
+<p>总之，虽然并发和并行都是实现多任务处理的方法，但是它们的实现方式和应用场景是不同的。并发主要针对单个处理器的多任务处理，通过时间片轮转等算法实现，应用于多线程编程、操作系统等领域；而并行主要针对多处理器或多计算机的多任务处理，通过分布式算法等实现，应用于高性能计算、科学计算等领域。</p>
+</blockquote>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520212635124.png"
+                      alt="image-20230520212635124" style="zoom: 50%;" 
+                >
+
+<p><font color='red'><strong>操作系统的并发性</strong></font> 指计算机系统中 “同时”  运行着多个程序，这些程序宏观上看是同时运行着的，而微观上看 是 <strong>交替运行的</strong></p>
+<p>操作系统就是伴随着 “多道程序技术”  而出现的。因此，<font color='red'><strong>操作系统和程序并发是一起诞生的</strong></font></p>
+<blockquote>
+<p>注意： **单核 CPU ** 同一时刻只能执行 <strong>一个程序</strong>，各个程序只能 <strong>并发</strong> 执行</p>
+<p><strong>多核CPU</strong> 同一时刻可以同时执行 <strong>多个程序</strong>，多个程序可以 <strong>并行</strong>地 执行</p>
+</blockquote>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520213110286.png"
+                      alt="image-20230520213110286" style="zoom:50%;" 
+                >
+
+
+
+<h4 id="共享"><a href="#共享" class="headerlink" title="共享"></a>共享</h4><p>共享即 资源共享，是指系统中的资源可供内存中多个并发执行的进程共同使用</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520213342336.png"
+                      alt="image-20230520213342336" style="zoom:33%;" 
+                >
+
+
+
+<p>所谓的 “同时” 往往是宏观的，而在微观上，这些进程可能是交替的对该资源进行访问的（即 分时共享）</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520213447584.png"
+                      alt="image-20230520213447584" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="并发和共享的关系"><a href="#并发和共享的关系" class="headerlink" title="并发和共享的关系"></a>并发和共享的关系</h5><p><strong>并发性</strong>是指计算机系统中同时存在着多个运行着的程序</p>
+<p><strong>共享性</strong>是指系统中的资源可供内存中运行着的多个程序共同使用</p>
+<p>使用 QQ 发送A，同时微信发送B</p>
+<ol>
+<li>两个进程正在并发执行（并发性）<ul>
+<li>如果失去并发性，则系统中只有一个程序正在执行，则共享性失去存在的意义</li>
+</ul>
+</li>
+<li>需要共享地访问硬盘资源<ul>
+<li>如果 失去共享性，则QQ 和 微信 不能同时访问硬盘资源，就无法实现同时发送文件，也就无法并发</li>
+</ul>
+</li>
+</ol>
+<h4 id="虚拟"><a href="#虚拟" class="headerlink" title="虚拟"></a>虚拟</h4><p>虚拟是指把一个物理上的实体 变成若干个逻辑上的对应物。物理实体（前者）是 实际存在的，而逻辑上对应物（后者）是用户感受到的、<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520214139041.png"
+                      alt="image-20230520214139041" style="zoom:50%;" 
+                ></p>
+<blockquote>
+<p>虚拟技术中的 “时分复用技术” 和 “空分复用技术”</p>
+<p>虚拟技术是指通过软件或硬件技术，将一个物理资源分割成多个逻辑资源，从而实现资源共享和提高资源利用率的技术。在虚拟技术中，空分复用技术和时分复用技术是两种常见的资源复用技术。</p>
+<p>空分复用技术（Space Division Multiplexing，简称SDM）是指将一个物理资源按照空间维度进行分割，将不同的逻辑资源分配到不同的物理空间中，从而实现资源的共享。例如，在服务器虚拟化中，可以将一个物理服务器划分为多个虚拟服务器，在不同的虚拟服务器上运行不同的应用程序，从而提高服务器的利用率和资源利用效率。</p>
+<p>时分复用技术（Time Division Multiplexing，简称TDM）则是将一个物理资源按照时间维度进行分割，将不同的逻辑资源分配到不同的时间段中，从而实现资源的共享。例如，在计算机网络中，可以将一个物理网络线路按照时间分割为多个时间段，在不同的时间段内传输不同的数据，从而提高网络带宽的利用率和数据传输效率。</p>
+<p>需要注意的是，空分复用技术和时分复用技术都是通过将一个物理资源分割成多个逻辑资源来实现资源的共享和提高资源利用效率，但是它们的分割维度不同。空分复用技术是按照空间维度进行分割，将逻辑资源分配到不同的物理空间中，而时分复用技术是按照时间维度进行分割，将逻辑资源分配到不同的时间段中。在实际应用中，需要根据具体的场景选择合适的技术来实现资源的共享和提高资源利用效率。</p>
+</blockquote>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230520214431521.png"
+                      alt="image-20230520214431521" style="zoom: 50%;" 
+                >
+
+
+
+<h4 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h4><p>异步是指，在多道程序环境下，允许多个程序并发执行，但由于资源有限，进程的执行并不是一管到底的，而是走走停停，以 <strong>不可预知的</strong> 速度向前推进，这就是  异步性</p>
+
             </div>
 
             
@@ -497,7 +738,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">操作系统</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="nav-text">计算机系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">操作系统的概念、功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">操作系统的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E4%B8%8A%E5%B1%82%E6%8F%90%E4%BE%9B%E6%96%B9%E4%BE%BF%E6%98%93%E7%94%A8%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-text">向上层提供方便易用的服务</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#GUI"><span class="nav-text">GUI</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%81%94%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">联机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%84%B1%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">脱机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3"><span class="nav-text">程序接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%9C%80%E6%8E%A5%E8%BF%91%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%B1%82%E6%AC%A1"><span class="nav-text">作为最接近硬件的层次</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">操作系统的特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91-%E4%B8%8E-%E5%B9%B6%E8%A1%8C"><span class="nav-text">并发 与 并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB"><span class="nav-text">共享</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%85%B1%E4%BA%AB%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">并发和共享的关系</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F"><span class="nav-text">虚拟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5"><span class="nav-text">异步</span></a></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
