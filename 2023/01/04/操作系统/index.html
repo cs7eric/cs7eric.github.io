@@ -2131,7 +2131,7 @@
 
 
 
-<h4 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a>调度算法</h4><p><strong>知识总览</strong></p>
+<h4 id="调度算法（上）"><a href="#调度算法（上）" class="headerlink" title="调度算法（上）"></a>调度算法（上）</h4><p><strong>知识总览</strong></p>
 <img  
                      lazyload
                      src="/images/loading.svg"
@@ -2186,6 +2186,342 @@
                      data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230524173611300.png"
                       alt="image-20230524173611300"
                 ></p>
+<h5 id="短作业优先（-SJF，Shortest-Job-First"><a href="#短作业优先（-SJF，Shortest-Job-First" class="headerlink" title="短作业优先（ SJF，Shortest Job First)"></a>短作业优先（ SJF，Shortest Job First)</h5><ul>
+<li>算法思想<ul>
+<li>最求最小的 平均等待时间，最少的 平均周转时间、最少的平均带权周转时间</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>最短的 作业&#x2F;进程 优先得到服务（所谓 最短，是指 要求服务时间 最短）</li>
+</ul>
+</li>
+<li>用于 作业&#x2F;进程调度<ul>
+<li>两者都可，用于进程时，为 短进程优先（SPF，Shortest Progress First）</li>
+</ul>
+</li>
+<li>是否可抢占<ul>
+<li>都是 <strong>非抢占</strong> 的算法，但是也有抢占式的 版本  - <strong>最短剩余时间优先算法（SRTN，Shortest Remaining Time Next）</strong></li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>优点：’最短的’  平均等待时间、平均周转时间 </li>
+<li>缺点：不公平，对 <strong>短作业</strong> 有利，对 <strong>长作业</strong>  不利。可能产生 <strong>饥饿</strong>  现象。另外，作业&#x2F;进程 的 运行时间是由用户提供的，并不一定真实，不一定能做到真正的 短作业优先</li>
+</ul>
+</li>
+<li>是否会饥饿<ul>
+<li>会，如果 源源不断的有 短作业  到来，可能使长作业 长时间得不到服务，产生饥饿现象。如果一直得不到服务，则 称为  <strong>饿死</strong></li>
+</ul>
+</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525120449533.png"
+                      alt="image-20230525120449533" style="zoom: 33%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525120526737.png"
+                      alt="image-20230525120526737" style="zoom:33%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525120559656.png"
+                      alt="image-20230525120559656" style="zoom:33%;" 
+                >
+
+
+
+<p>注意几个细节</p>
+<ol>
+<li><p>如果 题目中 <strong>未特别说明，</strong> 所提到的  “短进程&#x2F;作业优先算法” ，<strong>默认</strong>   是  <strong>非抢占式的</strong></p>
+</li>
+<li><p>在  <strong>所有 进程同时可运行时，</strong>采用 SJF 调度算法的平均等待时间、平均周转时间最少 </p>
+<p>或者 说： 在 <strong>所有进程都几乎同时到达时，</strong> 采用 SJF 调度算法的 平均等待时间、平均周转时间最少</p>
+<p>如果不加上述条件，则 应该说 <strong>抢占式</strong> 的 短作业&#x2F;进程 调度算法 的最少</p>
+</li>
+<li><p>虽然严格来说，SJF 的 平均等待时间 、平均周转 时间并不一定最少，但相比于其他的算法（FCFS）。SJF 依然可以获得 较少的 平均等待时间和 平均周转时间</p>
+</li>
+<li><p>如果选择题中  遇到 “SJF 的 平均等待时间、平均周转时间最少 ” 的 选择，最好判断其他的选项是不是有明显的 错误</p>
+</li>
+</ol>
+<h5 id="高响应比优先（HRRN，Highest-Response-Ratio-Next）"><a href="#高响应比优先（HRRN，Highest-Response-Ratio-Next）" class="headerlink" title="高响应比优先（HRRN，Highest Response Ratio Next）"></a>高响应比优先（HRRN，Highest Response Ratio Next）</h5><ul>
+<li>算法思想<ul>
+<li>要综合考虑作业&#x2F;进程 的等待时间 和 要求服务的时间</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>在每次调度时 先计算各个作业的 <strong>响应比</strong>，选择 <strong>响应比最高</strong>  的作业 为其服务</li>
+</ul>
+</li>
+<li>用于 作业&#x2F;进程 调度<ul>
+<li>两者都可</li>
+</ul>
+</li>
+<li>是否可抢占<ul>
+<li><strong>非抢占式</strong> 的算法，印制只有当前的 作业主动放弃处理机时，才需要调度，才需要计算响应比</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>综合考虑了 等待时间和运行时间（要求服务时间）</li>
+<li>等待时间相同时，要求服务时间短的优先（SJF 的优点）</li>
+<li>要求服务时间相同时，等待时间长的优先（FCFS 的优点）</li>
+<li>对于长作业来说，随着等待时间的 越来越久，其响应比越来越大，从而避免了 长作业饥饿的问题</li>
+</ul>
+</li>
+<li>是否会导致饥饿<ul>
+<li>不会</li>
+</ul>
+</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525121806869.png"
+                      alt="image-20230525121806869" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="知识回顾与重要考点-16"><a href="#知识回顾与重要考点-16" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525122112277.png"
+                      alt="image-20230525122112277" style="zoom: 33%;" 
+                >
+
+
+
+<h4 id="调度算法（下）"><a href="#调度算法（下）" class="headerlink" title="调度算法（下）"></a>调度算法（下）</h4><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="C:\Users\CSQ-PC\AppData\Roaming\Typora\typora-user-images\image-20230525122452456.png"
+                      alt="image-20230525122452456" style="zoom:33%;" 
+                >
+
+
+
+
+
+<h5 id="时间片轮转（RR，Round-Robin"><a href="#时间片轮转（RR，Round-Robin" class="headerlink" title="时间片轮转（RR，Round-Robin)"></a>时间片轮转（RR，Round-Robin)</h5><ul>
+<li>算法思想<ul>
+<li>公平的、轮流的 为各个进程服务，让每个进程在一定 时间间隔内可以得到响应</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>按照 各进程到达 就绪队列的 顺序，轮流的让 各个 进程执行一个 时间片，若进程未在一个时间片内 执行完，则剥夺处理机，江金城放到就绪队列队尾重新排队</li>
+</ul>
+</li>
+<li>用于 作业&#x2F;进程 调度<ul>
+<li>用于进程调度（只有作业放入内存后，建立了 相应 的进程后，才能被分配处理机时间片）</li>
+</ul>
+</li>
+<li>是否可抢占<ul>
+<li>若进程未在时间片内运行完，将被强行剥夺处理机的使用权，因此 时间片轮转算法 属于 <strong>抢占式的</strong> 算法。由时钟装置发出  <strong>时钟中断</strong> 来通知 CPU 时间片已到</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>优点 ： 公平，响应快，适用于 分时操作系统</li>
+<li>缺点： 由于 高频率的进程切换，因此有一定开销；不区分任务的紧急程度</li>
+</ul>
+</li>
+<li>是否会导致 饥饿<ul>
+<li>不会</li>
+</ul>
+</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525123024591.png"
+                      alt="image-20230525123024591" style="zoom:33%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525123112216.png"
+                      alt="image-20230525123112216" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="优先级调度算法"><a href="#优先级调度算法" class="headerlink" title="优先级调度算法"></a>优先级调度算法</h5><ul>
+<li>算法思想<ul>
+<li>随着计算机的发展，特别是实时操作系统的出现，越来越多的应用场景需要根据任务的紧急程度来决定处理顺序</li>
+</ul>
+</li>
+<li>算法规则<ul>
+<li>每个作业&#x2F;进程有各自的优先级，调度时选择优先级最高的作业&#x2F;进程</li>
+</ul>
+</li>
+<li>用于 作业&#x2F;进程 调度<ul>
+<li>既可用于作业调度，也可用于进程调度。甚至，还会用于在之后会学习的I&#x2F;O调度中</li>
+</ul>
+</li>
+<li>是否可抢占<ul>
+<li>抢占式、非抢占式都有。做题时的区别在于：非抢占式只需在进程主动放弃处理机时进行调度即可，而抢占式还需在就绪队列变化时，检查是否会发生抢占。</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>优点：用 优先级区分紧急程度、重要程度，适用于 实时操作系统。可灵活的调整对各种作业&#x2F;进程 的 偏好程度</li>
+<li>缺点：若源源不断地有高优先级的进程到来，则可能会导致饥饿</li>
+</ul>
+</li>
+<li>是否会导致 饥饿<ul>
+<li>会</li>
+</ul>
+</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525123354383.png"
+                      alt="image-20230525123354383" style="zoom:33%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525123418662.png"
+                      alt="image-20230525123418662" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="多级反馈队列调度算法"><a href="#多级反馈队列调度算法" class="headerlink" title="多级反馈队列调度算法"></a>多级反馈队列调度算法</h5><ul>
+<li>算法思想<ul>
+<li>对其它调度算法的折中权衡</li>
+</ul>
+</li>
+<li>算法规则<ol>
+<li>设置 多级就绪队列，各级队列优先级从高到低，时间片从小到大</li>
+<li>新进程到达时 先进入 第1 级队列，按照 FCFS 的原则 排队等待被分配时间片，若用完时间片进程还没结束，则进程进入下一级队列队尾。如果此时已经是最下级的队列，则重新放回该队列队尾</li>
+<li>只有第 K 级队列为空时，才会为 K + 1 级队头的进程分配时间片</li>
+</ol>
+</li>
+<li>用于 作业&#x2F;进程 调度<ul>
+<li>用于 进程调度</li>
+</ul>
+</li>
+<li>是否可抢占<ul>
+<li><strong>抢占式</strong>的算法，在 K级队列的进程运行时，若更上级的队列（1~k-1) 中进入了一个新的进程，则由于新进程处于优先级更高的队列中，因此 新进程会抢占处理机，原来运行的进程放回 k 级队列</li>
+</ul>
+</li>
+<li>优缺点<ul>
+<li>优点：<ul>
+<li>对各类进程相对公平（FCFS 的优点）</li>
+<li>每个新到达的进程都可以很快得到响应（RR 的优点）</li>
+<li>短进程只用较少的时间就可以完成工作（SPF 的优点）</li>
+<li>不必实现 估计进程的运行时间（避免用户作假）</li>
+<li>可灵活的调整对各类进程的偏好程度，比如 CPU 密集型进程、IO 密集型进程（可以将 因IO 阻塞的进程重新放回原队列，这样IO 型进程就可以保持高优先级）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>是否会导致 饥饿<ul>
+<li>会</li>
+<li>在多级反馈队列调度算法中，如果一个进程被分配到了低优先级的队列中，而且该队列中有大量的优先级较高的进程，那么该进程就可能会长时间地等待，等待时间片用完后才能继续被调度。这种情况下，该进程就会发生饥饿现象，无法得到足够的资源去执行自己的任务，导致系统的性能和可靠性下降。</li>
+</ul>
+</li>
+</ul>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525133210363.png"
+                      alt="image-20230525133210363" style="zoom: 33%;" 
+                >
+
+
+
+<h5 id="知识回顾与重要考点-17"><a href="#知识回顾与重要考点-17" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230525133730207.png"
+                      alt="image-20230525133730207" style="zoom:33%;" 
+                >
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             </div>
 
@@ -2308,7 +2644,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="nav-text">计算机系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">操作系统的概念、功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">操作系统的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E4%B8%8A%E5%B1%82%E6%8F%90%E4%BE%9B%E6%96%B9%E4%BE%BF%E6%98%93%E7%94%A8%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-text">向上层提供方便易用的服务</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#GUI"><span class="nav-text">GUI</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%81%94%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">联机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%84%B1%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">脱机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3"><span class="nav-text">程序接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%9C%80%E6%8E%A5%E8%BF%91%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%B1%82%E6%AC%A1"><span class="nav-text">作为最接近硬件的层次</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">操作系统的特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91-%E4%B8%8E-%E5%B9%B6%E8%A1%8C"><span class="nav-text">并发 与 并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB"><span class="nav-text">共享</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%85%B1%E4%BA%AB%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">并发和共享的关系</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F"><span class="nav-text">虚拟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5"><span class="nav-text">异步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-1"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95%E5%92%8C%E5%88%86%E7%B1%BB"><span class="nav-text">操作系统的发展和分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%B7%A5%E6%93%8D%E6%8E%A7%E9%98%B6%E6%AE%B5"><span class="nav-text">手工操控阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="nav-text">批处理阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-text">单道批处理系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-text">多道批处理系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">分时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">实时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%87%A0%E7%A7%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">其他几种操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">网络操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">分布式操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">个人计算机操作系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-2"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-text">操作系统的运行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E8%B5%B7%E6%9D%A5%E7%9A%84"><span class="nav-text">程序是如何运行起来的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%A8%8B%E5%BA%8F-Vs-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-text">内核程序 Vs 应用程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E4%B8%8E%E7%94%A8%E6%88%B7%E6%80%81"><span class="nav-text">内核态与用户态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E3%80%81%E7%94%A8%E6%88%B7%E6%80%81%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-text">内核态、用户态的切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-3"><span class="nav-text">知识回顾与重要考点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%8C%87%E4%BB%A4%E3%80%81%E4%B8%A4%E7%A7%8D%E5%A4%84%E7%90%86%E5%99%A8%E7%8A%B6%E6%80%81%E3%80%81%E4%B8%A4%E7%A7%8D%E7%A8%8B%E5%BA%8F"><span class="nav-text">两种指令、两种处理器状态、两种程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8"><span class="nav-text">操作系统内核</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-text">操作系统的体系结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-4"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-text">中断和异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">中断的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">中断的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E4%B8%AD%E6%96%AD"><span class="nav-text">内中断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%96%E4%B8%AD%E6%96%AD"><span class="nav-text">外中断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%9C%BA%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">中断机制的基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-5"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">什么是系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%92%8C%E5%BA%93%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">系统调用和库函数的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%98%AF%E5%BF%85%E9%A1%BB%E7%9A%84"><span class="nav-text">为什么系统调用是必须的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E5%8A%9F%E8%83%BD%E8%A6%81%E7%94%A8%E5%88%B0-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">什么功能要用到 系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">系统调用的过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-6"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84"><span class="nav-text">操作系统的体系架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%85%E6%A0%B8"><span class="nav-text">操作系统的内核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-7"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE"><span class="nav-text">知识回顾</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E7%BB%84%E6%88%90%E3%80%81%E7%89%B9%E5%BE%81"><span class="nav-text">进程的概念、组成、特征</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">进程的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">进程的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90-%EF%BC%9A-PCB"><span class="nav-text">进程的组成 ： PCB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90%EF%BC%9A%E7%A8%8B%E5%BA%8F%E6%AE%B5%E3%80%81%E6%95%B0%E6%8D%AE%E6%AE%B5"><span class="nav-text">进程的组成：程序段、数据段</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">进程的特征</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-8"><span class="nav-text">知识回顾与重要考点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87"><span class="nav-text">进程的组织</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%9A%E9%93%BE%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">进程的组织：链接方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%9A%E7%B4%A2%E5%BC%95%E6%96%B9%E5%BC%8F"><span class="nav-text">进程的组织：索引方式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%8E%E5%88%87%E6%8D%A2"><span class="nav-text">进程的状态与切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">进程的状态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%80%81%E3%80%81%E5%B0%B1%E7%BB%AA%E6%80%81"><span class="nav-text">创建态、就绪态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%80%81"><span class="nav-text">运行态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E6%80%81"><span class="nav-text">阻塞态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E6%80%81"><span class="nav-text">终止态</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-text">进程的切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">进程控制的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">什么是 进程控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">如何实现进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-%E5%8E%9F%E8%AF%AD%E7%9A%84-%E2%80%9C%E5%8E%9F%E5%AD%90%E6%80%A7%E2%80%9D"><span class="nav-text">如何实现 原语的 “原子性”</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%8E%9F%E8%AF%AD"><span class="nav-text">进程控制相关的原语</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-text">进程的终止</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%98%BB%E5%A1%9E%E4%B8%8E%E5%94%A4%E9%86%92"><span class="nav-text">进程的阻塞与唤醒</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2-1"><span class="nav-text">进程的切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-10"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">进程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">什么是进程通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8"><span class="nav-text">进程通信：共享存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E7%AE%A1%E9%81%93%E9%80%9A%E4%BF%A1"><span class="nav-text">进程通信：管道通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92"><span class="nav-text">进程通信：消息传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-11"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E3%80%81%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">线程、多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B"><span class="nav-text">什么是线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E7%BA%BF%E7%A8%8B%E5%90%8E%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-text">引入线程后的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-text">线程的属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-text">线程的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B"><span class="nav-text">用户级线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B"><span class="nav-text">内核级线程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">一对一模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">多对一模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A%E6%A8%A1%E5%9E%8B"><span class="nav-text">多对多模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-12"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6"><span class="nav-text">处理机调度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%B1%82%E6%AC%A1"><span class="nav-text">调度的概念、层次</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1"><span class="nav-text">调度的三个层次</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">高级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%8E%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">低级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%AD%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">中级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E5%B1%82%E8%B0%83%E5%BA%A6%E7%9A%84%E5%AF%B9%E6%AF%94%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="nav-text">三层调度的对比与联系</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-13"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA%E3%80%81%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B%E3%80%81%E8%B0%83%E5%BA%A6%E6%96%B9%E5%BC%8F"><span class="nav-text">进程调度的时机、切换与过程、调度方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-text">进程调度的时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-text">进程调度的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B-%E7%9A%84%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B"><span class="nav-text">进程 的切换与过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-14"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">调度算法的评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CPU-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-text">CPU 利用率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E9%87%8F"><span class="nav-text">系统吞吐量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="nav-text">周转时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="nav-text">等待时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="nav-text">响应时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-15"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">调度算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%EF%BC%88FCFS%EF%BC%89"><span class="nav-text">先来先服务（FCFS）</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="nav-text">计算机系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">操作系统的概念、功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">操作系统的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E4%B8%8A%E5%B1%82%E6%8F%90%E4%BE%9B%E6%96%B9%E4%BE%BF%E6%98%93%E7%94%A8%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-text">向上层提供方便易用的服务</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#GUI"><span class="nav-text">GUI</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%81%94%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">联机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%84%B1%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">脱机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3"><span class="nav-text">程序接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%9C%80%E6%8E%A5%E8%BF%91%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%B1%82%E6%AC%A1"><span class="nav-text">作为最接近硬件的层次</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">操作系统的特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91-%E4%B8%8E-%E5%B9%B6%E8%A1%8C"><span class="nav-text">并发 与 并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB"><span class="nav-text">共享</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%85%B1%E4%BA%AB%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">并发和共享的关系</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F"><span class="nav-text">虚拟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5"><span class="nav-text">异步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-1"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95%E5%92%8C%E5%88%86%E7%B1%BB"><span class="nav-text">操作系统的发展和分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%B7%A5%E6%93%8D%E6%8E%A7%E9%98%B6%E6%AE%B5"><span class="nav-text">手工操控阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="nav-text">批处理阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-text">单道批处理系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-text">多道批处理系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">分时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">实时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%87%A0%E7%A7%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">其他几种操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">网络操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">分布式操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">个人计算机操作系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-2"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-text">操作系统的运行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E8%B5%B7%E6%9D%A5%E7%9A%84"><span class="nav-text">程序是如何运行起来的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%A8%8B%E5%BA%8F-Vs-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-text">内核程序 Vs 应用程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E4%B8%8E%E7%94%A8%E6%88%B7%E6%80%81"><span class="nav-text">内核态与用户态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E3%80%81%E7%94%A8%E6%88%B7%E6%80%81%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-text">内核态、用户态的切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-3"><span class="nav-text">知识回顾与重要考点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%8C%87%E4%BB%A4%E3%80%81%E4%B8%A4%E7%A7%8D%E5%A4%84%E7%90%86%E5%99%A8%E7%8A%B6%E6%80%81%E3%80%81%E4%B8%A4%E7%A7%8D%E7%A8%8B%E5%BA%8F"><span class="nav-text">两种指令、两种处理器状态、两种程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8"><span class="nav-text">操作系统内核</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-text">操作系统的体系结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-4"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-text">中断和异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">中断的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">中断的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E4%B8%AD%E6%96%AD"><span class="nav-text">内中断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%96%E4%B8%AD%E6%96%AD"><span class="nav-text">外中断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%9C%BA%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">中断机制的基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-5"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">什么是系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%92%8C%E5%BA%93%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">系统调用和库函数的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%98%AF%E5%BF%85%E9%A1%BB%E7%9A%84"><span class="nav-text">为什么系统调用是必须的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E5%8A%9F%E8%83%BD%E8%A6%81%E7%94%A8%E5%88%B0-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">什么功能要用到 系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">系统调用的过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-6"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84"><span class="nav-text">操作系统的体系架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%85%E6%A0%B8"><span class="nav-text">操作系统的内核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-7"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE"><span class="nav-text">知识回顾</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E7%BB%84%E6%88%90%E3%80%81%E7%89%B9%E5%BE%81"><span class="nav-text">进程的概念、组成、特征</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">进程的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">进程的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90-%EF%BC%9A-PCB"><span class="nav-text">进程的组成 ： PCB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90%EF%BC%9A%E7%A8%8B%E5%BA%8F%E6%AE%B5%E3%80%81%E6%95%B0%E6%8D%AE%E6%AE%B5"><span class="nav-text">进程的组成：程序段、数据段</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">进程的特征</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-8"><span class="nav-text">知识回顾与重要考点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87"><span class="nav-text">进程的组织</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%9A%E9%93%BE%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">进程的组织：链接方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%9A%E7%B4%A2%E5%BC%95%E6%96%B9%E5%BC%8F"><span class="nav-text">进程的组织：索引方式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%8E%E5%88%87%E6%8D%A2"><span class="nav-text">进程的状态与切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">进程的状态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%80%81%E3%80%81%E5%B0%B1%E7%BB%AA%E6%80%81"><span class="nav-text">创建态、就绪态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%80%81"><span class="nav-text">运行态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E6%80%81"><span class="nav-text">阻塞态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E6%80%81"><span class="nav-text">终止态</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-text">进程的切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">进程控制的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">什么是 进程控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">如何实现进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-%E5%8E%9F%E8%AF%AD%E7%9A%84-%E2%80%9C%E5%8E%9F%E5%AD%90%E6%80%A7%E2%80%9D"><span class="nav-text">如何实现 原语的 “原子性”</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%8E%9F%E8%AF%AD"><span class="nav-text">进程控制相关的原语</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-text">进程的终止</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%98%BB%E5%A1%9E%E4%B8%8E%E5%94%A4%E9%86%92"><span class="nav-text">进程的阻塞与唤醒</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2-1"><span class="nav-text">进程的切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-10"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">进程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">什么是进程通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8"><span class="nav-text">进程通信：共享存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E7%AE%A1%E9%81%93%E9%80%9A%E4%BF%A1"><span class="nav-text">进程通信：管道通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92"><span class="nav-text">进程通信：消息传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-11"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E3%80%81%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">线程、多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B"><span class="nav-text">什么是线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E7%BA%BF%E7%A8%8B%E5%90%8E%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-text">引入线程后的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-text">线程的属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-text">线程的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B"><span class="nav-text">用户级线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B"><span class="nav-text">内核级线程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">一对一模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">多对一模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A%E6%A8%A1%E5%9E%8B"><span class="nav-text">多对多模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-12"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6"><span class="nav-text">处理机调度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%B1%82%E6%AC%A1"><span class="nav-text">调度的概念、层次</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1"><span class="nav-text">调度的三个层次</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">高级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%8E%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">低级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%AD%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">中级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E5%B1%82%E8%B0%83%E5%BA%A6%E7%9A%84%E5%AF%B9%E6%AF%94%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="nav-text">三层调度的对比与联系</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-13"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA%E3%80%81%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B%E3%80%81%E8%B0%83%E5%BA%A6%E6%96%B9%E5%BC%8F"><span class="nav-text">进程调度的时机、切换与过程、调度方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-text">进程调度的时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-text">进程调度的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B-%E7%9A%84%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B"><span class="nav-text">进程 的切换与过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-14"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">调度算法的评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CPU-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-text">CPU 利用率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E9%87%8F"><span class="nav-text">系统吞吐量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="nav-text">周转时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="nav-text">等待时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="nav-text">响应时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-15"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%8A%EF%BC%89"><span class="nav-text">调度算法（上）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%EF%BC%88FCFS%EF%BC%89"><span class="nav-text">先来先服务（FCFS）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88%EF%BC%88-SJF%EF%BC%8CShortest-Job-First"><span class="nav-text">短作业优先（ SJF，Shortest Job First)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E5%93%8D%E5%BA%94%E6%AF%94%E4%BC%98%E5%85%88%EF%BC%88HRRN%EF%BC%8CHighest-Response-Ratio-Next%EF%BC%89"><span class="nav-text">高响应比优先（HRRN，Highest Response Ratio Next）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-16"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%8B%EF%BC%89"><span class="nav-text">调度算法（下）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%EF%BC%88RR%EF%BC%8CRound-Robin"><span class="nav-text">时间片轮转（RR，Round-Robin)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">优先级调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">多级反馈队列调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-17"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
