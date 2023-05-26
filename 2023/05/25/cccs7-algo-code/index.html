@@ -9,7 +9,7 @@
     
     <title>
         
-            ShardingSphere遇到的错误 |
+            cccs7&#39;s code |
         
         Cs7eric&#39;s BLOG
     </title>
@@ -308,7 +308,7 @@
     <div class="post-page-container">
         <div class="article-content-container">
             <div class="article-title">
-                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">ShardingSphere遇到的错误</h1></span>
+                <span class="title-hover-animation"><h1 style="font-size:2rem; font-weight: bold; margin: 10px 0;">cccs7&#39;s code</h1></span>
             </div>
 
             
@@ -327,8 +327,8 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="pc">2023-04-01 20:12:22</span>
-        <span class="mobile">2023-04-01 20:12</span>
+        <span class="pc">2023-05-25 23:03:22</span>
+        <span class="mobile">2023-05-25 23:03</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -336,23 +336,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/Java/">Java</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/SQL/">SQL</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/Java/Spring/">Spring</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/SQL/MySQL/">MySQL</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/Java/Spring/SpringBoot/">SpringBoot</a>&nbsp;
+                        <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
                     </li>
                 
             </ul>
@@ -364,19 +348,7 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Java/">Java</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/MySQL/">MySQL</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/SpringBoot/">SpringBoot</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/ShardingSphere/">ShardingSphere</a>&nbsp;
+                        <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>&nbsp;
                     </li>
                 
             </ul>
@@ -399,39 +371,18 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="ShardingSphere-实现-数据库读写分离"><a href="#ShardingSphere-实现-数据库读写分离" class="headerlink" title="ShardingSphere 实现 数据库读写分离"></a>ShardingSphere 实现 数据库读写分离</h1><p>记录一下 SpringBoot 整合 ShardingSphere 时所遇到的问题。</p>
-<p>在第一次尝试 使用 ShardingSphere 实现数据库读写分离时，引入以下依赖</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shardingsphere<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sharding-jdbc-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+                <h1 id="cccs7‘s-code"><a href="#cccs7‘s-code" class="headerlink" title="cccs7‘s code"></a>cccs7‘s code</h1><p><strong>位运算</strong></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(num &amp; (<span class="number">1</span> &lt;&lt; i))== <span class="number">0</span> ? <span class="string">&quot;0&quot;</span> : <span class="string">&quot;1&quot;</span></span><br></pre></td></tr></table></figure></div>
 
-<br>
-
-<p>配置 主从库</p>
-<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">shardingsphere:</span></span><br><span class="line">    <span class="attr">datasource:</span></span><br><span class="line">      <span class="attr">names:</span></span><br><span class="line">        <span class="string">master,slave</span></span><br><span class="line">      <span class="comment"># 主数据源</span></span><br><span class="line">    <span class="attr">master:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.21.135:3306/eatmore?characterEncoding=utf-8</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">xxxxxx</span></span><br><span class="line">      <span class="comment"># 从数据源</span></span><br><span class="line">    <span class="attr">slave:</span></span><br><span class="line">        <span class="attr">type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line">        <span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">        <span class="attr">url:</span> <span class="string">jdbc:mysql://192.168.21.136:3306/eatmore?characterEncoding=utf-8</span></span><br><span class="line">        <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line">        <span class="attr">password:</span> <span class="string">xxxxxx</span></span><br><span class="line">    <span class="attr">masterslave:</span></span><br><span class="line">      <span class="comment"># 读写分离配置</span></span><br><span class="line">      <span class="attr">load-balance-algorithm-type:</span> <span class="string">round_robin</span>  <span class="comment">#轮询策略，负载均衡</span></span><br><span class="line">      <span class="comment"># 最终的数据源名称</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">dataSource</span></span><br><span class="line">      <span class="comment"># 主库数据源名称</span></span><br><span class="line">      <span class="attr">master-data-source-name:</span> <span class="string">master</span></span><br><span class="line">      <span class="comment"># 从库数据源名称列表，多个逗号分隔</span></span><br><span class="line">      <span class="attr">slave-data-source-names:</span> <span class="string">slave</span></span><br><span class="line">    <span class="attr">props:</span></span><br><span class="line">      <span class="attr">sql:</span></span><br><span class="line">        <span class="attr">show:</span> <span class="literal">true</span> <span class="comment">#开启SQL显示，默认false</span></span><br></pre></td></tr></table></figure></div>
-
-<br>
-
-<p>但是 项目启动之后，报了 dataSource 的错误。</p>
-<p>之后我就根据 ShardingSphere 官网修改了 相关配置。重新改了 pom 文件和application，如下</p>
-<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.shardingsphere<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shardingsphere-jdbc-core-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.0.0-alpha<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
-
-<br>
-
-<div class="highlight-container" data-rel="Properties"><figure class="iseeu highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.main.allow-bean-definition-overriding</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">spring.shardingsphere.props.sql-show</span>=<span class="string">true</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.names</span>=<span class="string">&quot;write-ds,read-ds&quot;</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.common.type</span>=<span class="string">com.zaxxer.hikari.HikariDataSource</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.common.driver-class-name</span>=<span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.write-ds.jdbc-url</span>=<span class="string">jdbc:mysql://192.168.21.135/eatmore?serverTimezone=UTC&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.write-ds.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.write-ds.password</span>=<span class="string">C020611.</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.read-ds.jdbc-url</span>=<span class="string">jdbc:mysql://192.168.21.136/eatmore?serverTimezone=UTC&amp;useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF-8</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.read-ds.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">spring.shardingsphere.datasource.read-ds.password</span>=<span class="string">C020611.</span></span><br><span class="line"><span class="attr">spring.shardingsphere.rules.replica-query.data-sources.db0.primary-data-source-name</span>=<span class="string">write-ds</span></span><br><span class="line"><span class="attr">spring.shardingsphere.rules.replica-query.data-sources.db0.replica-data-source-names</span>=<span class="string">read-ds</span></span><br><span class="line"><span class="attr">spring.shardingsphere.rules.replica-query.load-balancers.db0.type</span>=<span class="string">ROUND_ROBIN</span></span><br><span class="line"><span class="attr">spring.shardingsphere.rules.replica-query.load-balancers.db0.props.test</span>=<span class="string">test</span></span><br></pre></td></tr></table></figure></div>
-
-<br>
-
-<blockquote>
-<p>在这里与之前不同的是，master 和  slave 的**<code>datasource </code> 的 <code>type</code>、<code>driver-class-name</code>** 是 写在了  <code>common</code> 属性下</p>
-</blockquote>
-<br>
-
-<p>但是 依旧报错，报错信息如下：</p>
-<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &#x27;addressBookController&#x27;: Unsatisfied dependency expressed through field &#x27;addressBookService&#x27;; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name &#x27;addressBookServiceImpl&#x27;: Unsatisfied dependency expressed through field &#x27;baseMapper&#x27;; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name &#x27;addressBookMapper&#x27; defined in file [D:\C\eatmore\target\classes\com\cs7eric\eatmore\mapper\AddressBookMapper.class]: Invocation of init method failed; nested exception is java.lang.IllegalArgumentException: Property &#x27;sqlSessionFactory&#x27; or &#x27;sqlSessionTemplate&#x27; are required</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:660) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:119) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1431) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:619) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955) ~[spring-beans-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:918) ~[spring-context-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583) ~[spring-context-5.3.24.jar:5.3.24]</span><br><span class="line">	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147) ~[spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1303) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1292) [spring-boot-2.7.7.jar:2.7.7]</span><br><span class="line">	at com.cs7eric.eatmore.EatmoreApplication.main(EatmoreApplication.java:20) [classes/:na]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_333]</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_333]</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_333]</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_333]</span><br><span class="line">	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.7.7.jar:2.7.7]</span><br></pre></td></tr></table></figure></div>
-
-<p>不满足 相关 Bean  的注入，</p>
-<br>
-
-<p>检查 AddressBookService 发现 该Service 的实现类 不小心写成 <code>AddressBookService</code> 了，但是之前项目能够启动成功，在引入 ShardingSphere 之后，启动就报错了，最深嵌套的 不满足的 依赖注入是 MyBatis 的 <code>sqlSessionFactory、sqlSessionTemplate</code> ，分析之后觉得可能是 两个数据源的问题，在修改 AddressBookServiceImpl 和 application.properties 之后，项目能够正常运行。 </p>
+<ul>
+<li><code>1 &lt;&lt; i</code> 将数字1 左移 i 位，得到的结果 ： **只有 第 i 位 为 1 的二进制数 **</li>
+<li><code>(num &amp; (1 &lt;&lt; i))</code>  将 num 和 上面的 二进制数 进行 <strong>与运算</strong>，得到的结果是一个只有 num 的 第 i 位 为 1 或者 0  的二进制数<ul>
+<li>与运算  是一种 位运算，通常 用 <code>&amp;</code>  表示。</li>
+<li>他的作用是 对两个二进制数的每一位进行 与操作，得到一个新的二进制数。具体来说，如果两个操作数的某一位都为1 ，则新的二进制数的该位 也为1，否则为0</li>
+</ul>
+</li>
+<li></li>
+</ul>
 
             </div>
 
@@ -439,11 +390,11 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li>Post title：ShardingSphere遇到的错误</li>
+        <li>Post title：cccs7&#39;s code</li>
         <li>Post author：Cs7eric</li>
-        <li>Create time：2023-04-01 20:12:22</li>
+        <li>Create time：2023-05-25 23:03:22</li>
         <li>
-            Post link：https://cs7eric.github.io/2023/04/01/ShardingSphere遇到的错误/
+            Post link：https://cs7eric.github.io/2023/05/25/cccs7-algo-code/
         </li>
         <li>
             Copyright Notice：All articles in this blog are licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> unless stating additionally.
@@ -458,19 +409,7 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/Java/">#Java</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/MySQL/">#MySQL</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/SpringBoot/">#SpringBoot</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/ShardingSphere/">#ShardingSphere</a>&nbsp;
+                            <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -479,29 +418,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/05/25/cccs7-algo-code/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">cccs7&#39;s code</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/04/01/SpringBoot-%E9%9B%86%E6%88%90-ShardingSphere-jdbc/"
+                            href="/2023/04/01/ShardingSphere%E9%81%87%E5%88%B0%E7%9A%84%E9%94%99%E8%AF%AF/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">SpringBoot 集成 ShardingSphere-jdbc</span>
+                                    <span class="post-nav-title-item">ShardingSphere遇到的错误</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -566,7 +490,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ShardingSphere-%E5%AE%9E%E7%8E%B0-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB"><span class="nav-text">ShardingSphere 实现 数据库读写分离</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cccs7%E2%80%98s-code"><span class="nav-text">cccs7‘s code</span></a></li></ol>
     </div>
 </div>
             </div>
