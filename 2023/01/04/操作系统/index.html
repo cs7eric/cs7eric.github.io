@@ -2448,80 +2448,868 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h3 id="进程同步、互斥"><a href="#进程同步、互斥" class="headerlink" title="进程同步、互斥"></a>进程同步、互斥</h3><hr>
+<p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527111843294.png"
+                      alt="image-20230527111843294" style="zoom:50%;" 
+                >
+
+<p>进程同步与互斥是操作系统中的两个重要概念，用于协调多个进程或线程之间的访问和操作，以避免出现竞争条件和数据不一致的问题。下面是对进程同步与互斥的简要介绍：</p>
+<p>进程同步：当多个进程或线程共享同一个资源时，为了避免出现争用和竞争条件，需要对它们的访问和操作进行协调和同步。进程同步的主要目的是确保多个进程或线程之间的操作按照一定的顺序和规则进行，从而保证系统的正确性和稳定性。</p>
+<p>进程互斥：进程互斥是指多个进程或线程对同一个资源的访问和操作是互斥的，即同一时刻只能有一个进程或线程访问和操作该资源。进程互斥的主要目的是防止多个进程或线程同时对同一个资源进行修改或访问，从而导致数据不一致和系统崩溃等问题。</p>
+<p>在实际应用中，进程同步和互斥可以通过多种方式来实现，例如：</p>
+<ol>
+<li><p>信号量：信号量是一种计数器，用于控制多个进程或线程对同一个资源的访问和操作。当一个进程或线程想要访问该资源时，需要先获取信号量，如果信号量的计数器为 0，则该进程或线程需要等待，直到其他进程或线程释放了该资源。当一个进程或线程完成对该资源的访问和操作后，需要释放信号量，使其计数器加 1。</p>
+</li>
+<li><p>互斥锁：互斥锁是一种特殊的信号量，用于实现进程互斥。当一个进程或线程想要访问该资源时，需要先获取互斥锁，如果互斥锁已被其他进程或线程占用，则该进程或线程需要等待，直到其他进程或线程释放了该锁。当一个进程或线程完成对该资源的访问和操作后，需要释放互斥锁，使其可以被其他进程或线程获取。</p>
+</li>
+<li><p>条件变量：条件变量是一种用于进程同步的机制，它允许一个进程或线程等待另一个进程或线程满足特定的条件。当一个进程或线程需要等待某个条件满足时，它可以调用条件变量的等待函数，同时释放对该资源的占用权，直到其他进程或线程满足该条件并通知它后再继续执行。</p>
+</li>
+</ol>
+<p>需要注意的是，进程同步和互斥的实现方式各有优缺点，应根据实际应用场景来选择合适的方式。同时，进程同步和互斥也是多线程编程中的重要概念，了解进程同步和互斥的原理和实现方式，有助于编写高效、稳定和可靠的多线程程序。</p>
+<h4 id="什么是进程同步、互斥"><a href="#什么是进程同步、互斥" class="headerlink" title="什么是进程同步、互斥"></a>什么是进程同步、互斥</h4><h5 id="什么是进程同步"><a href="#什么是进程同步" class="headerlink" title="什么是进程同步"></a>什么是进程同步</h5><p>进程具有 <strong>异步性</strong>  的特点。 异步性是指，各并发执行的进程以各自独立的、不可预知的 速度向前推进</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527112042118.png"
+                      alt="image-20230527112042118"
+                ></p>
+<p>读进程与写进程 并发地运行，由于并发 、必然导致异步性，因此 写数据 和 读数据 两个操作执行的先后顺序是不确定的。而 实际应用中，又必须按照 “写数据 -&gt;  读数据” 的顺序来执行。如何解决这种 异步性问题，就是 <strong>进程同步</strong> 所要讨论的问题</p>
+<p><strong>同步</strong>  也被称为 <strong>直接制约关系</strong>，它是指 为完成某种任务而建立的两个或多个进程，这些进程因为需要在某些位置上 <strong>协调</strong> 他们的 <strong>工作次序</strong>  而产生的 制约关系。进程间的直接制约关系就是源于他们之间的相互合作。</p>
+<h5 id="什么是进程互斥"><a href="#什么是进程互斥" class="headerlink" title="什么是进程互斥"></a>什么是进程互斥</h5><p>进程的 “并发” 需要 “共享” 的支持。各个并发执行的进程不可避免的需要共享一些系统资源。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527112521989.png"
+                      alt="image-20230527112521989" style="zoom: 33%;" 
+                >
+
+<p>我们把 <strong>一段时间段内只允许一个进程使用的</strong>  资源 称为 <strong>临界资源</strong>。许多的物理设备都属于临界资源，此外还有许多变量、数据、内存缓冲区都属于临界资源</p>
+<p>对于临界资源的访问，必须 <strong>互斥</strong>  的进行。<strong>互斥</strong>  ，也被称为 <strong>间接制约关系</strong> 。 <strong>进程互斥</strong>  指 当一个进程访问某 临界资源的时候，另一个想要访问该临界资源的进程必须等待。当前访问临界资源的进程必须等待。当前访问临界资源的进程访问结束，释放该资源之后，另一个进程才能去访问该资源</p>
+<p>对于临界资源的访问可以在 <strong>逻辑上</strong> 分为以下四个部分</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527113126614.png"
+                      alt="image-20230527113126614" style="zoom:33%;" 
+                >
+
+<p>注意：</p>
+<ul>
+<li><strong>临界区</strong>  是进程中 <strong>访问临界资源的</strong>  代码段</li>
+<li><strong>进入区</strong> 和 <strong>退出区</strong>  是 <strong>负责实现互斥</strong>  的代码段</li>
+<li>临界区也被称为 “临界段”</li>
+</ul>
+<p>为了实现对临界资源的 互斥访问，同时保证系统整体的性能，需要遵守以下原则：</p>
+<ol>
+<li>空闲让进。临界区空闲时，可以允许一个请求进入临界区的进程立即进入 临界区</li>
+<li>忙则等待。当已有进程进入临界区时，其他试图进入临界区的进程必须等待</li>
+<li>有限等待。对请求访问的进程，应保证能在有限的时间内进入临界区（保证不会饥饿）</li>
+<li>让权等待。当进程不能进入临界区时，应当立即释放处理机，防止进程忙等待。</li>
+</ol>
+<h5 id="知识回顾与重要考点-18"><a href="#知识回顾与重要考点-18" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527113609243.png"
+                      alt="image-20230527113609243" style="zoom: 33%;" 
+                >
+
+
+
+<h4 id="进程互斥的软件实现方法"><a href="#进程互斥的软件实现方法" class="headerlink" title="进程互斥的软件实现方法"></a>进程互斥的软件实现方法</h4><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527113930996.png"
+                      alt="image-20230527113930996" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="如果没有注意到进程互斥"><a href="#如果没有注意到进程互斥" class="headerlink" title="如果没有注意到进程互斥"></a>如果没有注意到进程互斥</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527114249459.png"
+                      alt="image-20230527114249459" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="单标志法"><a href="#单标志法" class="headerlink" title="单标志法"></a>单标志法</h5><p>算法思想： 两个进程 在 <strong>访问完临界区后</strong> 会把使用临界区的权限转交给另一个进程。也就是说 <strong>每个进程进入临界区的权限只能被另一个进程赋予</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527121440481.png"
+                      alt="image-20230527121440481"
+                ></p>
+<p>因此，该算法 <strong>可以实现 “同一时刻最多只允许一个进程访问临界区</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527121543854.png"
+                      alt="image-20230527121543854" style="zoom: 50%;" 
+                >
+
+
+
+<h5 id="双标志先检查法"><a href="#双标志先检查法" class="headerlink" title="双标志先检查法"></a>双标志先检查法</h5><p>算法思想 ：设置一个 布尔数组 <code>flag[]</code>，数组中各个元素用来  <strong>标记各进程想进入临界区的意愿</strong>，比如 <code>flag[0] = true</code> 意味着 进程 P0 现在想要进入临界区。每个进程在进入之前先检查当前有没有别的进程想进入临界区，如果没有，则把自身对应的 标志 <code>flag[i] </code> 设为 <code>true</code> ，之后开始访问临界区</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527121916768.png"
+                      alt="image-20230527121916768"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527121934181.png"
+                      alt="image-20230527121934181"
+                ></p>
+<h5 id="双标志后检查法"><a href="#双标志后检查法" class="headerlink" title="双标志后检查法"></a>双标志后检查法</h5><p>算法思想： 双标志先检查法的改进版。前一个算法的问题是 先 <strong>检查</strong> 后 <strong>上锁</strong>，但是这两个操作不是原子性的，因此导致了两个进程同时进入临界区的问题。因此 又想到了 先上锁，后 检查的 方法 来避免上述的问题</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527122140735.png"
+                      alt="image-20230527122140735"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527122225157.png"
+                      alt="image-20230527122225157"
+                ></p>
+<h5 id="Peterson-算法"><a href="#Peterson-算法" class="headerlink" title="Peterson 算法"></a>Peterson 算法</h5><p>算法思想：结合 双标志法、单标志法的思想。如果双方都争着想进入 临界区，那么可以尝试让进程 尝试 <strong>谦让</strong> 。做一个 <strong>有礼貌</strong> 的进程</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527122402362.png"
+                      alt="image-20230527122402362"
+                ></p>
+<p>Peterson 算法用软件方法解决了 进程互斥问题， <strong>遵循了 空闲让进、忙则等待、有限等待 三个原则</strong>，但是 依然  <strong>未遵循让权等待</strong>  的原则</p>
+<h5 id="知识回顾与重要考点-19"><a href="#知识回顾与重要考点-19" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527122546978.png"
+                      alt="image-20230527122546978"
+                ></p>
+<h4 id="进程互斥的硬件实现方法"><a href="#进程互斥的硬件实现方法" class="headerlink" title="进程互斥的硬件实现方法"></a>进程互斥的硬件实现方法</h4><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527122847975.png"
+                      alt="image-20230527122847975" style="zoom: 33%;" 
+                >
+
+
+
+<h5 id="中断屏蔽方法"><a href="#中断屏蔽方法" class="headerlink" title="中断屏蔽方法"></a>中断屏蔽方法</h5><p>利用 <strong>开、关中断指令</strong>   实现（与 原语的实现思想一致，即 <strong>在某进程开始访问临界区到结束访问临界区为止都不允许被中断，也就不能发生进程切换，因此也不可能发生两个同时访问临界区的情况</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527123043453.png"
+                      alt="image-20230527123043453" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="TestAndSet-指令"><a href="#TestAndSet-指令" class="headerlink" title="TestAndSet 指令"></a>TestAndSet 指令</h5><p>简称 TS 指令，也有地方 称为 TestAndSetLock 指令，或 TSL 指令</p>
+<p>TSL 指令 <strong>使用硬件实现的</strong>，执行过程中，不允许被中断，只能一气呵成。</p>
+<blockquote>
+<p>TSL 指令是 Test and Set Lock 的缩写，它是一种用于实现互斥锁的机制，可以在多线程或多进程环境下确保某个共享资源同时只能被一个线程或进程访问和操作。</p>
+<p>TSL 指令的作用是将一个指定的内存单元的值与 1 进行比较，如果该内存单元的值为 0，则将其设置为 1 并返回 0，表示获取锁成功；如果该内存单元的值为 1，则返回 1，表示获取锁失败。在多线程或多进程环境下，当一个线程或进程需要访问和操作共享资源时，它可以先执行 TSL 指令尝试获取锁，如果获取成功则可以访问和操作共享资源，否则需要等待其他线程或进程释放锁后再进行尝试。</p>
+<p>需要注意的是，TSL 指令的实现需要保证原子性，即在多线程或多进程环境下，任何时刻只能有一个线程或进程执行 TSL 指令，避免出现竞争条件和数据不一致的问题。因此，在实际应用中，TSL 指令通常会与其他机制结合使用，例如自旋锁、信号量等，从而实现更加高效和可靠的互斥锁机制。</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527123216117.png"
+                      alt="image-20230527123216117"
+                ></p>
+<h5 id="Swap-指令"><a href="#Swap-指令" class="headerlink" title="Swap 指令"></a>Swap 指令</h5><p>有的地方也叫作 Exchange 指令，或简称 XCHG 指令</p>
+<p>Swap 指令 <strong>使用 硬件实现的</strong>，执行的过程不允许被中断，只能一气呵成</p>
+<blockquote>
+<p>Swap 指令是一种用于实现原子性操作的机制，它可以在多线程或多进程环境下保证某个内存单元的操作是原子性的，避免出现竞争条件和数据不一致的问题。</p>
+<p>Swap 指令的作用是将一个指定的内存单元的值与另一个值进行交换，同时返回原始值。在多线程或多进程环境下，当一个线程或进程需要执行原子性操作时，可以先执行 Swap 指令将该内存单元的值与另一个值进行交换，从而实现原子性操作。例如，在实现互斥锁机制时，可以使用 Swap 指令将锁的状态从未锁定到已锁定进行原子性切换。</p>
+</blockquote>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527123359613.png"
+                      alt="image-20230527123359613"
+                ></p>
+<h5 id="知识回顾与重要考点-20"><a href="#知识回顾与重要考点-20" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527123556067.png"
+                      alt="image-20230527123556067"
+                ></p>
+<h4 id="信号量机制"><a href="#信号量机制" class="headerlink" title="信号量机制"></a>信号量机制</h4><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527123649298.png"
+                      alt="image-20230527123649298" style="zoom:33%;" 
+                >
+
+<p>用户进程可以通过使用操作系统 提供的<strong>一对原语</strong>  来对 <strong>信号量</strong>  进行操作，从而很方便的实现了进程互斥、进程同步</p>
+<p><strong>信号量</strong> 其实就是一个变量（可以是一个整数，也可以是更复杂的记录型变量），可以用一个信号量来 <strong>表示系统中的某种资源的数量</strong>，比如：系统中只有一个打印机，就可以设置一个初值为 1  的信号量</p>
+<p><strong>原语</strong> 是一种特殊的程序段，其 <strong>执行只能一气呵成，不可被中断</strong>。原语 是由 <strong>开关中断指令</strong> 实现的。软件解决方法的主要问题是由 “进入区的操作无法一气呵成”，因此如果能把进入区、退出区的操作都用 原语实现，使这些操作都能一气呵成，就能避免问题</p>
+<p><strong>一对原语</strong>：<code>wait(s)</code> 和 <code>signal(S)</code> ，可以把原语理解为我们自己写的函数，函数名分别为 wait 、signal，括号里的 <strong>信号量S</strong> 其实就是函数调用是传入的一个参数</p>
+<p><code>wait</code> 、<code>signal</code>  常 简称为 <strong>P、V 操作</strong>。因此 常写为 <strong>P(S)、V(S)</strong></p>
+<h5 id="整形信号量"><a href="#整形信号量" class="headerlink" title="整形信号量"></a>整形信号量</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527130407717.png"
+                      alt="image-20230527130407717" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="记录型信号量"><a href="#记录型信号量" class="headerlink" title="记录型信号量"></a>记录型信号量</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527130442042.png"
+                      alt="image-20230527130442042" style="zoom:33%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527130525528.png"
+                      alt="image-20230527130525528"
+                ></p>
+<h5 id="知识回顾与重要考点-21"><a href="#知识回顾与重要考点-21" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527130838049.png"
+                      alt="image-20230527130838049"
+                ></p>
+<h4 id="用信号量机制实现-进程互斥、同步、前驱"><a href="#用信号量机制实现-进程互斥、同步、前驱" class="headerlink" title="用信号量机制实现 进程互斥、同步、前驱"></a>用信号量机制实现 进程互斥、同步、前驱</h4><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527130944482.png"
+                      alt="image-20230527130944482" style="zoom:30%;" 
+                >
+
+
+
+<h5 id="信号量机制实现-进程互斥"><a href="#信号量机制实现-进程互斥" class="headerlink" title="信号量机制实现 进程互斥"></a>信号量机制实现 进程互斥</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527131036817.png"
+                      alt="image-20230527131036817" style="zoom: 33%;" 
+                >
+
+
+
+<h5 id="信号量机制实现进程同步"><a href="#信号量机制实现进程同步" class="headerlink" title="信号量机制实现进程同步"></a>信号量机制实现进程同步</h5><p>进程同步： 要让各进程按要求有序的 推进</p>
+<blockquote>
+<p>信号量是一种用于进程同步的机制，它可以用于控制多个进程或线程对共享资源的访问和操作，以避免出现竞争条件和数据不一致的问题。</p>
+<p>信号量机制通常由两个操作组成：<code>wait</code> 和 <code>signal</code>。<code>wait</code> 操作用于获取信号量，如果信号量的计数器大于 0，则将其减 1 并继续执行，否则将当前进程或线程挂起等待其他进程或线程释放信号量。<code>signal</code> 操作用于释放信号量，将其计数器加 1，并通知等待的进程或线程可以继续执行。</p>
+</blockquote>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527131410408.png"
+                      alt="image-20230527131410408" style="zoom:33%;" 
+                >
+
+<p>用信号量实现 进程同步</p>
+<ol>
+<li>分析什么地方需要实现 “同步关系”，即 必须保证 <strong>一前一后的</strong> 执行的两个操作</li>
+<li>设置 <strong>同步信号量</strong> S，初始 为 0</li>
+<li>在 前操作之后 执行  V(S)</li>
+<li>在 后 操作 之前执行 P(S)</li>
+</ol>
+<p><strong>前 V 后 P</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527131611796.png"
+                      alt="image-20230527131611796" style="zoom:33%;" 
+                >
+
+<blockquote>
+<p>理解 ： 信号量 S 代表 “某种资源” ，刚开始是没有这种资源的。P2 需要使用这种资源，而又只能由 P1产生这种资源</p>
+</blockquote>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527131817401.png"
+                      alt="image-20230527131817401" style="zoom: 33%;" 
+                >
+
+
+
+<h5 id="信号量机制实现-前驱关系"><a href="#信号量机制实现-前驱关系" class="headerlink" title="信号量机制实现 前驱关系"></a>信号量机制实现 前驱关系</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527131921463.png"
+                      alt="image-20230527131921463" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="知识回顾与重要考点-22"><a href="#知识回顾与重要考点-22" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527132001315.png"
+                      alt="image-20230527132001315"
+                ></p>
+<h4 id="生产者消费者问题"><a href="#生产者消费者问题" class="headerlink" title="生产者消费者问题"></a>生产者消费者问题</h4><blockquote>
+<p>好的，进程中的生产者消费者问题是一种经典的多线程同步和互斥问题，它的主要目的是协调生产者和消费者之间的生产和消费过程，避免出现竞争条件和数据不一致的问题。</p>
+<p>生产者消费者问题通常由两个线程组成：生产者和消费者。生产者的主要任务是生产产品并将其放入共享缓冲区中，而消费者的主要任务是从共享缓冲区中取出产品并进行消费。在多线程环境下，生产者和消费者对共享缓冲区的访问和操作需要进行同步和互斥，以避免出现竞争条件和数据不一致的问题。</p>
+<p>在实现生产者消费者问题时，可以使用多种同步和互斥机制，例如：</p>
+<ol>
+<li><p>信号量机制：可以使用两个信号量来控制生产者和消费者之间的同步。一个信号量表示生产者可以继续生产，另一个信号量表示消费者可以继续消费。当生产者生产一个新的产品时，需要通过信号量机制通知消费者可以消费；当消费者消费一个产品时，需要通过信号量机制通知生产者可以继续生产。同时，需要对共享缓冲区的访问和操作进行互斥，避免出现多个生产者或消费者同时访问和操作的情况。可以使用互斥锁或二元信号量来实现互斥。</p>
+</li>
+<li><p>条件变量机制：可以使用两个条件变量来控制生产者和消费者之间的同步。一个条件变量表示共享缓冲区不为空，另一个条件变量表示共享缓冲区不为满。当生产者生产一个新的产品时，需要通知消费者条件变量表示共享缓冲区不为空；当消费者消费一个产品时，需要通知生产者条件变量表示共享缓冲区不为满。同时，需要对共享缓冲区的访问和操作进行互斥，避免出现多个生产者或消费者同时访问和操作的情况。可以使用互斥锁来实现互斥。</p>
+</li>
+<li><p>信号机制：可以使用 POSIX 信号机制来实现生产者消费者问题。生产者和消费者分别注册一个信号处理函数，当生产者生产一个新的产品时，向消费者发送信号；当消费者消费一个产品时，向生产者发送信号。同时，需要对共享缓冲区的访问和操作进行互斥，避免出现多个生产者或消费者同时访问和操作的情况。可以使用互斥锁来实现互斥。</p>
+</li>
+</ol>
+<p>需要注意的是，在实现生产者消费者问题时，需要考虑多个生产者和消费者之间的同步和互斥，避免出现竞争条件和数据不一致的问题。同时，需要考虑性能和效率的问题，避免出现死锁和饥饿等问题。因此，在实际应用中，应根据具体的应用场景和需求选择合适的同步和互斥机制，并进行适当的优化和调优。另外，需要注意共享缓冲区的大小和缓冲区满或空的情况，避免出现死锁和饥饿等问题。</p>
+</blockquote>
+<h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527133932879.png"
+                      alt="image-20230527133932879" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527134003085.png"
+                      alt="image-20230527134003085" style="zoom:33%;" 
+                >
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527134033631.png"
+                      alt="image-20230527134033631"
+                ></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527134048641.png"
+                      alt="image-20230527134048641" style="zoom:33%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527134105776.png"
+                      alt="image-20230527134105776" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="知识回顾与重要考点-23"><a href="#知识回顾与重要考点-23" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527134140051.png"
+                      alt="image-20230527134140051" style="zoom:33%;" 
+                >
+
+
+
+
+
+<h4 id="多生产者-多消费者问题"><a href="#多生产者-多消费者问题" class="headerlink" title="多生产者-多消费者问题"></a>多生产者-多消费者问题</h4><p>多消费者多生产者问题是一种更加复杂的多线程同步和互斥问题，它的主要目的是协调多个生产者和多个消费者之间的生产和消费过程，避免出现竞争条件和数据不一致的问题。</p>
+<p>在多消费者多生产者问题中，存在多个生产者和多个消费者同时访问和操作共享缓冲区的情况，因此需要采用更加复杂的同步和互斥机制来保证其正确性和稳定性。</p>
+<p>在实现多消费者多生产者问题时，可以采用以下几种方法：</p>
+<ol>
+<li><p>基于信号量机制的实现：可以使用多个信号量来控制多个生产者和多个消费者之间的同步。需要为每个生产者和消费者分配一个信号量，表示其可以继续生产或消费。同时，需要使用互斥锁来对共享缓冲区进行互斥访问和操作，避免出现多个生产者或消费者同时访问和操作的情况。需要注意的是，多个生产者和多个消费者之间的同步需要采用更加复杂的信号量机制，例如使用多个二元信号量或多个计数信号量来实现。</p>
+</li>
+<li><p>基于条件变量机制的实现：可以使用多个条件变量来控制多个生产者和多个消费者之间的同步。需要为每个生产者和消费者分配一个条件变量，表示共享缓冲区不为空或不为满。同时，需要使用互斥锁来对共享缓冲区进行互斥访问和操作，避免出现多个生产者或消费者同时访问和操作的情况。需要注意的是，多个生产者和多个消费者之间的同步需要采用更加复杂的条件变量机制，例如使用多个条件变量来实现。</p>
+</li>
+<li><p>基于消息队列的实现：可以使用消息队列来实现多个生产者和多个消费者之间的通信和同步。每个生产者将生产的产品放入消息队列中，每个消费者从消息队列中取出产品进行消费。消息队列可以使用 POSIX 消息队列或 System V 消息队列等机制，这些机制可以保证消息的有序和可靠传输。需要注意的是，在使用消息队列时，需要考虑消息队列的大小和缓冲区满或空的情况，避免出现死锁和饥饿等问题。</p>
+</li>
+</ol>
+<p>需要注意的是，多消费者多生产者问题的实现需要考虑多个生产者和消费者之间的同步和互斥，避免出现竞争条件和数据不一致的问题。同时，需要考虑性能和效率的问题，避免出现死锁和饥饿等问题。因此，在实际应用中，应根据具体的应用场景和需求选择合适的同步和互斥机制，并进行适当的优化和调优。</p>
+<h5 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527134338823.png"
+                      alt="image-20230527134338823" style="zoom:33%;" 
+                >
+
+<h5 id="问题分析-1"><a href="#问题分析-1" class="headerlink" title="问题分析"></a>问题分析</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527134657152.png"
+                      alt="image-20230527134657152" style="zoom:33%;" 
+                >
+
+
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527134715600.png"
+                      alt="image-20230527134715600" style="zoom: 33%;" 
+                >
+
+<blockquote>
+<p>即使 不设置专门的 <code>mutex</code>  ，也不会出现多个进程同时访问盘子的现象</p>
+<p>原因在于：本题中的缓存为 1 ，在任何时刻，apple、orange、plate 三个同步信号量中最多只有一个是1,。因此任何时刻，最多只有一个进程的 P 操作不会被阻塞，并且顺利的进入 临界区</p>
+</blockquote>
+<p>如果 盘子（缓冲区容量 ）为2 </p>
+<p>父母都可以同时往盘子里放东西。于是就出现了 两个进程同时访问缓冲区的情况，有可能导致两个进程写入缓冲区的数据相互覆盖的情况。 <strong>如果缓冲区大于1，就必须专门设置一个 互斥信号量<code>mutex</code> 来保证互斥访问缓冲区</strong></p>
+<h5 id="知识回顾与重要考点-24"><a href="#知识回顾与重要考点-24" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135232207.png"
+                      alt="image-20230527135232207" style="zoom:33%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135247042.png"
+                      alt="image-20230527135247042" style="zoom:33%;" 
+                >
+
+
+
+<h4 id="吸烟者问题"><a href="#吸烟者问题" class="headerlink" title="吸烟者问题"></a>吸烟者问题</h4><p>吸烟者问题是一种经典的多线程同步和互斥问题，它的主要目的是协调三个线程之间的行为，以避免出现竞争条件和数据不一致的问题。这三个线程分别代表三个吸烟者和一个服务员，服务员随时准备提供两种材料中的一种，这些材料是吸烟者需要的。吸烟者需要拥有三个不同的材料才能吸烟，因此他们需要协调以获得所需的材料。</p>
+<p>在实现吸烟者问题时，可以使用多种同步和互斥机制，例如：</p>
+<ol>
+<li><p>信号量机制：可以使用三个二元信号量来控制三个吸烟者之间的同步。每个吸烟者分别拥有两个二元信号量，一个表示其拥有的一个材料，另一个表示其拥有的另一个材料。服务员拥有一个二元信号量，表示服务员可以提供一种材料。当服务员提供一种材料时，需要通知拥有另一种材料的吸烟者可以开始吸烟。同时，需要对共享缓冲区的访问和操作进行互斥，避免出现多个吸烟者同时访问和操作的情况。可以使用互斥锁或二元信号量来实现互斥。</p>
+</li>
+<li><p>条件变量机制：可以使用三个条件变量来控制三个吸烟者之间的同步。每个吸烟者分别需要拥有两个条件变量，一个表示其拥有的一个材料，另一个表示其拥有的另一个材料。服务员需要拥有一个条件变量，表示服务员可以提供一种材料。当服务员提供一种材料时，需要通知拥有另一种材料的吸烟者可以开始吸烟。同时，需要对共享缓冲区的访问和操作进行互斥，避免出现多个吸烟者同时访问和操作的情况。可以使用互斥锁来实现互斥。</p>
+</li>
+<li><p>信号机制：可以使用 POSIX 信号机制来实现吸烟者问题。每个吸烟者和服务员分别注册一个信号处理函数，当服务员提供一种材料时，向拥有另一种材料的吸烟者发送信号。同时，需要对共享缓冲区的访问和操作进行互斥，避免出现多个吸烟者同时访问和操作的情况。可以使用互斥锁来实现互斥。</p>
+</li>
+</ol>
+<p>需要注意的是，在实现吸烟者问题时，需要考虑多个线程之间的同步和互斥，避免出现竞争条件和数据不一致的问题。同时，需要考虑性能和效率的问题，避免出现死锁和饥饿等问题。因此，在实际应用中，应根据具体的应用场景和需求选择合适的同步和互斥机制，并进行适当的优化和调优。另外，需要注意共享缓冲区的大小和缓冲区满或空的情况，避免出现死锁和饥饿等问题。在吸烟者问题中，需要考虑如何避免出现死锁和饥饿的情况，例如使用随机算法或轮询算法来选择下一个吸烟者或服务员，避免出现某个吸烟者或服务员一直被忽略的情况。</p>
+<h5 id="问题描述-2"><a href="#问题描述-2" class="headerlink" title="问题描述"></a>问题描述</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135448119.png"
+                      alt="image-20230527135448119" style="zoom:33%;" 
+                >
+
+
+
+
+
+<h5 id="问题分析-2"><a href="#问题分析-2" class="headerlink" title="问题分析"></a>问题分析</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135512968.png"
+                      alt="image-20230527135512968" style="zoom:33%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135546969.png"
+                      alt="image-20230527135546969" style="zoom: 33%;" 
+                >
+
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135606051.png"
+                      alt="image-20230527135606051" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="知识回顾与重要考点-25"><a href="#知识回顾与重要考点-25" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135656731.png"
+                      alt="image-20230527135656731" style="zoom:33%;" 
+                >
+
+
+
+<h4 id="读者-写者问题"><a href="#读者-写者问题" class="headerlink" title="读者-写者问题"></a>读者-写者问题</h4><p>读者-写者问题是一种经典的多线程同步和互斥问题，它的主要目的是协调多个读者和多个写者之间的访问和操作，避免出现竞争条件和数据不一致的问题。</p>
+<p>在读者-写者问题中，存在多个读者和多个写者同时访问和操作共享资源的情况，因此需要采用更加复杂的同步和互斥机制来保证其正确性和稳定性。</p>
+<p>在实现读者-写者问题时，可以使用以下几种方法：</p>
+<ol>
+<li><p>基于信号量机制的实现：可以使用两个信号量来控制多个读者和多个写者之间的同步。一个信号量表示写者可以开始写入，另一个信号量表示读者可以开始读取。当写者开始写入时，需要对共享资源进行互斥访问和操作，避免出现多个写者同时写入的情况。当读者开始读取时，需要对共享资源进行共享访问，避免出现写者正在写入的情况下读者读取到不一致的数据。需要注意的是，需要使用计数信号量或互斥信号量来实现多个读者和多个写者之间的同步。</p>
+</li>
+<li><p>基于条件变量机制的实现：可以使用多个条件变量来控制多个读者和多个写者之间的同步。一个条件变量表示写者可以开始写入，另一个条件变量表示读者可以开始读取。当写者开始写入时，需要对共享资源进行互斥访问和操作，避免出现多个写者同时写入的情况。当读者开始读取时，需要对共享资源进行共享访问，避免出现写者正在写入的情况下读者读取到不一致的数据。需要使用互斥锁来实现对共享资源的互斥访问和操作。</p>
+</li>
+<li><p>基于读写锁机制的实现：可以使用读写锁来实现多个读者和多个写者之间的同步。读写锁可以允许多个读者同时读取共享资源，但只允许一个写者写入共享资源。当写者开始写入时，需要对共享资源进行互斥访问和操作，避免出现多个写者同时写入的情况。当读者开始读取时，可以使用读写锁来实现对共享资源的共享访问。需要注意的是，读写锁机制需要考虑读者和写者之间的优先级问题，避免出现写者一直等待的情况。</p>
+</li>
+</ol>
+<p>需要注意的是，在实现读者-写者问题时，需要考虑多个读者和写者之间的同步和互斥，避免出现竞争条件和数据不一致的问题。同时，需要考虑性能和效率的问题，避免出现死锁和饥饿等问题。因此，在实际应用中，应根据具体的应用场景和需求选择合适的同步和互斥机制，并进行适当的优化和调优。另外，需要注意共享资源的大小和访问模式的问题，避免出现死锁和饥饿等问题。在读者-写者问题中，需要考虑如何平衡读者和写者之间的优先级和权重，以避免出现某个线程一直等待的情况。可以通过使用优先级队列或轮询算法来选择下一个读者或写者线程，避免出现某个线程被长时间忽略的情况。</p>
+<h5 id="问题描述-3"><a href="#问题描述-3" class="headerlink" title="问题描述"></a>问题描述</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135805534.png"
+                      alt="image-20230527135805534" style="zoom:33%;" 
+                >
+
+<h5 id="问题分析-3"><a href="#问题分析-3" class="headerlink" title="问题分析"></a>问题分析</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135907297.png"
+                      alt="image-20230527135907297" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527135939771.png"
+                      alt="image-20230527135939771" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="知识回顾与重要考点-26"><a href="#知识回顾与重要考点-26" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527140032829.png"
+                      alt="image-20230527140032829" style="zoom:33%;" 
+                >
+
+
+
+<h4 id="哲学家进餐问题"><a href="#哲学家进餐问题" class="headerlink" title="哲学家进餐问题"></a>哲学家进餐问题</h4><p>好的，哲学家进餐问题是一种经典的多线程同步和互斥问题，它的主要目的是协调五个哲学家之间的行为，以避免出现竞争条件和死锁的问题。</p>
+<p>在哲学家进餐问题中，有五个哲学家坐在圆桌旁，每个哲学家需要思考和进餐。圆桌上有五个餐叉，每个哲学家需要两个餐叉才能进餐。因此，需要协调哲学家之间的行为，避免出现死锁的情况。</p>
+<p>在实现哲学家进餐问题时，可以使用以下几种方法：</p>
+<ol>
+<li><p>基于信号量机制的实现：可以使用五个二元信号量来控制五个哲学家之间的同步。每个哲学家需要先拥有左边的餐叉，再拥有右边的餐叉，才能开始进餐。当一个哲学家拥有左边的餐叉时，需要等待右边的餐叉可用。当一个哲学家进餐完成后，需要释放左边和右边的餐叉，以便其他哲学家可以使用。需要注意的是，需要使用互斥信号量来实现对共享资源的互斥访问和操作，避免出现多个哲学家同时竞争同一个餐叉的情况。</p>
+</li>
+<li><p>基于条件变量机制的实现：可以使用五个条件变量来控制五个哲学家之间的同步。每个哲学家需要先拥有左边的餐叉，再拥有右边的餐叉，才能开始进餐。当一个哲学家拥有左边的餐叉时，需要等待右边的餐叉可用。当一个哲学家进餐完成后，需要释放左边和右边的餐叉，以便其他哲学家可以使用。需要使用互斥锁来实现对共享资源的互斥访问和操作，以及条件变量来实现哲学家之间的同步和等待。</p>
+</li>
+<li><p>基于管程机制的实现：可以使用管程来实现哲学家进餐问题。管程中包含五个条件变量和一个互斥锁，每个哲学家需要调用管程中的方法来获取和释放左右两个餐叉。当一个哲学家无法获取到所需的餐叉时，需要进入等待队列中等待其他哲学家释放餐叉。需要注意的是，管程的实现需要考虑各个哲学家之间的优先级和公平性问题，避免出现某个哲学家一直等待的情况。</p>
+</li>
+</ol>
+<p>需要注意的是，在实现哲学家进餐问题时，需要考虑多个哲学家之间的同步和互斥，避免出现竞争条件和死锁的问题。同时，需要考虑性能和效率的问题，避免出现饥饿和优先级不公平的情况。因此，在实际应用中，应根据具体的应用场景和需求选择合适的同步和互斥机制，并进行适当的优化和调优。需要注意的是，哲学家进餐问题是一个经典的同步和互斥问题，可以帮助我们理解多线程编程中的重要概念和技术，如互斥锁、条件变量、信号量、管程等。</p>
+<h5 id="问题描述-4"><a href="#问题描述-4" class="headerlink" title="问题描述"></a>问题描述</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527142107680.png"
+                      alt="image-20230527142107680" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="问题分析-4"><a href="#问题分析-4" class="headerlink" title="问题分析"></a>问题分析</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527142146043.png"
+                      alt="image-20230527142146043" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h5><p>如何防止 死锁的发生呢</p>
+<ol>
+<li>可以对哲学家进程施加一些限制条件，比如最多允许 4 个哲学家同时用餐</li>
+<li>要求奇数号 哲学家先拿左边的筷子，然后再拿右边的。用这种方法可以保证 如果相邻的两个哲学家都想吃饭，那么只有一个可以拿起第一只筷子，另一个会直接阻塞。这就避免了 占有一只后，再等待另一只的情况</li>
+<li>仅当一个哲学家左右两个筷子都可用时才允许他拿筷子</li>
+</ol>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527142715666.png"
+                      alt="image-20230527142715666" style="zoom:33%;" 
+                >
+
+<blockquote>
+<p>更准确的说法应该是：各哲学家拿筷子这件事必须互斥的执行。这就保证了即使一个哲学家在拿筷子拿到一半时被阻塞，也不会有别的哲学家会继续尝试拿筷子。这样的话，当前正在吃饭的哲学家放下筷子后，被阻塞的哲学家就可以获得等待的筷子了。</p>
+</blockquote>
+<h5 id="知识回顾与重要考点-27"><a href="#知识回顾与重要考点-27" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527142801176.png"
+                      alt="image-20230527142801176"
+                ></p>
+<h4 id="管程"><a href="#管程" class="headerlink" title="管程"></a>管程</h4><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527142932291.png"
+                      alt="image-20230527142932291" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="为什么引入管程"><a href="#为什么引入管程" class="headerlink" title="为什么引入管程"></a>为什么引入管程</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527142959069.png"
+                      alt="image-20230527142959069" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="管程的定义和基本特征"><a href="#管程的定义和基本特征" class="headerlink" title="管程的定义和基本特征"></a>管程的定义和基本特征</h5><p>管程是一种 特殊的软件模块，有这些部分组成</p>
+<ol>
+<li>局部于 管程的 <strong>共享数据结构</strong> 说明 </li>
+<li>对该数据结构 进行操作的  <strong>一组过程</strong></li>
+<li>对局部与管程的 共享数据设置初始值的语句</li>
+<li>管程有一个名字</li>
+</ol>
+<blockquote>
+<p>可以理解为 封装</p>
+<p>Java 之中的 类成员，构造器，方法</p>
+</blockquote>
+<p>管程的基本特征</p>
+<ol>
+<li>局部于管程的 数据只能被 局部于管程的过程访问</li>
+<li>一个进程只有通过调用管城内的过程才能进入管程访问共享数据</li>
+<li><strong>每次仅允许一个进程在管程内执行某个过程</strong></li>
+</ol>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527143356655.png"
+                      alt="image-20230527143356655" style="zoom:33%;" 
+                >
+
+<p>引入管程的目的 无非就是 更方便的实现进程同步与互斥</p>
+<ol>
+<li>需要在管程中定义 共享数据（如生产者消费者问题中的 缓冲区）</li>
+<li>需要在管程中定义用于访问 这些共享数据的入口 —— 其实就是一些函数</li>
+<li>只有 <strong>通过这些特定的 入口 才能访问这些共享数据</strong></li>
+<li>管程中 有多个 入口，但是 <strong>每次只能开放其中一个入口，</strong> 并且 <strong>只能让一个进程或者 线程进入</strong>。 注意 ： <strong>这种 互斥特性是由编译器负责实现的，程序员不用担心</strong></li>
+<li>可在 管程中设置  <strong>条件变量</strong> 及 <strong>等待&#x2F;唤醒操作</strong> 以解决同步问题。可以让一个线程或者进程在条件变量上等待（<strong>此时，该进程应先释放管程的使用权，也就是 让出 出口</strong>。可以通过 唤醒操作将等待在条件变量上的进程或者线程 唤醒</li>
+</ol>
+<h5 id="知识回顾与重要考点-28"><a href="#知识回顾与重要考点-28" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527144002726.png"
+                      alt="image-20230527144002726" style="zoom: 50%;" 
+                >
+
+
+
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><hr>
+<p>死锁是指在多个进程或线程中，每个进程或线程持有一些资源，并且等待其他进程或线程释放它所需要的资源，导致所有进程或线程都无法继续执行的一种状态。在死锁状态下，进程或线程之间的相互等待会形成一个闭环，无法通过简单的资源回收来解决。</p>
+<p>死锁通常发生在多个进程或线程之间共享有限的资源时，例如共享内存、文件、设备等。当多个进程或线程同时请求这些资源时，如果它们的请求顺序不当或者资源分配不当，就可能导致死锁的发生。</p>
+<p>死锁的主要特征是进程或线程之间的相互等待，这种等待是永久性的，直到外部干预才能解除。在死锁状态下，系统会出现停滞的情况，无法继续执行。为了避免死锁的发生，需要采取一些措施，如避免循环等待、加锁顺序、超时机制、死锁检测等。此外，死锁的解决还需要考虑到锁粒度、资源分配和竞争等问题，需要在程序设计和实现时进行合理的规划和调整。</p>
+<p>总之，死锁是一种常见的多线程编程问题，需要在程序设计和实现时充分考虑到各种可能发生的情况和异常，并采用合适的同步和互斥机制，以确保程序的正确性和稳定性。同时，需要进行充分的测试和调试，及时发现和解决各种问题和异常，以确保程序能够正确、稳定地运行。</p>
+<h4 id="死锁的概念"><a href="#死锁的概念" class="headerlink" title="死锁的概念"></a>死锁的概念</h4><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527145220390.png"
+                      alt="image-20230527145220390" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="什么是死锁"><a href="#什么是死锁" class="headerlink" title="什么是死锁"></a>什么是死锁</h5><p>死锁是指在多个进程或线程中，每个进程或线程持有一些资源，并且等待其他进程或线程释放它所需要的资源，导致所有进程或线程都无法继续执行的一种状态</p>
+<p>在 并发环境下，各进程因 竞争资源而造成的一种 <u>互相等待对方手里的资源，导致各进程都阻塞，都无法向前推进</u>  的现象，就是  死锁</p>
+<h5 id="死锁、饥饿、死循环的区别"><a href="#死锁、饥饿、死循环的区别" class="headerlink" title="死锁、饥饿、死循环的区别"></a>死锁、饥饿、死循环的区别</h5><p>死锁：各进程互相等待对方手里的资源，导致各进程都阻塞，无法向前推进的现象。</p>
+<p>饥饿：由于长期得不到想要的资源，某进程无法向前推进的现象。比如：在短进程优先（SPF)算法中，若有源源不断的短进程到来，则长进程将一直得不到处理机，从而发生长进程“饥饿”。</p>
+<p>死循环：某进程执行过程中一直跳不出某个循环的现象。有时是因为程序逻辑bug导致的，有时是程序员故意设计的。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527145518789.png"
+                      alt="image-20230527145518789" style="zoom: 33%;" 
+                >
+
+
+
+<h5 id="死锁的产生条件"><a href="#死锁的产生条件" class="headerlink" title="死锁的产生条件"></a>死锁的产生条件</h5><p>产生死锁<strong>必须</strong>  满足一下四个条件，只要其中一个条件不满足，死锁就不会发生</p>
+<p><strong>互斥条件</strong>： 只有对 必须互斥访问使用的资源的争抢 才会导致死锁</p>
+<p><strong>不剥夺条件：</strong> 进程所获得的资源在未使用完之前， <strong>不能由其他进程强行夺走</strong>，只能主动释放</p>
+<p><strong>请求和保持条件：</strong>进程 <strong>已经保持了至少一个资源</strong>，但又提出了新的资源<strong>请求</strong>，而该资源被其他进程所占有，此时请求进程被阻塞，但又对自己已有的资源 <strong>保持</strong>  不放</p>
+<p><strong>循环等待条件：</strong>存在一种进程 <strong>资源的循环等待链</strong>，链中的每一个进程已获得的资源同时被下一个进程所请求</p>
+<blockquote>
+<p>注意 ：发生死锁时 一定有 <strong>循环等待</strong>，但是发生循环等待时 ，<strong>未必</strong> 死锁</p>
+<p>如果同类资源数大于1，则即使有循环等待，也未必发生死锁。但如果系统中每类资源都只有一个，那循环等待就是死锁的 充分必要条件 了</p>
+</blockquote>
+<h5 id="什么时候会发生死锁"><a href="#什么时候会发生死锁" class="headerlink" title="什么时候会发生死锁"></a>什么时候会发生死锁</h5><ol>
+<li>对系统资源的竞争。各进程对不可剥夺的资源（如打印机）的竞争可能引起死锁，对可剥夺的资源（CPU)的竞争是不会引起死锁的。</li>
+<li>进程推进顺序非法。请求和释放资源的顺序不当，也同样会导致死锁。例如，并发执行的进程P1P2分别申请并占有了资源R1、R2,之后进程P1又紧接着申请资源R2,而进程P2又申请资源R1,两者会因为申请的资源被对方占有而阻塞，从而发生死锁。</li>
+<li>信号量的使用不当也会造成死锁。如生产者消费者问题中，如果实现互斥的P操作在实现同步的P操作之前，就有可能导致死锁。（可以把互斥信号量、同步信号量也看做是一种抽象的系统资源）</li>
+</ol>
+<p><strong>总之，对不可剥夺资源的不合理分配，可能导致死锁</strong></p>
+<h5 id="死锁的处理策略"><a href="#死锁的处理策略" class="headerlink" title="死锁的处理策略"></a>死锁的处理策略</h5><ol>
+<li>预防死锁。破坏死锁产生的 四个必要条件中的一个或几个</li>
+<li>避免死锁。用某种方法防止系统进入不安全状态，从而避免死锁（银行家算法）</li>
+<li>死锁的检测与解除。允许死锁的发生，不过操作系统会负责检测出 死锁的 发生，然后采取某种措施解除死锁</li>
+</ol>
+<h5 id="知识回顾与重要考点-29"><a href="#知识回顾与重要考点-29" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h5><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527150559364.png"
+                      alt="image-20230527150559364" style="zoom:33%;" 
+                >
+
+
+
+<h4 id="死锁的处理策略-1"><a href="#死锁的处理策略-1" class="headerlink" title="死锁的处理策略"></a>死锁的处理策略</h4><h5 id="预防死锁"><a href="#预防死锁" class="headerlink" title="预防死锁"></a>预防死锁</h5><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527150812033.png"
+                      alt="image-20230527150812033" style="zoom:33%;" 
+                >
+
+<p>死锁的产生 必须满足四个必要条件，只要其中一个或者几个不满足，死锁就不会发生</p>
+<h6 id="破坏互斥条件"><a href="#破坏互斥条件" class="headerlink" title="破坏互斥条件"></a>破坏互斥条件</h6><p><strong>互斥条件</strong>： 只有对必须互斥使用 的资源的争抢 才会导致死锁</p>
+<p>如果把 只能互斥使用的资源改造为 允许共享访问，则系统就不会进入死锁状态</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527151150679.png"
+                      alt="image-20230527151150679" style="zoom: 33%;" 
+                >
+
+<p>该策略的 <strong>缺点 ：</strong> 并不是锁头的资源都可以改造成 可共享使用的 资源。并且为了系统安全，很多地方必须保护这种互斥性。因此，<strong>很多时候都无法破坏互斥条件</strong></p>
+<h6 id="破坏不剥夺条件"><a href="#破坏不剥夺条件" class="headerlink" title="破坏不剥夺条件"></a>破坏不剥夺条件</h6><p><strong>不剥夺条件：</strong> 进程所获得 的资源在未使用完成之前，不能由其他的进程强行夺走，只能主动释放</p>
+<p>破坏不剥夺条件：</p>
+<ol>
+<li>当某个进程请求新的资源得不到满足时，它必须立即释放保持的所有资源，待以后需要时再重新申请。也就是说，即使某些资源尚未使用完成，也需要主动释放，从而破坏了 不剥夺条件</li>
+<li>当某个进程需要的资源被其他的进程所占用时，可以由操作系统协助，将想要的资源强行剥夺。这种方式一般需要考虑各进程的优先级</li>
+</ol>
+<p>该策略的 <strong>缺点</strong>：</p>
+<ol>
+<li>实现起来比较复杂</li>
+<li>释放已经得到的资源 可能造成之前的工作失效。因此这种方法只适合 易保存和恢复状态的 资源</li>
+<li>反复的申请和释放资源会增加系统的开销，降低系统的吞吐量</li>
+<li>若 采用 1，意味着 只要暂时得不到某个资源，之前获得的那些资源就需要放弃，以后再重新申请。如果一直发生这样的情况，就会导致进程的饥饿</li>
+</ol>
+<h6 id="破坏请求和保持条件"><a href="#破坏请求和保持条件" class="headerlink" title="破坏请求和保持条件"></a>破坏请求和保持条件</h6><p><strong>请求和保持条件：</strong> 进程  <strong>已经保持了至少一个资源</strong>，但又提出了  新的<strong>资源</strong>，而该资源又被其他的进程所占有，此时请求进程被阻塞，但又对自己已有的资源 <strong>保持</strong> 不放</p>
+<p>可以采用 <strong>静态分配方法</strong>，即 进程在运行前  一次申请完它所需要的全部资源，在他的资源未满足前，不让他投入使用。一旦投入运行后，这些资源就一直归他所有，该进程就不会再请求别的资源了</p>
+<p>该策略实现起来简单，但也有明显的 <strong>缺点</strong>：</p>
+<p>有些资源可能就需要使用很短的时间，因此如果进程的整个运行期间 都一直保持着所有的资源，就会造成严重的资源浪费， <strong>资源利用率极低</strong>。另外，该策略也有 <strong>可能导致某些进程饥饿</strong></p>
+<h6 id="破坏循环等待条件"><a href="#破坏循环等待条件" class="headerlink" title="破坏循环等待条件"></a>破坏循环等待条件</h6><p><strong>循环等待条件：</strong> 存在一种进程 <strong>资源的循环等待链</strong>，链中的每一个进程已获得的资源同时被下一个进程所请求</p>
+<p>可采用 <strong>顺序资源分配法</strong>。首先给 系统中的资源编号，规定每个进程 <strong>必须按照编号递增的顺序请求资源</strong>，同类资源（即编号相同的资源）一次申请完</p>
+<p>原理分析： 一个进程只有已经 占有小编号的资源时，才有资格其申请更大 编号的资源。按此规则，已持有大编号资源的进程不能 逆向地 回来申请小编号的资源，从而就不会产生循环等待的现象</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527154509748.png"
+                      alt="image-20230527154509748" style="zoom: 33%;" 
+                >
+
+<p>该策略的 <strong>缺点</strong>：</p>
+<ol>
+<li>不方便增加新的设备，因为可能需要重新分配所有的编号</li>
+<li>进程实际使用资源的顺序可能 递增的顺序不一致，会导致资源的浪费</li>
+<li>必须按照规定次序 申请资源，用户编程麻烦</li>
+</ol>
+<h6 id="知识回顾与重要考点-30"><a href="#知识回顾与重要考点-30" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h6><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527154651632.png"
+                      alt="image-20230527154651632" style="zoom:33%;" 
+                >
+
+
+
+<h5 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h5><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527154743340.png"
+                      alt="image-20230527154743340" style="zoom:33%;" 
+                >
+
+
+
+<h6 id="什么是-安全序列"><a href="#什么是-安全序列" class="headerlink" title="什么是 安全序列"></a>什么是 安全序列</h6><p>安全序列是指在进程请求资源之前，先计算出一种安全序列的算法，以保证进程能够顺利地获得其所需要的资源而不会发生死锁。</p>
+<p>安全序列算法的基本思路是通过模拟进程请求资源的过程，判断系统是否处于一种安全的状态。如果存在一种安全序列，即所有进程都能够获得其所需的全部资源而不会发生死锁，则该系统是安全的。否则，如果不存在安全序列，即至少有一个进程无法获得其所需的所有资源，那么该系统是不安全的。</p>
+<p>安全序列算法通常分为银行家算法和安全状态检测算法两种。其中，银行家算法是一种比较经典的安全序列算法，它通过对进程请求资源的预测和分析，判断系统是否处于安全状态。安全状态检测算法则是通过遍历系统所能达到的所有状态，判断是否存在一种安全状态序列。</p>
+<p>在实际应用中，安全序列算法可以用于操作系统中的进程调度和资源分配中，以保证系统的稳定性和安全性。例如，在进程调度中，操作系统可以通过安全序列算法来判断当前系统是否可以上线新的进程，以避免因资源竞争而导致的死锁。在资源分配中，操作系统可以通过安全序列算法来判断当前进程是否能够获得其所需的全部资源，以避免资源竞争和浪费。</p>
+<p>需要注意的是，安全序列算法只能判断系统是否处于一种安全状态，但并不能保证在系统运行的过程中，不会出现资源竞争等问题。因此，在实际应用中，还需要结合其他技术和策略，来保证系统的稳定性和安全性。</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527154900575.png"
+                      alt="image-20230527154900575" style="zoom:50%;" 
+                >
+
+<p>所谓的<strong>安全序列</strong>，就是指 如果系统按照这种序列分配资源，则每个进程都能顺利完成。只要能找到一个安全序列，系统就是 <strong>安全状态</strong>。 当然， <strong>安全序列可能有多个</strong></p>
+<p>如果分配了资源之后，系统找不到任何一个安全序列，系统就进入了 <strong>不安全状态</strong>。这就意味着之后 <strong>可能</strong> 所有的进程都无法顺利地执行下去。当然如果有进程提前归还了一些资源，那 <strong>系统也有</strong>可能重新回到安全状态，不过我们在分配资源之前总是要考虑到最坏的情况</p>
+<p>如果系统处于<strong>安全状态</strong>，就 <strong>一定不会</strong>  发生 <strong>死锁</strong>。如果系统进入 <strong>不安全状态</strong>，也未必就是发生了死锁，但发生死锁一定是在不安全状态。因此 可以在 <strong>资源分配之前预先判断这次分配是否会导致系统进入不安全状态</strong>，以此决定是否答应资源的分配请求。 这也是 <strong>银行家算法</strong>  的核心思想</p>
+<h6 id="银行家算法"><a href="#银行家算法" class="headerlink" title="银行家算法"></a>银行家算法</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527155725149.png"
+                      alt="image-20230527155725149"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527155801079.png"
+                      alt="image-20230527155801079"
+                ></p>
+<h6 id="知识回顾与重要考点-31"><a href="#知识回顾与重要考点-31" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527155822507.png"
+                      alt="image-20230527155822507"
+                ></p>
+<p><strong>系统处于 不安全状态未必死锁，但死锁时一定 处于不安全状态。系统处于安全状态 一定不会死锁</strong></p>
+<h5 id="检测和接触"><a href="#检测和接触" class="headerlink" title="检测和接触"></a>检测和接触</h5><p><strong>知识总览</strong></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527163131671.png"
+                      alt="image-20230527163131671" style="zoom:33%;" 
+                >
+
+<p>如果系统中既不采取预防死锁的措施，也不采取避免死锁的措施，系统就很可能 发生死锁。在这种情况下，系统应当提供两个算法：</p>
+<ol>
+<li>死锁检测算法：用于检测系统状态，以确定系统中是否发生了 死锁</li>
+<li>死锁解除算法：当 认定系统中已经发生了死锁，利用该算法可将系统从死锁状态中 解脱出来</li>
+</ol>
+<h6 id="死锁的检测"><a href="#死锁的检测" class="headerlink" title="死锁的检测"></a>死锁的检测</h6><p>为了能对系统是否已经发生了死锁进行检测，必须：</p>
+<ol>
+<li>用<strong>某种数据结构</strong> 来保存资源的请求和分配信息</li>
+<li>提供 <strong>一种算法</strong>，利用上述信息来检测系统中是否已进入死锁状态</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527164142251.png"
+                      alt="image-20230527164142251"
+                ></p>
+<p>如果系统中剩余的可用资源数足够满足进程的需求，那么这个进程暂时是不会阻塞的，可以顺利地执行下去。如果这个进程执行结束了把资源归还系统，就可能使某些正在等待资源的进程被激活，并顺利地执行下去。</p>
+<p>相应的，这些被激活的进程执行完了之后又会归还一些资源，这样可能又会激活另外一些阻塞的进程…</p>
+<p>如果按上述的过程分析，最终 <strong>能消除所有边</strong>，就称 这个图 <strong>可完全简化</strong> 的。此时一定  <strong>没有发生死锁（相当于找到一个安全序列）</strong></p>
+<p>如果最终 <strong>不能消除所有的边</strong>，那么此时就是发生了 死锁</p>
+<p><strong>检测死锁的算法：</strong></p>
+<ol>
+<li>在资源分配图中，找出既不阻塞又不是孤点的进程Pi(即找出一条有向边与它相连，且该有向边对应资源的申请数量小于等于系统中已有空闲资源数量。如下图中，R1没有空闲资源，R2有一个空闲资源。若所有的连接该进程的边均满足上述条件，则这个进程能继续运行直至完成，然后释放它所占有的所有资源）。消去它所有的请求边和分配变，使之称为孤立的结点。在下图中，P1是满足这一条件的进程结点，于是将P1的所有边消去。</li>
+<li>进程Pi所释放的资源，可以唤醒某些因等待这些资源而阻塞的进程，原来的阻塞进程可能变为非阻塞进程。在下图中，P2就满足这样的条件。根据1)中的方法进行一系列简化后，若能消去途中所有的边，则称该图是可完全简化的。</li>
+</ol>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527165759652.png"
+                      alt="image-20230527165759652" style="zoom:33%;" 
+                >
+
+<p><strong>死锁定理</strong>： 如果某时刻系统的资源分配图是 <strong>不可完全简化的</strong>，那么此时 系统 <strong>死锁</strong></p>
+<h6 id="死锁的解除"><a href="#死锁的解除" class="headerlink" title="死锁的解除"></a>死锁的解除</h6><p>一旦检测到死锁的产生，就应该立即解除死锁</p>
+<p>补充：并不是系统中所有的进程都是死锁状态，用死锁检测算法 <strong>简化资源分配图后，还连着边的那些进程就是死锁进程</strong></p>
+<p>解除死锁的主要办法有：</p>
+<ol>
+<li><strong>资源剥夺法</strong>： 挂起（暂时放到外存上） 某些死锁进程，并抢占他们资源，将这些资源分配给其他的死锁进程。但是应防止被挂起的进程长时间得不到资源而饥饿</li>
+<li><strong>撤销进程法</strong>：（或称 <strong>终止进程法）</strong>，强制撤销部分、甚至全部死锁进程，并剥夺这些进程的资源。这种方式的优点是 实现简单，但付出的代价可能会很大。因为有些进程可能已经运行了很长时间，已经接近结束了，一旦被终止可谓功亏一篑，以后还得重头再来</li>
+<li><strong>进程回退法：</strong> 让一个或多个死锁进程回退到 足以避免死锁的地步。这就要求系统要记录进程的历史信息，设置还原点</li>
+</ol>
+<h6 id="知识回顾与重要考点-32"><a href="#知识回顾与重要考点-32" class="headerlink" title="知识回顾与重要考点"></a>知识回顾与重要考点</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230527170503014.png"
+                      alt="image-20230527170503014"
+                ></p>
 
             </div>
 
@@ -2644,7 +3432,7 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div style="font-size: 1.3rem;margin-top: 0; margin-bottom: 0.8rem; transition-duration: 0.1s;"><i class="fa-solid fa-list"></i> <strong>Contents</strong></div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="nav-text">计算机系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">操作系统的概念、功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">操作系统的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E4%B8%8A%E5%B1%82%E6%8F%90%E4%BE%9B%E6%96%B9%E4%BE%BF%E6%98%93%E7%94%A8%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-text">向上层提供方便易用的服务</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#GUI"><span class="nav-text">GUI</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%81%94%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">联机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%84%B1%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">脱机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3"><span class="nav-text">程序接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%9C%80%E6%8E%A5%E8%BF%91%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%B1%82%E6%AC%A1"><span class="nav-text">作为最接近硬件的层次</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">操作系统的特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91-%E4%B8%8E-%E5%B9%B6%E8%A1%8C"><span class="nav-text">并发 与 并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB"><span class="nav-text">共享</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%85%B1%E4%BA%AB%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">并发和共享的关系</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F"><span class="nav-text">虚拟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5"><span class="nav-text">异步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-1"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95%E5%92%8C%E5%88%86%E7%B1%BB"><span class="nav-text">操作系统的发展和分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%B7%A5%E6%93%8D%E6%8E%A7%E9%98%B6%E6%AE%B5"><span class="nav-text">手工操控阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="nav-text">批处理阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-text">单道批处理系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-text">多道批处理系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">分时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">实时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%87%A0%E7%A7%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">其他几种操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">网络操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">分布式操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">个人计算机操作系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-2"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-text">操作系统的运行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E8%B5%B7%E6%9D%A5%E7%9A%84"><span class="nav-text">程序是如何运行起来的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%A8%8B%E5%BA%8F-Vs-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-text">内核程序 Vs 应用程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E4%B8%8E%E7%94%A8%E6%88%B7%E6%80%81"><span class="nav-text">内核态与用户态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E3%80%81%E7%94%A8%E6%88%B7%E6%80%81%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-text">内核态、用户态的切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-3"><span class="nav-text">知识回顾与重要考点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%8C%87%E4%BB%A4%E3%80%81%E4%B8%A4%E7%A7%8D%E5%A4%84%E7%90%86%E5%99%A8%E7%8A%B6%E6%80%81%E3%80%81%E4%B8%A4%E7%A7%8D%E7%A8%8B%E5%BA%8F"><span class="nav-text">两种指令、两种处理器状态、两种程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8"><span class="nav-text">操作系统内核</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-text">操作系统的体系结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-4"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-text">中断和异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">中断的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">中断的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E4%B8%AD%E6%96%AD"><span class="nav-text">内中断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%96%E4%B8%AD%E6%96%AD"><span class="nav-text">外中断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%9C%BA%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">中断机制的基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-5"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">什么是系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%92%8C%E5%BA%93%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">系统调用和库函数的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%98%AF%E5%BF%85%E9%A1%BB%E7%9A%84"><span class="nav-text">为什么系统调用是必须的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E5%8A%9F%E8%83%BD%E8%A6%81%E7%94%A8%E5%88%B0-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">什么功能要用到 系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">系统调用的过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-6"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84"><span class="nav-text">操作系统的体系架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%85%E6%A0%B8"><span class="nav-text">操作系统的内核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-7"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE"><span class="nav-text">知识回顾</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E7%BB%84%E6%88%90%E3%80%81%E7%89%B9%E5%BE%81"><span class="nav-text">进程的概念、组成、特征</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">进程的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">进程的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90-%EF%BC%9A-PCB"><span class="nav-text">进程的组成 ： PCB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90%EF%BC%9A%E7%A8%8B%E5%BA%8F%E6%AE%B5%E3%80%81%E6%95%B0%E6%8D%AE%E6%AE%B5"><span class="nav-text">进程的组成：程序段、数据段</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">进程的特征</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-8"><span class="nav-text">知识回顾与重要考点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87"><span class="nav-text">进程的组织</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%9A%E9%93%BE%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">进程的组织：链接方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%9A%E7%B4%A2%E5%BC%95%E6%96%B9%E5%BC%8F"><span class="nav-text">进程的组织：索引方式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%8E%E5%88%87%E6%8D%A2"><span class="nav-text">进程的状态与切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">进程的状态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%80%81%E3%80%81%E5%B0%B1%E7%BB%AA%E6%80%81"><span class="nav-text">创建态、就绪态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%80%81"><span class="nav-text">运行态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E6%80%81"><span class="nav-text">阻塞态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E6%80%81"><span class="nav-text">终止态</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-text">进程的切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">进程控制的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">什么是 进程控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">如何实现进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-%E5%8E%9F%E8%AF%AD%E7%9A%84-%E2%80%9C%E5%8E%9F%E5%AD%90%E6%80%A7%E2%80%9D"><span class="nav-text">如何实现 原语的 “原子性”</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%8E%9F%E8%AF%AD"><span class="nav-text">进程控制相关的原语</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-text">进程的终止</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%98%BB%E5%A1%9E%E4%B8%8E%E5%94%A4%E9%86%92"><span class="nav-text">进程的阻塞与唤醒</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2-1"><span class="nav-text">进程的切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-10"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">进程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">什么是进程通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8"><span class="nav-text">进程通信：共享存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E7%AE%A1%E9%81%93%E9%80%9A%E4%BF%A1"><span class="nav-text">进程通信：管道通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92"><span class="nav-text">进程通信：消息传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-11"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E3%80%81%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">线程、多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B"><span class="nav-text">什么是线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E7%BA%BF%E7%A8%8B%E5%90%8E%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-text">引入线程后的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-text">线程的属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-text">线程的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B"><span class="nav-text">用户级线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B"><span class="nav-text">内核级线程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">一对一模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">多对一模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A%E6%A8%A1%E5%9E%8B"><span class="nav-text">多对多模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-12"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6"><span class="nav-text">处理机调度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%B1%82%E6%AC%A1"><span class="nav-text">调度的概念、层次</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1"><span class="nav-text">调度的三个层次</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">高级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%8E%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">低级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%AD%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">中级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E5%B1%82%E8%B0%83%E5%BA%A6%E7%9A%84%E5%AF%B9%E6%AF%94%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="nav-text">三层调度的对比与联系</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-13"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA%E3%80%81%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B%E3%80%81%E8%B0%83%E5%BA%A6%E6%96%B9%E5%BC%8F"><span class="nav-text">进程调度的时机、切换与过程、调度方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-text">进程调度的时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-text">进程调度的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B-%E7%9A%84%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B"><span class="nav-text">进程 的切换与过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-14"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">调度算法的评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CPU-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-text">CPU 利用率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E9%87%8F"><span class="nav-text">系统吞吐量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="nav-text">周转时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="nav-text">等待时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="nav-text">响应时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-15"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%8A%EF%BC%89"><span class="nav-text">调度算法（上）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%EF%BC%88FCFS%EF%BC%89"><span class="nav-text">先来先服务（FCFS）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88%EF%BC%88-SJF%EF%BC%8CShortest-Job-First"><span class="nav-text">短作业优先（ SJF，Shortest Job First)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E5%93%8D%E5%BA%94%E6%AF%94%E4%BC%98%E5%85%88%EF%BC%88HRRN%EF%BC%8CHighest-Response-Ratio-Next%EF%BC%89"><span class="nav-text">高响应比优先（HRRN，Highest Response Ratio Next）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-16"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%8B%EF%BC%89"><span class="nav-text">调度算法（下）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%EF%BC%88RR%EF%BC%8CRound-Robin"><span class="nav-text">时间片轮转（RR，Round-Robin)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">优先级调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">多级反馈队列调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-17"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0"><span class="nav-text">计算机系统概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">操作系统的概念、功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">操作系统的概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%92%8C%E7%9B%AE%E6%A0%87"><span class="nav-text">功能和目标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E4%B8%8A%E5%B1%82%E6%8F%90%E4%BE%9B%E6%96%B9%E4%BE%BF%E6%98%93%E7%94%A8%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="nav-text">向上层提供方便易用的服务</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#GUI"><span class="nav-text">GUI</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%81%94%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">联机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%84%B1%E6%9C%BA%E5%91%BD%E4%BB%A4%E6%8E%A5%E5%8F%A3"><span class="nav-text">脱机命令接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3"><span class="nav-text">程序接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%9C%80%E6%8E%A5%E8%BF%91%E7%A1%AC%E4%BB%B6%E7%9A%84%E5%B1%82%E6%AC%A1"><span class="nav-text">作为最接近硬件的层次</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">操作系统的特征</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91-%E4%B8%8E-%E5%B9%B6%E8%A1%8C"><span class="nav-text">并发 与 并行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB"><span class="nav-text">共享</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E5%92%8C%E5%85%B1%E4%BA%AB%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-text">并发和共享的关系</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F"><span class="nav-text">虚拟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5"><span class="nav-text">异步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-1"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95%E5%92%8C%E5%88%86%E7%B1%BB"><span class="nav-text">操作系统的发展和分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%8B%E5%B7%A5%E6%93%8D%E6%8E%A7%E9%98%B6%E6%AE%B5"><span class="nav-text">手工操控阶段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E9%98%B6%E6%AE%B5"><span class="nav-text">批处理阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-text">单道批处理系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E9%81%93%E6%89%B9%E5%A4%84%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-text">多道批处理系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">分时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E6%97%B6%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">实时操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%87%A0%E7%A7%8D%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">其他几种操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">网络操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">分布式操作系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AA%E4%BA%BA%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-text">个人计算机操作系统</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-2"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6"><span class="nav-text">操作系统的运行机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E8%B5%B7%E6%9D%A5%E7%9A%84"><span class="nav-text">程序是如何运行起来的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%A8%8B%E5%BA%8F-Vs-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-text">内核程序 Vs 应用程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E4%B8%8E%E7%94%A8%E6%88%B7%E6%80%81"><span class="nav-text">内核态与用户态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E3%80%81%E7%94%A8%E6%88%B7%E6%80%81%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-text">内核态、用户态的切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-3"><span class="nav-text">知识回顾与重要考点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E6%8C%87%E4%BB%A4%E3%80%81%E4%B8%A4%E7%A7%8D%E5%A4%84%E7%90%86%E5%99%A8%E7%8A%B6%E6%80%81%E3%80%81%E4%B8%A4%E7%A7%8D%E7%A8%8B%E5%BA%8F"><span class="nav-text">两种指令、两种处理器状态、两种程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%86%85%E6%A0%B8"><span class="nav-text">操作系统内核</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="nav-text">操作系统的体系结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-4"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="nav-text">中断和异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">中断的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-text">中断的类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E4%B8%AD%E6%96%AD"><span class="nav-text">内中断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%96%E4%B8%AD%E6%96%AD"><span class="nav-text">外中断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E6%9C%BA%E5%88%B6%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-text">中断机制的基本原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-5"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">系统调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">什么是系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%92%8C%E5%BA%93%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">系统调用和库函数的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%98%AF%E5%BF%85%E9%A1%BB%E7%9A%84"><span class="nav-text">为什么系统调用是必须的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E5%8A%9F%E8%83%BD%E8%A6%81%E7%94%A8%E5%88%B0-%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="nav-text">什么功能要用到 系统调用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-text">系统调用的过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-6"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E6%9E%B6%E6%9E%84"><span class="nav-text">操作系统的体系架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%86%85%E6%A0%B8"><span class="nav-text">操作系统的内核</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-7"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE"><span class="nav-text">知识回顾</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B"><span class="nav-text">进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E7%BB%84%E6%88%90%E3%80%81%E7%89%B9%E5%BE%81"><span class="nav-text">进程的概念、组成、特征</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">进程的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-text">进程的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90-%EF%BC%9A-PCB"><span class="nav-text">进程的组成 ： PCB</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E6%88%90%EF%BC%9A%E7%A8%8B%E5%BA%8F%E6%AE%B5%E3%80%81%E6%95%B0%E6%8D%AE%E6%AE%B5"><span class="nav-text">进程的组成：程序段、数据段</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%89%B9%E5%BE%81"><span class="nav-text">进程的特征</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-8"><span class="nav-text">知识回顾与重要考点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87"><span class="nav-text">进程的组织</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%9A%E9%93%BE%E6%8E%A5%E6%96%B9%E5%BC%8F"><span class="nav-text">进程的组织：链接方式</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%9A%E7%B4%A2%E5%BC%95%E6%96%B9%E5%BC%8F"><span class="nav-text">进程的组织：索引方式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%8E%E5%88%87%E6%8D%A2"><span class="nav-text">进程的状态与切换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="nav-text">进程的状态</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%80%81%E3%80%81%E5%B0%B1%E7%BB%AA%E6%80%81"><span class="nav-text">创建态、就绪态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%80%81"><span class="nav-text">运行态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%BB%E5%A1%9E%E6%80%81"><span class="nav-text">阻塞态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%88%E6%AD%A2%E6%80%81"><span class="nav-text">终止态</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-text">进程的切换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-9"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">进程控制的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">什么是 进程控制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6"><span class="nav-text">如何实现进程控制</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-%E5%8E%9F%E8%AF%AD%E7%9A%84-%E2%80%9C%E5%8E%9F%E5%AD%90%E6%80%A7%E2%80%9D"><span class="nav-text">如何实现 原语的 “原子性”</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3%E7%9A%84%E5%8E%9F%E8%AF%AD"><span class="nav-text">进程控制相关的原语</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="nav-text">进程的终止</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E9%98%BB%E5%A1%9E%E4%B8%8E%E5%94%A4%E9%86%92"><span class="nav-text">进程的阻塞与唤醒</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%87%E6%8D%A2-1"><span class="nav-text">进程的切换</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-10"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">进程通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1"><span class="nav-text">什么是进程通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E5%85%B1%E4%BA%AB%E5%AD%98%E5%82%A8"><span class="nav-text">进程通信：共享存储</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E7%AE%A1%E9%81%93%E9%80%9A%E4%BF%A1"><span class="nav-text">进程通信：管道通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%EF%BC%9A%E6%B6%88%E6%81%AF%E4%BC%A0%E9%80%92"><span class="nav-text">进程通信：消息传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-11"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E3%80%81%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">线程、多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B"><span class="nav-text">什么是线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E7%BA%BF%E7%A8%8B%E5%90%8E%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-text">引入线程后的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-text">线程的属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-text">线程的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B"><span class="nav-text">用户级线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B"><span class="nav-text">内核级线程</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="nav-text">多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">一对一模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B"><span class="nav-text">多对一模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A%E6%A8%A1%E5%9E%8B"><span class="nav-text">多对多模型</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-12"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6"><span class="nav-text">处理机调度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E5%B1%82%E6%AC%A1"><span class="nav-text">调度的概念、层次</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E6%AC%A1"><span class="nav-text">调度的三个层次</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">高级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BD%8E%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">低级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%AD%E7%BA%A7%E8%B0%83%E5%BA%A6"><span class="nav-text">中级调度</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%89%E5%B1%82%E8%B0%83%E5%BA%A6%E7%9A%84%E5%AF%B9%E6%AF%94%E4%B8%8E%E8%81%94%E7%B3%BB"><span class="nav-text">三层调度的对比与联系</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-13"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA%E3%80%81%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B%E3%80%81%E8%B0%83%E5%BA%A6%E6%96%B9%E5%BC%8F"><span class="nav-text">进程调度的时机、切换与过程、调度方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-text">进程调度的时机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-text">进程调度的方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B-%E7%9A%84%E5%88%87%E6%8D%A2%E4%B8%8E%E8%BF%87%E7%A8%8B"><span class="nav-text">进程 的切换与过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-14"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87"><span class="nav-text">调度算法的评价指标</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CPU-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="nav-text">CPU 利用率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E9%87%8F"><span class="nav-text">系统吞吐量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="nav-text">周转时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="nav-text">等待时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="nav-text">响应时间</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-15"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%8A%EF%BC%89"><span class="nav-text">调度算法（上）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%EF%BC%88FCFS%EF%BC%89"><span class="nav-text">先来先服务（FCFS）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88%EF%BC%88-SJF%EF%BC%8CShortest-Job-First"><span class="nav-text">短作业优先（ SJF，Shortest Job First)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%AB%98%E5%93%8D%E5%BA%94%E6%AF%94%E4%BC%98%E5%85%88%EF%BC%88HRRN%EF%BC%8CHighest-Response-Ratio-Next%EF%BC%89"><span class="nav-text">高响应比优先（HRRN，Highest Response Ratio Next）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-16"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%8B%EF%BC%89"><span class="nav-text">调度算法（下）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%EF%BC%88RR%EF%BC%8CRound-Robin"><span class="nav-text">时间片轮转（RR，Round-Robin)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%85%88%E7%BA%A7%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">优先级调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-text">多级反馈队列调度算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-17"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E3%80%81%E4%BA%92%E6%96%A5"><span class="nav-text">进程同步、互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5%E3%80%81%E4%BA%92%E6%96%A5"><span class="nav-text">什么是进程同步、互斥</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-text">什么是进程同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5"><span class="nav-text">什么是进程互斥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-18"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5%E7%9A%84%E8%BD%AF%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-text">进程互斥的软件实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E6%9E%9C%E6%B2%A1%E6%9C%89%E6%B3%A8%E6%84%8F%E5%88%B0%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5"><span class="nav-text">如果没有注意到进程互斥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E6%A0%87%E5%BF%97%E6%B3%95"><span class="nav-text">单标志法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8C%E6%A0%87%E5%BF%97%E5%85%88%E6%A3%80%E6%9F%A5%E6%B3%95"><span class="nav-text">双标志先检查法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%8C%E6%A0%87%E5%BF%97%E5%90%8E%E6%A3%80%E6%9F%A5%E6%B3%95"><span class="nav-text">双标志后检查法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Peterson-%E7%AE%97%E6%B3%95"><span class="nav-text">Peterson 算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-19"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5%E7%9A%84%E7%A1%AC%E4%BB%B6%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-text">进程互斥的硬件实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%AD%E6%96%AD%E5%B1%8F%E8%94%BD%E6%96%B9%E6%B3%95"><span class="nav-text">中断屏蔽方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#TestAndSet-%E6%8C%87%E4%BB%A4"><span class="nav-text">TestAndSet 指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Swap-%E6%8C%87%E4%BB%A4"><span class="nav-text">Swap 指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-20"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6"><span class="nav-text">信号量机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B4%E5%BD%A2%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-text">整形信号量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E5%9E%8B%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-text">记录型信号量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-21"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0-%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5%E3%80%81%E5%90%8C%E6%AD%A5%E3%80%81%E5%89%8D%E9%A9%B1"><span class="nav-text">用信号量机制实现 进程互斥、同步、前驱</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0-%E8%BF%9B%E7%A8%8B%E4%BA%92%E6%96%A5"><span class="nav-text">信号量机制实现 进程互斥</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5"><span class="nav-text">信号量机制实现进程同步</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0-%E5%89%8D%E9%A9%B1%E5%85%B3%E7%B3%BB"><span class="nav-text">信号量机制实现 前驱关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-22"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-text">生产者消费者问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-23"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%94%9F%E4%BA%A7%E8%80%85-%E5%A4%9A%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-text">多生产者-多消费者问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0-1"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-1"><span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-24"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%B8%E7%83%9F%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-text">吸烟者问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0-2"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-2"><span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-25"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E8%80%85-%E5%86%99%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-text">读者-写者问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0-3"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-3"><span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-26"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%B2%E5%AD%A6%E5%AE%B6%E8%BF%9B%E9%A4%90%E9%97%AE%E9%A2%98"><span class="nav-text">哲学家进餐问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0-4"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90-4"><span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-1"><span class="nav-text">实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-27"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%A1%E7%A8%8B"><span class="nav-text">管程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%95%E5%85%A5%E7%AE%A1%E7%A8%8B"><span class="nav-text">为什么引入管程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%A1%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81"><span class="nav-text">管程的定义和基本特征</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-28"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81"><span class="nav-text">死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-text">死锁的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%AD%BB%E9%94%81"><span class="nav-text">什么是死锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E3%80%81%E9%A5%A5%E9%A5%BF%E3%80%81%E6%AD%BB%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">死锁、饥饿、死循环的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E4%BA%A7%E7%94%9F%E6%9D%A1%E4%BB%B6"><span class="nav-text">死锁的产生条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%8F%91%E7%94%9F%E6%AD%BB%E9%94%81"><span class="nav-text">什么时候会发生死锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5"><span class="nav-text">死锁的处理策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-29"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5-1"><span class="nav-text">死锁的处理策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81"><span class="nav-text">预防死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E4%BA%92%E6%96%A5%E6%9D%A1%E4%BB%B6"><span class="nav-text">破坏互斥条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E4%B8%8D%E5%89%A5%E5%A4%BA%E6%9D%A1%E4%BB%B6"><span class="nav-text">破坏不剥夺条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E8%AF%B7%E6%B1%82%E5%92%8C%E4%BF%9D%E6%8C%81%E6%9D%A1%E4%BB%B6"><span class="nav-text">破坏请求和保持条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E5%BE%AA%E7%8E%AF%E7%AD%89%E5%BE%85%E6%9D%A1%E4%BB%B6"><span class="nav-text">破坏循环等待条件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-30"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81"><span class="nav-text">避免死锁</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-%E5%AE%89%E5%85%A8%E5%BA%8F%E5%88%97"><span class="nav-text">什么是 安全序列</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%93%B6%E8%A1%8C%E5%AE%B6%E7%AE%97%E6%B3%95"><span class="nav-text">银行家算法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-31"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E5%92%8C%E6%8E%A5%E8%A7%A6"><span class="nav-text">检测和接触</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E6%A3%80%E6%B5%8B"><span class="nav-text">死锁的检测</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E7%9A%84%E8%A7%A3%E9%99%A4"><span class="nav-text">死锁的解除</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E5%9B%9E%E9%A1%BE%E4%B8%8E%E9%87%8D%E8%A6%81%E8%80%83%E7%82%B9-32"><span class="nav-text">知识回顾与重要考点</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
 </div>
             </div>
