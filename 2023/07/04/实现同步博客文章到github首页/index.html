@@ -13,29 +13,28 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/03/31/redisunable-to-connect-to-localhost6379/"/>
+    <link rel="canonical" href="http://example.com/2023/07/04/实现同步博客文章到github首页/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="redis:Unable to connect to localhost:6379 我整合 springboot 与 redis 时，运行报 Unable to connect to localhost:6379 错误，但是我 application.yaml 中配置的 host 为 Linux 虚拟机的 ip，所以该属性并未被装配    报错显示 unable to connect to lo">
+        <meta name="description" content="需求： 将个人博客最近的几篇文章同步到 github 首页的指定区域  在GitHub上面创建一个同名仓库，比如我的id为cs7eric，我就创建一个仓库名为cs7eric的仓库，里面的README会直接在个人Github首页渲染展示。 想让首页自动更新个人博客园上面的文章链接，可以使用GitHub自带的CI工具GitHub Actions。 总体的思路：  用Python爬取个人博客的文章链接">
 <meta property="og:type" content="article">
-<meta property="og:title" content="redis:Unable to connect to localhost:6379">
-<meta property="og:url" content="http://example.com/2023/03/31/redisUnable-to-connect-to-localhost6379/index.html">
+<meta property="og:title" content="实现同步博客文章到github首页">
+<meta property="og:url" content="http://example.com/2023/07/04/%E5%AE%9E%E7%8E%B0%E5%90%8C%E6%AD%A5%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0%E5%88%B0github%E9%A6%96%E9%A1%B5/index.html">
 <meta property="og:site_name" content="Cs7eric&#39;s BLOG">
-<meta property="og:description" content="redis:Unable to connect to localhost:6379 我整合 springboot 与 redis 时，运行报 Unable to connect to localhost:6379 错误，但是我 application.yaml 中配置的 host 为 Linux 虚拟机的 ip，所以该属性并未被装配    报错显示 unable to connect to lo">
+<meta property="og:description" content="需求： 将个人博客最近的几篇文章同步到 github 首页的指定区域  在GitHub上面创建一个同名仓库，比如我的id为cs7eric，我就创建一个仓库名为cs7eric的仓库，里面的README会直接在个人Github首页渲染展示。 想让首页自动更新个人博客园上面的文章链接，可以使用GitHub自带的CI工具GitHub Actions。 总体的思路：  用Python爬取个人博客的文章链接">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230331090803733.png">
-<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230331091750972.png">
-<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230331091931592.png">
-<meta property="article:published_time" content="2023-03-31T01:04:22.000Z">
-<meta property="article:modified_time" content="2023-06-29T15:13:38.316Z">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230704154959850.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230704155950699.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230704160142799.png">
+<meta property="article:published_time" content="2023-07-04T07:20:22.000Z">
+<meta property="article:modified_time" content="2023-07-04T08:03:36.756Z">
 <meta property="article:author" content="cs7eric">
-<meta property="article:tag" content="Java">
-<meta property="article:tag" content="SpringBoot">
-<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="Github">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230331090803733.png">
+<meta name="twitter:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230704154959850.png">
     
     
         <!-- Google tag (gtag.js) -->
@@ -57,7 +56,7 @@
     
     <title>
         
-            redis:Unable to connect to localhost:6379 -
+            实现同步博客文章到github首页 -
         
         cccs7&#39;s blog
     </title>
@@ -362,7 +361,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">redis:Unable to connect to localhost:6379</h1>
+                    <h1 class="article-title-regular">实现同步博客文章到github首页</h1>
                 </div>
             
                 
@@ -384,15 +383,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-03-31 09:04:22</span>
-        <span class="mobile">2023-03-31 09:04</span>
+        <span class="desktop">2023-07-04 15:20:22</span>
+        <span class="mobile">2023-07-04 15:20</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-06-29 23:13:38</span>
-            <span class="mobile">2023-06-29 23:13</span>
+            <span class="desktop">2023-07-04 16:03:36</span>
+            <span class="mobile">2023-07-04 16:03</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -403,23 +402,11 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/Java/">Java</a>&nbsp;
+                        <a href="/categories/Github/">Github</a>&nbsp;
                     </li>
                 
                     <li>
-                        &gt; <a href="/categories/NoSQL/">NoSQL</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/NoSQL/Redis/">Redis</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/Java/Sping/">Sping</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        &gt; <a href="/categories/Java/Sping/SpringBoot/">SpringBoot</a>&nbsp;
+                        &gt; <a href="/categories/Python/">Python</a>&nbsp;
                     </li>
                 
             </ul>
@@ -431,15 +418,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Java/">Java</a>&nbsp;
+                        <a href="/tags/Github/">Github</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/SpringBoot/">SpringBoot</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/Redis/">Redis</a>&nbsp;
+                        | <a href="/tags/Python/">Python</a>&nbsp;
                     </li>
                 
             </ul>
@@ -449,7 +432,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>447 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>569 Words</span>
         </span>
     
     
@@ -470,43 +453,43 @@
             
 
             <div class="article-content markdown-body">
-                <p> redis:Unable to connect to localhost:6379</p>
-<p>我整合 springboot 与 redis 时，运行报 <code>Unable to connect to localhost:6379</code> 错误，但是我 <code>application.yaml</code> 中配置的 host 为 Linux 虚拟机的 ip，所以该属性并未被装配</p>
+                <p>需求： 将个人博客最近的几篇文章同步到 github 首页的指定区域</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230331090803733.png"
-                      alt="image-20230331090803733"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230704154959850.png"
+                      alt="image-20230704154959850"
                 ></p>
-<br>
+<p>在GitHub上面创建一个同名仓库，比如我的id为<code>cs7eric</code>，我就创建一个仓库名为<code>cs7eric</code>的仓库，里面的README会直接在个人Github首页渲染展示。</p>
+<p>想让首页自动更新个人博客园上面的文章链接，可以使用GitHub自带的CI工具<code>GitHub Actions</code>。</p>
+<p>总体的思路：</p>
+<ul>
+<li>用Python爬取个人博客的文章链接</li>
+<li>编写GitHub Actions的配置脚本</li>
+</ul>
+<h2 id="使用-Python-爬取个人博客的文章"><a href="#使用-Python-爬取个人博客的文章" class="headerlink" title="使用 Python 爬取个人博客的文章"></a>使用 Python 爬取个人博客的文章</h2><div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span> <span class="attr">class</span>=<span class="string">&quot;home-article-title&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;/2023/07/03/less/&quot;</span> <span class="attr">data-pjax-state</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">        less</span><br><span class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
 
-<p>报错显示 <code>unable to connect to localhost:6379</code>，连接的为 Windows 主机的 redis , 我又写了一个demo，</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestJedis</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Jedis</span> <span class="variable">jedis</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;192.168.21.135&quot;</span>, <span class="number">6379</span>);</span><br><span class="line">        jedis.auth(<span class="string">&quot;xxxxx&quot;</span>);</span><br><span class="line">        log.info(<span class="string">&quot;redis conn status:&#123;&#125;&quot;</span>,<span class="string">&quot;连接成功&quot;</span>);</span><br><span class="line">        log.info(jedis.ping());</span><br><span class="line">        jedis.set(<span class="string">&quot;k1222&quot;</span>,<span class="string">&quot;2222&quot;</span>);</span><br><span class="line">        log.info(jedis.get(<span class="string">&quot;k1222&quot;</span>));</span><br><span class="line">        log.info(<span class="string">&quot;&#123;&#125;&quot;</span>, jedis.getConnection());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>这是我个人博客文章的HTML结构，上面框里面的内容是我们想要的信息。</p>
+<p>借助Python里面的<code>BeautifulSoup</code>库，可以快速地将这些信息提取出来。</p>
+<div class="highlight-container" data-rel="Python"><figure class="iseeu highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 博客网站的 URL</span></span><br><span class="line">url = <span class="string">&quot;https://blog.cccs7.icu/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送 GET 请求获取 HTML 页面</span></span><br><span class="line">response = requests.get(url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 BeautifulSoup 解析 HTML 页面</span></span><br><span class="line">soup = BeautifulSoup(response.text, <span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取最新的7篇文章的标题和链接</span></span><br><span class="line">articles = soup.find_all(<span class="string">&quot;h3&quot;</span>, class_=<span class="string">&quot;home-article-title&quot;</span>)[:<span class="number">5</span>]</span><br><span class="line">article_list = [<span class="string">f&quot;- [<span class="subst">&#123;article.text.strip()&#125;</span>](<span class="subst">&#123;url + article.find(<span class="string">&#x27;a&#x27;</span>, href=<span class="literal">True</span>)[<span class="string">&#x27;href&#x27;</span>]&#125;</span>)\n&quot;</span> <span class="keyword">for</span> article <span class="keyword">in</span> articles]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 读取现有的README.md文件</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;README.md&quot;</span>, <span class="string">&quot;r&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    lines = f.readlines()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 找到要添加新文章的位置</span></span><br><span class="line">start_index = <span class="number">55</span></span><br><span class="line">end_index = <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将新的文章添加到指定位置</span></span><br><span class="line">new_lines = lines[:start_index] + article_list + lines[end_index:]</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&quot;README.md&quot;</span>, <span class="string">&quot;w&quot;</span>, encoding=<span class="string">&quot;utf-8&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.writelines(new_lines)</span><br></pre></td></tr></table></figure></div>
 
-<p>输出结果如下:</p>
-<p><img  
+<p>python 脚本如上</p>
+<h2 id="编写-actions-配置文件"><a href="#编写-actions-配置文件" class="headerlink" title="编写 actions 配置文件"></a>编写 actions 配置文件</h2><div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">Sync</span> <span class="string">Blog</span> <span class="string">Posts</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">schedule:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">cron:</span> <span class="string">&quot;0 0 * * *&quot;</span></span><br><span class="line">  <span class="attr">workflow_dispatch:</span></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Python</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-python@v2</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">python-version:</span> <span class="string">&quot;3.9&quot;</span></span><br><span class="line">      </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">Dependencies</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        pip install beautifulsoup4 requests</span></span><br><span class="line"><span class="string"></span>      </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Sync</span> <span class="string">Blog</span> <span class="string">Posts</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        python sync_blog_posts.py</span></span><br><span class="line"><span class="string"></span>      </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Commit</span> <span class="string">Changes</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        git config --global user.email &quot;csq020611@gmail.com&quot;</span></span><br><span class="line"><span class="string">        git config --global user.name &quot;cs7eric&quot;</span></span><br><span class="line"><span class="string">        git add -A</span></span><br><span class="line"><span class="string">        git commit -m &quot;Sync blog posts&quot;</span></span><br><span class="line"><span class="string"></span>      </span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Push</span> <span class="string">Changes</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">ad-m/github-push-action@v0.6.0</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">repository:</span> <span class="string">cs7eric/cs7eric</span></span><br><span class="line">        <span class="attr">branch:</span> <span class="string">main</span></span><br><span class="line">        <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.FOR_ACTIONS</span> <span class="string">&#125;&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h2 id="github-workflow-配置"><a href="#github-workflow-配置" class="headerlink" title="github workflow 配置"></a>github workflow 配置</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230331091750972.png"
-                      alt="image-20230331091750972"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230704155950699.png"
+                      alt="image-20230704155950699"
                 ></p>
-<br>
-
-<p>我查阅其他资料并没有发现与我类似的情况，因为我在 <code>RedisConfig </code>  中 自己装配了 <code>RedisTemplate</code> ，所以可能是在配置类没有 装配 <code>applicaiton.yml</code> 中的 <code>spring.redis</code> 属性，我又重写 了 <code>RedisConfig</code>，如下：</p>
-<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cs7eric.eatmore.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.JsonAutoDetect;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.annotation.PropertyAccessor;</span><br><span class="line"><span class="keyword">import</span> com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.RedisConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * redis 配置</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> cs7eric</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2023/03/30</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnSingleCandidate(RedisConnectionFactory.class)</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;Object, Object&gt; <span class="title function_">redisTemplate</span><span class="params">(LettuceConnectionFactory lettuceConnectionFactory)</span> &#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; template = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>();</span><br><span class="line">        template.setConnectionFactory(lettuceConnectionFactory);</span><br><span class="line">        <span class="comment">// 使用JSON格式序列化对象，对缓存数据key和value进行转换</span></span><br><span class="line">        <span class="type">Jackson2JsonRedisSerializer</span> <span class="variable">jacksonSeial</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Jackson2JsonRedisSerializer</span>(Object.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 解决查询缓存转换异常的问题</span></span><br><span class="line">        <span class="type">ObjectMapper</span> <span class="variable">om</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        jacksonSeial.setObjectMapper(om);</span><br><span class="line">        <span class="comment">// 设置RedisTemplate模板API的序列化方式为JSON</span></span><br><span class="line">        template.setDefaultSerializer(jacksonSeial);</span><br><span class="line">        <span class="keyword">return</span> template;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
-
-<br>
-
-<p><strong>@ConditionalOnSingleCandidate</strong> 注解</p>
-<p>Spring容器中是否存在且只存在一个对应的实例，或者虽然有多个但 是指定首选的Bean生效</p>
-<br>
-
-<p>最后经测试</p>
+<p>将之前的 python 脚本放在仓库根目录下，将 action 配置文件添加到 .github&#x2F;workflows 下，运行 workflows 测试</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230331091931592.png"
-                      alt="image-20230331091931592"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230704160142799.png"
+                      alt="image-20230704160142799"
                 ></p>
 
             </div>
@@ -515,16 +498,16 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> redis:Unable to connect to localhost:6379</li>
+        <li><strong>Title:</strong> 实现同步博客文章到github首页</li>
         <li><strong>Author:</strong> cccs7</li>
-        <li><strong>Created at:</strong> 2023-03-31 09:04:22</li>
+        <li><strong>Created at:</strong> 2023-07-04 15:20:22</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-06-29 23:13:38
+                <strong>Updated at:</strong> 2023-07-04 16:03:36
             </li>
         
         <li>
-            <strong>Link:</strong> https://cs7eric.github.io/2023/03/31/redisUnable-to-connect-to-localhost6379/
+            <strong>Link:</strong> https://cs7eric.github.io/2023/07/04/实现同步博客文章到github首页/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -539,15 +522,11 @@
                 <ul class="post-tags-box">
                     
                         <li class="tag-item">
-                            <a href="/tags/Java/">#Java</a>&nbsp;
+                            <a href="/tags/Github/">#Github</a>&nbsp;
                         </li>
                     
                         <li class="tag-item">
-                            <a href="/tags/SpringBoot/">#SpringBoot</a>&nbsp;
-                        </li>
-                    
-                        <li class="tag-item">
-                            <a href="/tags/Redis/">#Redis</a>&nbsp;
+                            <a href="/tags/Python/">#Python</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -558,29 +537,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/03/31/SpringCache/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">SpringCache</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/03/30/Dubbo/"
+                            href="/2023/07/04/github-actions%5Bbot%5D-%E7%9A%84-git-%E6%9D%83%E9%99%90%E8%A2%AB%E6%8B%92%E7%BB%9D/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Dubbo</span>
+                                    <span class="post-nav-title-item">github-actions[bot] 的 git 权限被拒绝</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -645,8 +609,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">redis:Unable to connect to localhost:6379</div>
-        
+        <div class="page-title">实现同步博客文章到github首页</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Python-%E7%88%AC%E5%8F%96%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E6%96%87%E7%AB%A0"><span class="nav-text">使用 Python 爬取个人博客的文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99-actions-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">编写 actions 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github-workflow-%E9%85%8D%E7%BD%AE"><span class="nav-text">github workflow 配置</span></a></li></ol>
 
     </div>
 </div>
