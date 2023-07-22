@@ -13,24 +13,28 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/2023/07/21/vue项目打包/"/>
+    <link rel="canonical" href="http://example.com/2023/07/22/vue3/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="项目打包优化vue脚手架只是开发过程中，协助开发的工具，当真正开发完了 &#x3D;&gt; 脚手架不参与上线 参与上线的是 &#x3D;&gt; 打包后的源代码 打包：  将多个文件压缩合并成一个文件 语法降级 less sass ts 语法解析, 解析成css ….  打包后，可以生成，浏览器能够直接运行的网页 &#x3D;&gt; 就是需要上线的源码！ 打包命令vue脚手架工具已经提供了打包">
+        <meta name="description" content="认识 Vue3选项式 API 与 组合式 API1234567891011121314&lt;script&gt;export default &amp;#123;  data()&amp;#123;    return &amp;#123;      count:0    &amp;#125;  &amp;#125;,  methods:&amp;#123;    addCount()&amp;#123;      this.count++    &amp;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue项目打包">
-<meta property="og:url" content="http://example.com/2023/07/21/vue%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85/index.html">
+<meta property="og:title" content="Vue3">
+<meta property="og:url" content="http://example.com/2023/07/22/Vue3/index.html">
 <meta property="og:site_name" content="Cs7eric&#39;s BLOG">
-<meta property="og:description" content="项目打包优化vue脚手架只是开发过程中，协助开发的工具，当真正开发完了 &#x3D;&gt; 脚手架不参与上线 参与上线的是 &#x3D;&gt; 打包后的源代码 打包：  将多个文件压缩合并成一个文件 语法降级 less sass ts 语法解析, 解析成css ….  打包后，可以生成，浏览器能够直接运行的网页 &#x3D;&gt; 就是需要上线的源码！ 打包命令vue脚手架工具已经提供了打包">
+<meta property="og:description" content="认识 Vue3选项式 API 与 组合式 API1234567891011121314&lt;script&gt;export default &amp;#123;  data()&amp;#123;    return &amp;#123;      count:0    &amp;#125;  &amp;#125;,  methods:&amp;#123;    addCount()&amp;#123;      this.count++    &amp;">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-07-21T08:43:00.000Z">
-<meta property="article:modified_time" content="2023-07-21T08:04:25.731Z">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230722174257243.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230722174526947.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/5.png">
+<meta property="article:published_time" content="2023-07-22T03:01:22.000Z">
+<meta property="article:modified_time" content="2023-07-22T15:14:18.643Z">
 <meta property="article:author" content="cs7eric">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230722174257243.png">
     
     
         <!-- Google tag (gtag.js) -->
@@ -52,7 +56,7 @@
     
     <title>
         
-            vue项目打包 -
+            Vue3 -
         
         cccs7&#39;s blog
     </title>
@@ -357,7 +361,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">vue项目打包</h1>
+                    <h1 class="article-title-regular">Vue3</h1>
                 </div>
             
                 
@@ -379,15 +383,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-07-21 16:43</span>
-        <span class="mobile">2023-07-21 16:43</span>
+        <span class="desktop">2023-07-22 11:01:22</span>
+        <span class="mobile">2023-07-22 11:01</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-07-21 16:04:25</span>
-            <span class="mobile">2023-07-21 16:04</span>
+            <span class="desktop">2023-07-22 23:14:18</span>
+            <span class="mobile">2023-07-22 23:14</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -428,12 +432,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>395 Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.2k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>5 Mins</span>
         </span>
     
     
@@ -449,31 +453,113 @@
             
 
             <div class="article-content markdown-body">
-                <h2 id="项目打包优化"><a href="#项目打包优化" class="headerlink" title="项目打包优化"></a>项目打包优化</h2><p>vue脚手架只是开发过程中，协助开发的工具，当真正开发完了 &#x3D;&gt; 脚手架不参与上线</p>
-<p>参与上线的是 &#x3D;&gt; 打包后的源代码</p>
-<p>打包：</p>
-<ul>
-<li>将多个文件压缩合并成一个文件</li>
-<li>语法降级</li>
-<li>less sass ts 语法解析, 解析成css</li>
-<li>….</li>
-</ul>
-<p>打包后，可以生成，浏览器能够直接运行的网页 &#x3D;&gt; 就是需要上线的源码！</p>
-<h3 id="打包命令"><a href="#打包命令" class="headerlink" title="打包命令"></a>打包命令</h3><p>vue脚手架工具已经提供了打包命令，直接使用即可。</p>
-<div class="highlight-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn build</span><br></pre></td></tr></table></figure></div>
+                <h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="认识-Vue3"><a href="#认识-Vue3" class="headerlink" title="认识 Vue3"></a>认识 Vue3</h2><h3 id="选项式-API-与-组合式-API"><a href="#选项式-API-与-组合式-API" class="headerlink" title="选项式 API 与 组合式 API"></a>选项式 API 与 组合式 API</h3><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  data()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      count:0</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    addCount()&#123;</span><br><span class="line">      this.count++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></div>
 
-<p>在项目的根目录会自动创建一个文件夹<code>dist</code>,dist中的文件就是打包后的文件，只需要放到服务器中即可。</p>
-<h3 id="配置publicPath"><a href="#配置publicPath" class="headerlink" title="配置publicPath"></a>配置publicPath</h3><div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">  <span class="comment">// 设置获取.js,.css文件时，是以相对地址为基准的。</span></span><br><span class="line">  <span class="comment">// https://cli.vuejs.org/zh/config/#publicpath</span></span><br><span class="line">  <span class="attr">publicPath</span>: <span class="string">&#x27;./&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123; ref &#125; from &#x27;vue&#x27;</span><br><span class="line">const count = ref(0)</span><br><span class="line">const addCount = ()=&gt; count.value++</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>特点：</p>
+<ol>
+<li>代码量变少</li>
+<li>分散式维护变成集中式维护</li>
+</ol>
+<h3 id="Vue-3的优势"><a href="#Vue-3的优势" class="headerlink" title="Vue 3的优势"></a>Vue 3的优势</h3><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230722174257243.png"
+                      alt="image-20230722174257243" style="zoom: 33%;" 
+                >
 
 
 
-<h3 id="路由懒加载"><a href="#路由懒加载" class="headerlink" title="路由懒加载"></a>路由懒加载</h3><p>路由懒加载 &amp; 异步组件， 不会一上来就将所有的组件都加载，而是访问到对应的路由了，才加载解析这个路由对应的所有组件</p>
-<p>官网链接：<a class="link"   target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/advanced/lazy-loading.html#%E4%BD%BF%E7%94%A8-webpack" >https://router.vuejs.org/zh/guide/advanced/lazy-loading.html#%E4%BD%BF%E7%94%A8-webpack <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h3 id="Vue3-项目目录以及关键文件"><a href="#Vue3-项目目录以及关键文件" class="headerlink" title="Vue3 项目目录以及关键文件"></a>Vue3 项目目录以及关键文件</h3><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230722174526947.png"
+                      alt="image-20230722174526947" style="zoom: 33%;" 
+                >
+
+
+
+<h2 id="组合式-API"><a href="#组合式-API" class="headerlink" title="组合式 API"></a>组合式 API</h2><h3 id="setup-选项"><a href="#setup-选项" class="headerlink" title="setup 选项"></a>setup 选项</h3><h4 id="setup-选项的写法和执行的时机"><a href="#setup-选项的写法和执行的时机" class="headerlink" title="setup 选项的写法和执行的时机"></a>setup 选项的写法和执行的时机</h4><p>写法</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  export default &#123;</span><br><span class="line">    setup()&#123;</span><br><span class="line">      </span><br><span class="line">    &#125;,</span><br><span class="line">    beforeCreate()&#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></div>
+
+<p>执行时机</p>
 <blockquote>
-<p>当打包构建应用时，JavaScript 包会变得非常大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了。</p>
+<p>在beforeCreate钩子之前执行</p>
 </blockquote>
-<div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">ProDetail</span> = (<span class="params"></span>) =&gt; <span class="keyword">import</span>(<span class="string">&#x27;@/views/prodetail&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">Pay</span> = (<span class="params"></span>) =&gt; <span class="keyword">import</span>(<span class="string">&#x27;@/views/pay&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> <span class="title function_">MyOrder</span> = (<span class="params"></span>) =&gt; <span class="keyword">import</span>(<span class="string">&#x27;@/views/myorder&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/5.png"
+                      alt="image.png" style="zoom:33%;" 
+                >
 
+
+
+<h4 id="setup-中写代码的特点"><a href="#setup-中写代码的特点" class="headerlink" title="setup 中写代码的特点"></a>setup 中写代码的特点</h4><p><strong>在<code>setup</code> 函数中写的数据和方法 需要在 末尾以对象的方式 <code>return</code> ，才能给模板使用</strong></p>
+<div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    <span class="title function_">setup</span>(<span class="params"></span>)&#123;</span><br><span class="line">      <span class="keyword">const</span> message = <span class="string">&#x27;this is message&#x27;</span></span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">logMessage</span> = (<span class="params"></span>)=&gt;&#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(message)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 必须return才可以</span></span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        message,</span><br><span class="line">        logMessage</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="lt-script-setup-gt-语法糖"><a href="#lt-script-setup-gt-语法糖" class="headerlink" title="&lt;script setup&gt; 语法糖"></a><code>&lt;script setup&gt;</code> 语法糖</h4><p><strong><code>script</code>  标签添加 <code>setup</code> 标记，不需要再写导出语句，默认会添加 导出语句</strong></p>
+<div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line">  <span class="keyword">const</span> message = <span class="string">&#x27;this is message&#x27;</span></span><br><span class="line">  <span class="keyword">const</span> <span class="title function_">logMessage</span> = (<span class="params"></span>)=&gt;&#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(message)</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="reactive-和-ref-函数"><a href="#reactive-和-ref-函数" class="headerlink" title="reactive 和 ref 函数"></a>reactive 和 ref 函数</h3><h4 id="reactive"><a href="#reactive" class="headerlink" title="reactive"></a>reactive</h4><p>接收 对象类型数据的参数 传入 并返回一个<strong>响应式对象</strong></p>
+<div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"> <span class="comment">// 导入</span></span><br><span class="line"> <span class="keyword">import</span> &#123; reactive &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"> <span class="comment">// 执行函数 传入参数 变量接收</span></span><br><span class="line"> <span class="keyword">const</span> state = <span class="title function_">reactive</span>(&#123;</span><br><span class="line">   <span class="attr">msg</span>:<span class="string">&#x27;this is msg&#x27;</span></span><br><span class="line"> &#125;)</span><br><span class="line"> <span class="keyword">const</span> <span class="title function_">setSate</span> = (<span class="params"></span>)=&gt;&#123;</span><br><span class="line">   <span class="comment">// 修改数据更新视图</span></span><br><span class="line">   state.<span class="property">msg</span> = <span class="string">&#x27;this is new msg&#x27;</span></span><br><span class="line"> &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  &#123;&#123; state.msg &#125;&#125;</span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;setState&quot;</span>&gt;</span>change msg<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h4><p>接收简单类型 或 对象类型的 数据传入，并返回一个  <strong>响应式对象</strong></p>
+<div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"> <span class="comment">// 导入</span></span><br><span class="line"> <span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"> <span class="comment">// 执行函数 传入参数 变量接收</span></span><br><span class="line"> <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"> <span class="keyword">const</span> <span class="title function_">setCount</span> = (<span class="params"></span>)=&gt;&#123;</span><br><span class="line">   <span class="comment">// 修改数据更新视图必须加上.value</span></span><br><span class="line">   count.<span class="property">value</span>++</span><br><span class="line"> &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;setCount&quot;</span>&gt;</span>&#123;&#123;count&#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br></pre></td></tr></table></figure></div>
+
+<p><strong>修改数据更新视图 必须要加上 <code>.value</code></strong> ，在模板中不用</p>
+<h4 id="reactive-对比-ref"><a href="#reactive-对比-ref" class="headerlink" title="reactive 对比 ref"></a>reactive 对比 ref</h4><ol>
+<li>都是用来 生成响应式数据的</li>
+<li>不同点：<ol>
+<li>reactive 不能处理简单类型数据</li>
+<li>ref 参数支持类型更好，但是必须通过 <code>.value</code> 做访问修改</li>
+<li>ref 函数内部的使用依赖于 reactive 函数</li>
+</ol>
+</li>
+<li>在实际工作中的推荐<ul>
+<li>推荐使用 ref，减少记忆负担</li>
+</ul>
+</li>
+</ol>
+<h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><p>计算属性基本思想和 Vue2 基本一致，组合式API 只是修改了 API写法</p>
+<p>以下是在 Vue 3 中使用 <code>computed</code> 函数的一些关键点：</p>
+<ul>
+<li><p><strong>基本用法</strong></p>
+<p><code>computed</code>函数用于定义计算属性。它是一个只读属性，不能直接修改</p>
+</li>
+<li><p><strong>返回值</strong>：在计算属性中，需要包含一个 <code>return</code>语句，以指定基于依赖关系应该计算的值</p>
+<ul>
+<li>在使用 <code>&lt;script setup&gt;</code> 的情况下，可以省略 <code>return</code> 关键字来定义计算属性。这是因为 <code>&lt;script setup&gt;</code> 会自动将计算属性的最后一个表达式作为返回值</li>
+</ul>
+</li>
+<li><p><strong>同步操作</strong>：计算属性是同步的，不能用于异步操作</p>
+</li>
+<li><p><strong>依赖关系</strong>：计算属性可以引用组件内的其他数据属性或计算属性</p>
+</li>
+</ul>
+<div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="comment">// 导入</span></span><br><span class="line"><span class="keyword">import</span> &#123;ref, computed &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="comment">// 原始数据</span></span><br><span class="line"><span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 计算属性</span></span><br><span class="line"><span class="keyword">const</span> doubleCount = <span class="title function_">computed</span>(<span class="function">()=&gt;</span>count.<span class="property">value</span> * <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 原始数据</span></span><br><span class="line"><span class="keyword">const</span> list = <span class="title function_">ref</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>])</span><br><span class="line"><span class="comment">// 计算属性list</span></span><br><span class="line"><span class="keyword">const</span> filterList = <span class="title function_">computed</span>(<span class="function"><span class="params">item</span>=&gt;</span>item &gt; <span class="number">2</span>)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><p><code>watch</code> 函数是 Vue 3 组合式 API 中的一部分，用于监视响应式状态的变化并执行相应的操作。与 <code>computed</code> 函数不同，<code>watch</code> 函数可以监视任何响应式数据，包括计算属性、ref 和 reactive 对象等。</p>
+<p>以下是在 Vue 3 中使用 <code>watch</code> 函数的一些关键点：</p>
+<ul>
+<li><strong>Basic Usage</strong>: <code>watch</code> 函数接受两个参数：第一个参数是要监视的响应式数据源，可以是一个 ref、reactive 对象或计算属性等；第二个参数是回调函数，用于在数据变化时执行相应的操作</li>
+<li><strong>Immediate Option</strong>: 可以通过传入 <code>immediate: true</code> 选项来强制在创建侦听器时立即执行一遍回调函数</li>
+<li><strong>Deep Option</strong>: 可以通过传入 <code>deep: true</code> 选项来强制转成深层侦听器，以侦听嵌套对象的变化</li>
+<li><strong>Stop Function</strong>: <code>watch</code> 函数返回一个停止函数，可以用于停止侦听器的执行</li>
+</ul>
+<p>以下是在 Vue 3 中使用 <code>watch</code> 函数的示例：</p>
+<div class="highlight-container" data-rel="Javascript"><figure class="iseeu highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref, watch &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> count = <span class="title function_">ref</span>(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">watch</span>(count, <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`count is changed from <span class="subst">$&#123;oldValue&#125;</span> to <span class="subst">$&#123;newValue&#125;</span>`</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      count</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>在这个例子中，<code>watch</code> 函数监视 <code>count</code> ref 的变化，并在每次变化时打印出新旧值。</p>
 
             </div>
 
@@ -481,16 +567,16 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> vue项目打包</li>
+        <li><strong>Title:</strong> Vue3</li>
         <li><strong>Author:</strong> cccs7</li>
-        <li><strong>Created at:</strong> 2023-07-21 16:43:00</li>
+        <li><strong>Created at:</strong> 2023-07-22 11:01:22</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-07-21 16:04:25
+                <strong>Updated at:</strong> 2023-07-22 23:14:18
             </li>
         
         <li>
-            <strong>Link:</strong> https://cs7eric.github.io/2023/07/21/vue项目打包/
+            <strong>Link:</strong> https://cs7eric.github.io/2023/07/22/Vue3/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -520,29 +606,14 @@
             
                 <div class="article-nav">
                     
-                        <div class="article-prev">
-                            <a class="prev"
-                            rel="prev"
-                            href="/2023/07/22/Vue3/"
-                            >
-                                <span class="left arrow-icon flex-center">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </span>
-                                <span class="title flex-center">
-                                    <span class="post-nav-title-item">Vue3</span>
-                                    <span class="post-nav-item">Prev posts</span>
-                                </span>
-                            </a>
-                        </div>
-                    
                     
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/07/16/Vuex/"
+                            href="/2023/07/21/vue%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">Vuex</span>
+                                    <span class="post-nav-title-item">vue项目打包</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -607,8 +678,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">vue项目打包</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96"><span class="nav-text">项目打包优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="nav-text">打包命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEpublicPath"><span class="nav-text">配置publicPath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-text">路由懒加载</span></a></li></ol></li></ol>
+        <div class="page-title">Vue3</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86-Vue3"><span class="nav-text">认识 Vue3</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9%E5%BC%8F-API-%E4%B8%8E-%E7%BB%84%E5%90%88%E5%BC%8F-API"><span class="nav-text">选项式 API 与 组合式 API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-3%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-text">Vue 3的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue3-%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E4%BB%A5%E5%8F%8A%E5%85%B3%E9%94%AE%E6%96%87%E4%BB%B6"><span class="nav-text">Vue3 项目目录以及关键文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E5%BC%8F-API"><span class="nav-text">组合式 API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#setup-%E9%80%89%E9%A1%B9"><span class="nav-text">setup 选项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setup-%E9%80%89%E9%A1%B9%E7%9A%84%E5%86%99%E6%B3%95%E5%92%8C%E6%89%A7%E8%A1%8C%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-text">setup 选项的写法和执行的时机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setup-%E4%B8%AD%E5%86%99%E4%BB%A3%E7%A0%81%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">setup 中写代码的特点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lt-script-setup-gt-%E8%AF%AD%E6%B3%95%E7%B3%96"><span class="nav-text">&lt;script setup&gt; 语法糖</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reactive-%E5%92%8C-ref-%E5%87%BD%E6%95%B0"><span class="nav-text">reactive 和 ref 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#reactive"><span class="nav-text">reactive</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ref"><span class="nav-text">ref</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reactive-%E5%AF%B9%E6%AF%94-ref"><span class="nav-text">reactive 对比 ref</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#computed"><span class="nav-text">computed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#watch"><span class="nav-text">watch</span></a></li></ol>
 
     </div>
 </div>
