@@ -31,8 +31,9 @@
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110210131839.png">
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110210832227.png">
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230110210906336.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230806163608682.png">
 <meta property="article:published_time" content="2023-01-10T06:18:54.000Z">
-<meta property="article:modified_time" content="2023-08-05T14:52:23.165Z">
+<meta property="article:modified_time" content="2023-08-06T08:36:26.126Z">
 <meta property="article:author" content="cs7eric">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Spring">
@@ -380,7 +381,7 @@
                         <div class="author">
                             <span class="name">cccs7</span>
                             
-                                <span class="author-label">Lv4</span>
+                                <span class="author-label">Lv5</span>
                             
                         </div>
                         <div class="meta-info">
@@ -394,8 +395,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-08-05 22:52:23</span>
-            <span class="mobile">2023-08-05 22:52</span>
+            <span class="desktop">2023-08-06 16:36:26</span>
+            <span class="mobile">2023-08-06 16:36</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -444,12 +445,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>5.2k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>6.6k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>25 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>31 Mins</span>
         </span>
     
     
@@ -757,119 +758,46 @@ public boolean isEnabled() &#123;
 
 
 
+<h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><h4 id="权限系统的作用"><a href="#权限系统的作用" class="headerlink" title="权限系统的作用"></a>权限系统的作用</h4><p>例如一个学校图书馆的管理系统，如果是普通学生登录就能看到借书还书相关的功能，不可能让他看到并且去使用添加书籍信息，删除书籍信息等功能。但是如果是一个图书馆管理员的账号登录了，应该就能看到并使用添加书籍信息，删除书籍信息等功能。</p>
+<p>总结起来就是<strong>不同的用户可以使用不同的功能</strong>。这就是权限系统要去实现的效果。</p>
+<p>我们不能只依赖前端去判断用户的权限来选择显示哪些菜单哪些按钮。因为如果只是这样，如果有人知道了对应功能的接口地址就可以不通过前端，直接去发送请求来实现相关功能操作。</p>
+<p>所以我们还需要在后台进行用户权限的判断，判断当前用户是否有相应的权限，必须具有所需权限才能进行相应的操作。</p>
+<p>权限系统的作用是对用户在系统中可操作的功能和可查看的数据范围进行控制。它是后台系统中常见的模块，用于<strong>管理不同用户对资源的访问权限</strong>，以避免因权限控制缺失或操作不当而引发的风险问题。权限系统通过设定不同的用户角色，并将权限分配给各个角色，来实现不同用户可以使用不同功能的效果。它主要包括认证和授权两种功能。认证是验证用户身份的过程，而授权则是根据认证用户的权限来授予或拒绝对特定资源的访问。权限系统的作用是确保不同用户可以使用不同功能和访问不同数据。需要注意的是，仅依赖前端来确定用户权限并选择显示哪些菜单和按钮是不够的。</p>
+<h4 id="授权基本流程"><a href="#授权基本流程" class="headerlink" title="授权基本流程"></a>授权基本流程</h4><p>在 SpringSecurity 中 ，会使用默认的 <code>FilterSecurityInteceptor</code> 来进行权限校验。<code>FilterSecurityInteceptor</code> 中 会从 <code>SecurityContextHolder</code> 中获取其中的 <code>authentication</code> ，然后获取其中的 权限信息。当前用户是否拥有 访问当前资源的所需的权限</p>
+<p>所以 我们在项目只需要把当前登录用户的权限信息也存入 <code>authentication</code> </p>
+<p>然后设置我们资源所需要的权限即可</p>
+<h4 id="授权实现"><a href="#授权实现" class="headerlink" title="授权实现"></a>授权实现</h4><h5 id="限制访问资源所需权限"><a href="#限制访问资源所需权限" class="headerlink" title="限制访问资源所需权限"></a>限制访问资源所需权限</h5><p>SpringSecurity 为我们提供了基于注解的 权限解决方案，这也是我们项目中主要采用的方式。我们可以通过使用注解去访问对应的资源所需的权限</p>
+<p>但是使用之前，需要 开启相关的配置 </p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SecurityConfig</span> <span class="keyword">extends</span> <span class="title class_">WebSecurityConfigurerAdapter</span> &#123;</span><br></pre></td></tr></table></figure></div>
 
+<p>然后才可以使用 注解 <code>@PreAuthorize</code></p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GetMapping</span></span><br><span class="line"><span class="meta">@PreAuthorize(&quot;hasAuthority(&#x27;test&#x27;)&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 
 
 
+<h5 id="封装权限信息"><a href="#封装权限信息" class="headerlink" title="封装权限信息"></a>封装权限信息</h5><p>前面在写 <code>UserDetailServiceImpl</code> 说过，在查询出 用户后还需要获取对应的权限信息，封装到 <code>UserDetails</code> 中 返回</p>
+<p>我们先直接把  权限信息 写死封装到 <code>UserDetails </code>的实现类中 进行测试</p>
+<p>我们之前定义了 <code>Usertails</code> 的 实现类 <code>LoginUser</code> ，想要让其能封装权限信息，就要对其进行更改</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sangeng.domain;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.annotation.JSONField;</span><br><span class="line"><span class="keyword">import</span> lombok.AllArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"><span class="keyword">import</span> lombok.NoArgsConstructor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.GrantedAuthority;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.authority.SimpleGrantedAuthority;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UserDetails;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> 三更  B站： https://space.bilibili.com/663528522</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LoginUser</span> <span class="keyword">implements</span> <span class="title class_">UserDetails</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> User user;</span><br><span class="line">        </span><br><span class="line">    <span class="comment">//存储权限信息</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;String&gt; permissions;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">LoginUser</span><span class="params">(User user,List&lt;String&gt; permissions)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.user = user;</span><br><span class="line">        <span class="built_in">this</span>.permissions = permissions;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//存储SpringSecurity所需要的权限信息的集合</span></span><br><span class="line">    <span class="meta">@JSONField(serialize = false)</span></span><br><span class="line">    <span class="keyword">private</span> List&lt;GrantedAuthority&gt; authorities;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span>  Collection&lt;? <span class="keyword">extends</span> <span class="title class_">GrantedAuthority</span>&gt; getAuthorities() &#123;</span><br><span class="line">        <span class="keyword">if</span>(authorities!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> authorities;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//把permissions中字符串类型的权限信息转换成GrantedAuthority对象存入authorities中</span></span><br><span class="line">        authorities = permissions.stream().</span><br><span class="line">                map(SimpleGrantedAuthority::<span class="keyword">new</span>)</span><br><span class="line">                .collect(Collectors.toList());</span><br><span class="line">        <span class="keyword">return</span> authorities;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getPassword</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> user.getPassword();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getUsername</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> user.getUserName();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAccountNonExpired</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAccountNonLocked</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isCredentialsNonExpired</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEnabled</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
 
 
+<p>LoginUser修改完后我们就可以在UserDetailsServiceImpl中去把权限信息封装到LoginUser中了。我们写死权限进行测试，后面我们再从数据库中查询权限信息。</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.sangeng.service.impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;</span><br><span class="line"><span class="keyword">import</span> com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;</span><br><span class="line"><span class="keyword">import</span> com.sangeng.domain.LoginUser;</span><br><span class="line"><span class="keyword">import</span> com.sangeng.domain.User;</span><br><span class="line"><span class="keyword">import</span> com.sangeng.mapper.UserMapper;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UserDetails;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UserDetailsService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.core.userdetails.UsernameNotFoundException;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> 三更  B站： https://space.bilibili.com/663528522</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDetailsServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">UserDetailsService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserMapper userMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> UserDetails <span class="title function_">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException &#123;</span><br><span class="line">        LambdaQueryWrapper&lt;User&gt; wrapper = <span class="keyword">new</span> <span class="title class_">LambdaQueryWrapper</span>&lt;&gt;();</span><br><span class="line">        wrapper.eq(User::getUserName,username);</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> userMapper.selectOne(wrapper);</span><br><span class="line">        <span class="keyword">if</span>(Objects.isNull(user))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;用户名或密码错误&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//TODO 根据用户查询权限信息 添加到LoginUser中</span></span><br><span class="line">        List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;(Arrays.asList(<span class="string">&quot;test&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">LoginUser</span>(user,list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
 
 
 
+<h5 id="从数据库查询权限信息"><a href="#从数据库查询权限信息" class="headerlink" title="从数据库查询权限信息"></a>从数据库查询权限信息</h5><h6 id="RBAC-权限模型"><a href="#RBAC-权限模型" class="headerlink" title="RBAC 权限模型"></a>RBAC 权限模型</h6><p>RBAC 权限模型（Role-Based Access Control) 即： 基于角色的 权限控制。这是目前最常被 开发者使用也是相对易用、通用的权限模型</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230806163608682.png"
+                      alt="image-20230806163608682" style="zoom: 80%;" 
+                >
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<h6 id="准备工作-1"><a href="#准备工作-1" class="headerlink" title="准备工作"></a>准备工作</h6>
             </div>
 
             
@@ -881,7 +809,7 @@ public boolean isEnabled() &#123;
         <li><strong>Created at:</strong> 2023-01-10 14:18:54</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-08-05 22:52:23
+                <strong>Updated at:</strong> 2023-08-06 16:36:26
             </li>
         
         <li>
@@ -1007,7 +935,7 @@ public boolean isEnabled() &#123;
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">SpringSecurity</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E7%AE%80%E4%BB%8B"><span class="nav-text">SpringSecurity 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot-AutoConfiguration"><span class="nav-text">SpringBoot AutoConfiguration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-text">SpringSecurity 快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demo"><span class="nav-text">demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E4%BD%BF%E7%94%A8"><span class="nav-text">SpringSecurity 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-text">认证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E9%99%86%E6%A0%A1%E9%AA%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">登陆校验流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2"><span class="nav-text">原理初探</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SpringSecurity-%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-text">SpringSecurity 的完整流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B%E8%AF%A6%E8%A7%A3"><span class="nav-text">认证流程详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="nav-text">解决问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-text">思路分析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%99%BB%E9%99%86"><span class="nav-text">登陆</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C"><span class="nav-text">校验</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96-1"><span class="nav-text">添加依赖</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A0%A1%E9%AA%8C%E7%94%A8%E6%88%B7"><span class="nav-text">数据库校验用户</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3"><span class="nav-text">登录接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-text">认证过滤器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E7%99%BB%E5%BD%95"><span class="nav-text">退出登录</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E7%AE%80%E4%BB%8B"><span class="nav-text">SpringSecurity 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringBoot-AutoConfiguration"><span class="nav-text">SpringBoot AutoConfiguration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8"><span class="nav-text">SpringSecurity 快速入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96"><span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#demo"><span class="nav-text">demo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SpringSecurity-%E4%BD%BF%E7%94%A8"><span class="nav-text">SpringSecurity 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-text">认证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E9%99%86%E6%A0%A1%E9%AA%8C%E6%B5%81%E7%A8%8B"><span class="nav-text">登陆校验流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E5%88%9D%E6%8E%A2"><span class="nav-text">原理初探</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SpringSecurity-%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-text">SpringSecurity 的完整流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B%E8%AF%A6%E8%A7%A3"><span class="nav-text">认证流程详解</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="nav-text">解决问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-text">思路分析</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%99%BB%E9%99%86"><span class="nav-text">登陆</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A0%A1%E9%AA%8C"><span class="nav-text">校验</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96-1"><span class="nav-text">添加依赖</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A0%A1%E9%AA%8C%E7%94%A8%E6%88%B7"><span class="nav-text">数据库校验用户</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%8E%A5%E5%8F%A3"><span class="nav-text">登录接口</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-text">认证过滤器</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%80%E5%87%BA%E7%99%BB%E5%BD%95"><span class="nav-text">退出登录</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-text">授权</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">权限系统的作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%88%E6%9D%83%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-text">授权基本流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%88%E6%9D%83%E5%AE%9E%E7%8E%B0"><span class="nav-text">授权实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%99%90%E5%88%B6%E8%AE%BF%E9%97%AE%E8%B5%84%E6%BA%90%E6%89%80%E9%9C%80%E6%9D%83%E9%99%90"><span class="nav-text">限制访问资源所需权限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E6%9D%83%E9%99%90%E4%BF%A1%E6%81%AF"><span class="nav-text">封装权限信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%9D%83%E9%99%90%E4%BF%A1%E6%81%AF"><span class="nav-text">从数据库查询权限信息</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#RBAC-%E6%9D%83%E9%99%90%E6%A8%A1%E5%9E%8B"><span class="nav-text">RBAC 权限模型</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C-1"><span class="nav-text">准备工作</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
 
     </div>
 </div>
