@@ -29,8 +29,10 @@
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230805235939729.png">
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230806230751962.png">
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230806231045303.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230808221959913.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230808222054240.png">
 <meta property="article:published_time" content="2023-08-05T15:40:34.000Z">
-<meta property="article:modified_time" content="2023-08-06T15:14:42.401Z">
+<meta property="article:modified_time" content="2023-08-08T14:28:54.358Z">
 <meta property="article:author" content="cs7eric">
 <meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary">
@@ -390,8 +392,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-08-06 23:14:42</span>
-            <span class="mobile">2023-08-06 23:14</span>
+            <span class="desktop">2023-08-08 22:28:54</span>
+            <span class="mobile">2023-08-08 22:28</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -428,12 +430,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.8k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>3.1k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>12 Mins</span>
         </span>
     
     
@@ -585,6 +587,105 @@
 <li><code>.child</code>元素的<code>vertical-align</code>属性被设置为<code>middle</code>，这将使其在垂直方向上居中对齐。</li>
 </ol>
 <p>通过将<code>.parent</code>元素的行高设置为与父元素高度相同的值，然后将<code>.child</code>元素设置为行内块级元素，并使用<code>vertical-align: middle</code>属性，可以实现垂直居中的效果。</p>
+<h3 id="定位方式实现"><a href="#定位方式实现" class="headerlink" title="定位方式实现"></a>定位方式实现</h3><h4 id="方法一-1"><a href="#方法一-1" class="headerlink" title="方法一"></a>方法一</h4><p>是 通过 <code>top: 50%</code>   <code>margin-top: 等于﹣的高度的一半</code></p>
+<p>代码如下</p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="comment">/* 为父级容器开启相对定位 */</span></span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="comment">/* margin-top: 等于负高度的一半 */</span></span><br><span class="line">  <span class="attribute">margin-top</span>: -<span class="number">150px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="方法二-1"><a href="#方法二-1" class="headerlink" title="方法二"></a>方法二</h4><p>通过定位的方式实现： <code>top</code> 和 <code>bottom</code> 将子元素拉伸至 100%， 设置指定的高度，通过 <code>margin:auto</code> 即可实现 垂直居中</p>
+<p>代码如下</p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="comment">/* 为父级容器开启相对定位 */</span></span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="comment">/* 垂直拉满 */</span></span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="comment">/* margin: auto 即可实现 */</span></span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="方式三"><a href="#方式三" class="headerlink" title="方式三"></a>方式三</h4><p>使用 <code>top</code> 配合 <code>transform</code> </p>
+<p>代码如下</p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="comment">/* 为父级容器开启相对定位 */</span></span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translateY</span>(-<span class="number">50%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Flex-方案-1"><a href="#Flex-方案-1" class="headerlink" title="Flex 方案"></a>Flex 方案</h3><p>代码如下</p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="comment">/* 开启 flex 布局 */</span></span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="comment">/* 方法一 */</span></span><br><span class="line">  <span class="comment">/* align-items: center; */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="comment">/* 方法二 */</span></span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li><code>.parent</code>元素设置了<code>display: flex</code>，将其变为一个flex容器。</li>
+<li><code>.child</code>元素没有设置具体的垂直居中属性，但是由于它是flex容器的子元素，会受到flex容器的属性影响。</li>
+<li>默认情况下，flex容器的<code>align-items</code>属性的值为<code>stretch</code>，即子元素会被拉伸以填充整个容器的高度。</li>
+<li>当子元素没有设置具体的高度时，它会被拉伸以填充整个容器的高度，从而实现垂直居中的效果。</li>
+</ol>
+<h3 id="Grid-方案-1"><a href="#Grid-方案-1" class="headerlink" title="Grid 方案"></a>Grid 方案</h3><p>代码如下</p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.parent</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="comment">/* 方法一 */</span></span><br><span class="line">  <span class="comment">/* align-items: center; */</span></span><br><span class="line">  <span class="comment">/* 方法二 */</span></span><br><span class="line">  <span class="comment">/* align-content: center; */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child</span> &#123;</span><br><span class="line">  <span class="comment">/* 方法三 */</span></span><br><span class="line">  <span class="comment">/* margin: auto; */</span></span><br><span class="line">  <span class="comment">/* 方法四 */</span></span><br><span class="line">  <span class="attribute">align-self</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li><code>.parent</code>元素设置了<code>display: grid</code>，将其变为一个grid容器。</li>
+<li><code>.child</code>元素没有设置具体的垂直居中属性，但是由于它是grid容器的子元素，会受到grid容器的属性影响。</li>
+<li>方法一：<code>.parent</code>元素设置了<code>align-items: center</code>，这会将所有子元素在垂直方向上居中对齐。</li>
+<li>方法二：<code>.parent</code>元素设置了<code>align-content: center</code>，这会将所有子元素在垂直方向上居中对齐，但只有在grid容器的高度大于子元素的高度时才会生效。</li>
+<li>方法三：<code>.child</code>元素设置了<code>margin: auto</code>，这会使子元素在垂直方向上自动填充剩余空间，从而实现垂直居中的效果。</li>
+<li>方法四：<code>.child</code>元素设置了<code>align-self: center</code>，这会使该子元素在垂直方向上居中对齐，覆盖了grid容器的align-items属性。</li>
+</ol>
+<h2 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h2><h2 id="等分布局"><a href="#等分布局" class="headerlink" title="等分布局"></a>等分布局</h2><p>等分布局就是 将一个 容器 平均分成几等份， 这里以四等分 为例</p>
+<p>公共 css 如下</p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#eebefa</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item1</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#eccc68</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item2</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#a6c1fa</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item3</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#fa7d90</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item4</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#b0ff70</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* 清除浮动 */</span></span><br><span class="line"><span class="selector-class">.clearfix</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">  <span class="attribute">visibility</span>: hidden;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>公共 HTML 代码如下</p>
+<div class="highlight-container" data-rel="Html"><figure class="iseeu highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 父元素清除浮动 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container clearfix&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item item1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item item2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item item3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item item4&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>初始状态</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230808221959913.png"
+                      alt="image-20230808221959913" style="zoom:25%;" 
+                >
+
+
+
+<p>最终效果</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230808222054240.png"
+                      alt="image-20230808222054240" style="zoom:33%;" 
+                >
+
+
+
+<h3 id="浮动-百分比"><a href="#浮动-百分比" class="headerlink" title="浮动 + 百分比"></a>浮动 + 百分比</h3><p>开启浮动，使每个元素 占  25% 的 宽度</p>
+<p>代码如下 </p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="comment">/* 开启浮动，每个元素占 25% 的宽度 */</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">25%</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li><code>.item</code>元素设置了<code>float: left</code>，使每个元素都向左浮动。</li>
+<li>浮动元素不会占据父元素的空间，因此可以在一行上放置多个浮动元素。</li>
+<li><code>.item</code>元素设置了<code>width: 25%</code>，使每个元素占据父元素宽度的25%。</li>
+<li>由于每个元素都占据了相同的宽度，且浮动元素在一行上排列，因此可以实现等分布局的效果。</li>
+</ol>
+<h3 id="行内块级-百分比"><a href="#行内块级-百分比" class="headerlink" title="行内块级 + 百分比"></a>行内块级 + 百分比</h3><p>这种方式与上面那种方式类似，不过需要注意的是行内块级元素有一些类似于边距的几个像素，导致各<code>25%</code>会超出容器。</p>
+<p>实现CSS代码如下：</p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="comment">/* 设置每个元素为行内块级元素，每个元素占 24.5% 的宽度 */</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="number">24.5%</span>;</span><br><span class="line">  <span class="comment">/* 因为行内块级元素有一些类似于边距的几个像素，导致各占25会超出容器 */</span></span><br><span class="line">  <span class="attribute">display</span>: inline-block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li><code>.item</code>元素设置了<code>display: inline-block</code>，将每个元素设置为行内块级元素。</li>
+<li>行内块级元素可以在一行上排列，并且可以设置宽度和高度。</li>
+<li><code>.item</code>元素设置了<code>width: 24.5%</code>，使每个元素占据父元素宽度的24.5%。</li>
+<li>由于每个元素都占据了相同的宽度，且行内块级元素在一行上排列，因此可以实现等分布局的效果。</li>
+</ol>
+<h3 id="Flex-方案-2"><a href="#Flex-方案-2" class="headerlink" title="Flex 方案"></a>Flex 方案</h3><p>通过 Flex 布局实现该功能主要是通过<code>flex</code>属性来实现。</p>
+<p>代码如下</p>
+<div class="highlight-container" data-rel="Css"><figure class="iseeu highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="comment">/* 开启 flex 布局 */</span></span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="comment">/* 每个元素占相同的宽度 */</span></span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<ol>
+<li><code>.container</code>元素设置了<code>display: flex</code>，将其变为一个flex容器。</li>
+<li><code>.item</code>元素没有设置具体的宽度，但是由于它是flex容器的子元素，会受到flex容器的属性影响。</li>
+<li><code>.item</code>元素设置了<code>flex: 1</code>，这会使每个元素占据相同的宽度，从而实现等分布局的效果。</li>
+<li><code>flex: 1</code>的意思是将剩余的空间平均分配给所有的子元素，因此每个子元素都会占据相同的宽度。</li>
+</ol>
 
             </div>
 
@@ -597,7 +698,7 @@
         <li><strong>Created at:</strong> 2023-08-05 23:40:34</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-08-06 23:14:42
+                <strong>Updated at:</strong> 2023-08-08 22:28:54
             </li>
         
         <li>
@@ -715,7 +816,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">前端常见布局</div>
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="nav-text">水平居中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-text-align-%E5%B1%9E%E6%80%A7"><span class="nav-text">使用 text-align  属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E5%AE%BD%E5%9D%97%E7%BA%A7%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="nav-text">定宽块级元素水平居中</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89"><span class="nav-text">方法三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B"><span class="nav-text">方法四</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex-%E6%96%B9%E6%A1%88"><span class="nav-text">Flex 方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grid-%E6%96%B9%E6%A1%88"><span class="nav-text">Grid 方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD"><span class="nav-text">垂直居中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E5%9D%97%E7%BA%A7%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD"><span class="nav-text">行内块级元素垂直居中</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="nav-text">水平居中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-text-align-%E5%B1%9E%E6%80%A7"><span class="nav-text">使用 text-align  属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E5%AE%BD%E5%9D%97%E7%BA%A7%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD"><span class="nav-text">定宽块级元素水平居中</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%89"><span class="nav-text">方法三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%9B%9B"><span class="nav-text">方法四</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex-%E6%96%B9%E6%A1%88"><span class="nav-text">Flex 方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grid-%E6%96%B9%E6%A1%88"><span class="nav-text">Grid 方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD"><span class="nav-text">垂直居中</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E5%9D%97%E7%BA%A7%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD"><span class="nav-text">行内块级元素垂直居中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="nav-text">定位方式实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80-1"><span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C-1"><span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%89"><span class="nav-text">方式三</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex-%E6%96%B9%E6%A1%88-1"><span class="nav-text">Flex 方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Grid-%E6%96%B9%E6%A1%88-1"><span class="nav-text">Grid 方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD"><span class="nav-text">水平垂直居中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%89%E5%88%86%E5%B8%83%E5%B1%80"><span class="nav-text">等分布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E5%8A%A8-%E7%99%BE%E5%88%86%E6%AF%94"><span class="nav-text">浮动 + 百分比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E5%86%85%E5%9D%97%E7%BA%A7-%E7%99%BE%E5%88%86%E6%AF%94"><span class="nav-text">行内块级 + 百分比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flex-%E6%96%B9%E6%A1%88-2"><span class="nav-text">Flex 方案</span></a></li></ol></li></ol>
 
     </div>
 </div>
