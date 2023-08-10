@@ -34,8 +34,13 @@
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230809200431805.png">
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230809200507747.png">
 <meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20210713214404481.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810190734891.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810190900555.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810190956641.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810193004907.png">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810193410808.png">
 <meta property="article:published_time" content="2023-08-09T10:16:11.000Z">
-<meta property="article:modified_time" content="2023-08-09T12:10:23.768Z">
+<meta property="article:modified_time" content="2023-08-10T11:42:37.509Z">
 <meta property="article:author" content="cs7eric">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="微服务">
@@ -399,8 +404,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-08-09 20:10:23</span>
-            <span class="mobile">2023-08-09 20:10</span>
+            <span class="desktop">2023-08-10 19:42:37</span>
+            <span class="mobile">2023-08-10 19:42</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -453,12 +458,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>1.7k Words</span>
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>2.9k Words</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fa-regular fa-clock"></i>&nbsp;<span>6 Mins</span>
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>11 Mins</span>
         </span>
     
     
@@ -627,7 +632,130 @@
 <li>对于B调用C的业务而言：B是服务消费者，C是服务提供者</li>
 </ul>
 <p>因此，服务B既可以是服务提供者，也可以是服务消费者。</p>
-<h3 id="Eureka-注册中心"><a href="#Eureka-注册中心" class="headerlink" title="Eureka 注册中心"></a>Eureka 注册中心</h3>
+<h3 id="Eureka-注册中心"><a href="#Eureka-注册中心" class="headerlink" title="Eureka 注册中心"></a>Eureka 注册中心</h3><p>假如 服务提供商 user-service 部署了多个实例：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810190734891.png"
+                      alt="image-20230810190734891" style="zoom:50%;" 
+                >
+
+<p>会有以下几个问题：</p>
+<ul>
+<li>order-service在发起远程调用的时候，该如何得知user-service实例的ip地址和端口？</li>
+<li>有多个user-service实例地址，order-service调用时该如何选择？</li>
+<li>order-service如何得知某个user-service实例是否依然健康，是不是已经宕机？</li>
+</ul>
+<h4 id="Eureka-的结构与作用"><a href="#Eureka-的结构与作用" class="headerlink" title="Eureka 的结构与作用"></a>Eureka 的结构与作用</h4><p>以上的问题都需要利用 Springcloud 中的注册中心来进行解决，Eureka 就是其中之一</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810190900555.png"
+                      alt="image-20230810190900555" style="zoom:50%;" 
+                >
+
+
+
+<p>解决以上问题：</p>
+<p>问题1：order-service如何得知user-service实例地址？</p>
+<p>获取地址信息的流程如下：</p>
+<ul>
+<li>user-service服务实例启动后，将自己的信息注册到eureka-server（Eureka服务端）。这个叫服务注册</li>
+<li>eureka-server保存服务名称到服务实例地址列表的映射关系</li>
+<li>order-service根据服务名称，拉取实例地址列表。这个叫服务发现或服务拉取</li>
+</ul>
+<p>问题2：order-service如何从多个user-service实例中选择具体的实例？</p>
+<ul>
+<li>order-service从实例列表中利用负载均衡算法选中一个实例地址</li>
+<li>向该实例地址发起远程调用</li>
+</ul>
+<p>问题3：order-service如何得知某个user-service实例是否依然健康，是不是已经宕机？</p>
+<ul>
+<li>user-service会每隔一段时间（默认30秒）向eureka-server发起请求，报告自己状态，称为心跳</li>
+<li>当超过一定时间没有发送心跳时，eureka-server会认为微服务实例故障，将该实例从服务列表中剔除</li>
+<li>order-service拉取服务时，就能将故障实例排除了</li>
+</ul>
+<blockquote>
+<p>注意：一个微服务，既可以是服务提供者，又可以是服务消费者，因此eureka将服务注册、服务发现等功能统一封装到了eureka-client端</p>
+</blockquote>
+<p>所以，接下来步骤为：</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810190956641.png"
+                      alt="image-20230810190956641" style="zoom:50%;" 
+                >
+
+<h4 id="搭建-Eureka-server"><a href="#搭建-Eureka-server" class="headerlink" title="搭建 Eureka-server"></a>搭建 Eureka-server</h4><p>搭建 注册中心服务端，这必须是一个<strong>独立</strong>的 微服务</p>
+<h5 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h5><div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="编写启动类"><a href="#编写启动类" class="headerlink" title="编写启动类"></a>编写启动类</h5><p>给 <code>eureka-server</code> 服务 编写一个启动类，一定要添加一个 <code>@EnableEurekaServer</code> 注解，开启 Eureka 的注册中心功能</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cccs7.eureka;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt; Eureka 启动类 &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> cccs7/cs7eric - csq020611@gmail.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> Eureka 启动类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2023/8/9 16:12</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableEurekaServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">EurekaApplication</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        SpringApplication.run(EurekaApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="编写配置文件"><a href="#编写配置文件" class="headerlink" title="编写配置文件"></a>编写配置文件</h5><p>编写一个 <code>application.yml</code> 配置文件</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">10086</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">eureka-server</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span> </span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h5><p>在浏览器访问 ： <a class="link"   target="_blank" rel="noopener" href="http://127.0.0.1:10086/" >http://127.0.0.1:10086 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810193004907.png"
+                      alt="image-20230810193004907" style="zoom: 33%;" 
+                >
+
+
+
+<h4 id="服务注册"><a href="#服务注册" class="headerlink" title="服务注册"></a>服务注册</h4><p>将 <code>user-service </code> 注册到 <code>eureka-server</code> 中</p>
+<h5 id="引入依赖-1"><a href="#引入依赖-1" class="headerlink" title="引入依赖"></a>引入依赖</h5><p>在 <code>user-service</code> 的 pom 文件中，添加以下依赖</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h5><p>在user-service中，修改<code>application.yml</code>文件，添加  <strong>服务名称</strong>、  <strong>eureka地址</strong>：</p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">userservice</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="启动多个-user-service-实例"><a href="#启动多个-user-service-实例" class="headerlink" title="启动多个 user-service 实例"></a>启动多个 user-service 实例</h5><p>直接复制application 更改端口号即可</p>
+<p><code>Edit Configuration</code>     ——   <code>VM optioins</code></p>
+<p><code>-Dserver.port=8082</code></p>
+<p>然后启动示例，查看 <code>eureka-server</code>  的管理页面</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230810193410808.png"
+                      alt="image-20230810193410808"
+                ></p>
+<h4 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h4><p>接下来，我们 将 <code>order-service</code> 的逻辑修改： 向 <code>eureka-server</code> 拉取 <code>user-service</code> 的信息，实现服务发现</p>
+<h5 id="引入依赖-2"><a href="#引入依赖-2" class="headerlink" title="引入依赖"></a>引入依赖</h5><p>服务发现、服务注册 统一封装在 ·<code>eureka-client</code> 依赖，因此与 服务注册时一致，先添加依赖：</p>
+<div class="highlight-container" data-rel="Xml"><figure class="iseeu highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="配置文件-1"><a href="#配置文件-1" class="headerlink" title="配置文件"></a>配置文件</h5><p>服务发现也需要知道  eureka 的 服务地址，因此第二步也是配置 Eureka 信息</p>
+<p>在 <code>order-service</code>  <code>application.yml</code> 中 配置 Eureka 信息： <strong>添加 服务名称、 Eureka 地址</strong></p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">application:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">orderservice</span></span><br><span class="line"><span class="attr">eureka:</span></span><br><span class="line">  <span class="attr">client:</span></span><br><span class="line">    <span class="attr">service-url:</span></span><br><span class="line">      <span class="attr">defaultZone:</span> <span class="string">http://127.0.0.1:10086/eureka</span></span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="服务拉取与负载均衡"><a href="#服务拉取与负载均衡" class="headerlink" title="服务拉取与负载均衡"></a>服务拉取与负载均衡</h5><p>最后，我们需要去 <code>eureka-server</code> 中拉取 <code>user-service</code> 服务的实例列表，并实现负载均衡</p>
+<p>只需要我们添加 注解即可</p>
+<p>在 <code>order-service</code>  的 <code>OrderApplication</code> ，给 <code>RestTemplate</code> 添加一个 <code>@LoadBalanced</code> 注解即可</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line"><span class="keyword">public</span> RestTemplate <span class="title function_">restTemplate</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RestTemplate</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>修改order-service服务中的cn.itcast.order.service包下的OrderService类中的queryOrderById方法。修改访问的url路径，用服务名代替ip、端口：</p>
+<div class="highlight-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Order <span class="title function_">queryOrderById</span><span class="params">(Long orderId)</span> &#123;</span><br><span class="line">    <span class="comment">// 1.查询订单</span></span><br><span class="line">    <span class="type">Order</span> <span class="variable">order</span> <span class="operator">=</span> orderMapper.findById(orderId);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 远程查询 user</span></span><br><span class="line">    <span class="comment">//url 地址</span></span><br><span class="line">    <span class="comment">//        String url = &quot;http://localhost:8081/user/&quot; + order.getUserId();</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;http://userservice/user/&quot;</span> + order.getUserId();</span><br><span class="line">    <span class="comment">//调用</span></span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> restTemplate.getForObject(url, User.class);</span><br><span class="line">    <span class="comment">// 存入 order</span></span><br><span class="line">    order.setUser(user);</span><br><span class="line">    <span class="comment">// 4.返回</span></span><br><span class="line">    <span class="keyword">return</span> order;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>spring 会自动帮我们 从<code>eureka-server</code> 端， 根据 <code>userservice</code> 这个服务名称，获取实例列表，而后 完成负载均衡</p>
+
             </div>
 
             
@@ -639,7 +767,7 @@
         <li><strong>Created at:</strong> 2023-08-09 18:16:11</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-08-09 20:10:23
+                <strong>Updated at:</strong> 2023-08-10 19:42:37
             </li>
         
         <li>
@@ -754,7 +882,7 @@
     <div class="post-toc">
         <div class="toc-title">On this page</div>
         <div class="page-title">springcloud</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springcloud-%E5%85%A5%E9%97%A8"><span class="nav-text">springcloud 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8"><span class="nav-text">服务拆分与远程调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86%E5%8E%9F%E5%88%99"><span class="nav-text">服务拆分原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86%E7%A4%BA%E4%BE%8B"><span class="nav-text">服务拆分示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8-%E6%A1%88%E4%BE%8B"><span class="nav-text">实现远程调用 案例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E9%9C%80%E6%B1%82"><span class="nav-text">案例需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C-RestTemplate"><span class="nav-text">注册 RestTemplate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8"><span class="nav-text">实现远程调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-text">提供者与消费者</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eureka-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="nav-text">Eureka 注册中心</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%80%A7"><span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springcloud-%E5%85%A5%E9%97%A8"><span class="nav-text">springcloud 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86%E4%B8%8E%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8"><span class="nav-text">服务拆分与远程调用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86%E5%8E%9F%E5%88%99"><span class="nav-text">服务拆分原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8B%86%E5%88%86%E7%A4%BA%E4%BE%8B"><span class="nav-text">服务拆分示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8-%E6%A1%88%E4%BE%8B"><span class="nav-text">实现远程调用 案例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%E9%9C%80%E6%B1%82"><span class="nav-text">案例需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C-RestTemplate"><span class="nav-text">注册 RestTemplate</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8"><span class="nav-text">实现远程调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E8%80%85%E4%B8%8E%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-text">提供者与消费者</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Eureka-%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83"><span class="nav-text">Eureka 注册中心</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Eureka-%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E4%BD%9C%E7%94%A8"><span class="nav-text">Eureka 的结构与作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%AD%E5%BB%BA-Eureka-server"><span class="nav-text">搭建 Eureka-server</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E5%90%AF%E5%8A%A8%E7%B1%BB"><span class="nav-text">编写启动类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">编写配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="nav-text">启动服务</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C"><span class="nav-text">服务注册</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96-1"><span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E5%A4%9A%E4%B8%AA-user-service-%E5%AE%9E%E4%BE%8B"><span class="nav-text">启动多个 user-service 实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0"><span class="nav-text">服务发现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96-2"><span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6-1"><span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E6%8B%89%E5%8F%96%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-text">服务拉取与负载均衡</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
 
     </div>
 </div>
