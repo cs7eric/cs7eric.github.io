@@ -2551,7 +2551,7 @@ pre .deletion {
   position: relative;
   box-sizing: border-box;
   width: 80%;
-  max-width: 1200px;
+  max-width: 1500px;
   height: 100%;
   transition-property: color, background, box-shadow, border-color, max-width, width;
   transition-delay: 0s, 0s, 0s, 0s, 0s, 0s;
@@ -2569,7 +2569,7 @@ pre .deletion {
   }
 }
 .page-container .main-content-container .main-content-body .main-content.has-toc {
-  max-width: 1440px !important;
+  max-width: 1800px !important;
 }
 .page-container .main-content-container .main-content-body .main-content-footer {
   width: 100%;
@@ -4680,7 +4680,7 @@ pre .deletion {
   position: relative;
   height: 100%;
   width: 80%;
-  max-width: 1200px;
+  max-width: 1500px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -4688,7 +4688,7 @@ pre .deletion {
   z-index: 1005;
 }
 .navbar-container .navbar-content.has-home-banner {
-  max-width: 1440px;
+  max-width: 1800px;
 }
 @media (max-width: 780px) {
   .navbar-container .navbar-content {
