@@ -13,18 +13,26 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/page/5/"/>
+    <link rel="canonical" href="http://example.com/2023/10/11/mongodb 被攻击复盘/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta property="og:type" content="website">
-<meta property="og:title" content="Cs7eric&#39;s BLOG">
-<meta property="og:url" content="http://example.com/page/5/index.html">
+        <meta name="description" content="MongoDB 被攻击复盘 这几天在测试项目，发现每隔一段时间，MongoDB里面存储的测试数据就会被清空，今天有空看了一下 mongodb 的日志，发现 被攻击了  他使用 PyMongo , 定期的对我的数据库进行 drop，然后才想起来 mongodb 没有加身份验证，而且还开放了端口，导致这次的问题 然后我在 mongo 添加了管理用户，并开放了 权限 123456789db.create">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB 被攻击复盘">
+<meta property="og:url" content="http://example.com/2023/10/11/MongoDB%20%E8%A2%AB%E6%94%BB%E5%87%BB%E5%A4%8D%E7%9B%98/index.html">
 <meta property="og:site_name" content="Cs7eric&#39;s BLOG">
+<meta property="og:description" content="MongoDB 被攻击复盘 这几天在测试项目，发现每隔一段时间，MongoDB里面存储的测试数据就会被清空，今天有空看了一下 mongodb 的日志，发现 被攻击了  他使用 PyMongo , 定期的对我的数据库进行 drop，然后才想起来 mongodb 没有加身份验证，而且还开放了端口，导致这次的问题 然后我在 mongo 添加了管理用户，并开放了 权限 123456789db.create">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20231011130246635.png">
+<meta property="article:published_time" content="2023-10-11T04:22:23.000Z">
+<meta property="article:modified_time" content="2023-10-11T05:08:55.358Z">
 <meta property="article:author" content="cs7eric">
+<meta property="article:tag" content="MongoDB">
+<meta property="article:tag" content="Issues">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20231011130246635.png">
     
     
         <!-- Google tag (gtag.js) -->
@@ -45,6 +53,8 @@
     <!--- Page Info-->
     
     <title>
+        
+            MongoDB 被攻击复盘 -
         
         cccs7&#39;s blog
     </title>
@@ -124,9 +134,9 @@
         <div class="left">
             
             <a class="logo-title" href="/">
-                <h1>
+                
                 cccs7&#39;s blog
-                </h1>
+                
             </a>
         </div>
 
@@ -138,7 +148,7 @@
                         
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active" 
+                                <a class="" 
                                     href="/"  >
                                     
                                         
@@ -248,7 +258,7 @@
             
                 
                     <li class="drawer-navbar-item flex-center">
-                        <a class="active" 
+                        <a class="" 
                         href="/"  >
                              
                                 
@@ -338,572 +348,248 @@
         <div class="main-content-body">
 
             
-                <div class="home-sidebar-container fade-in-down-animation">
-    <div class="sticky-container">
-        
-            
-                <div class="sidebar-links">
-                    <div class="site-info">
-                        <div class="site-name">cccs7&#39;s blog</div>
-                        
-                    </div>
-                    
-                        
-                            
-                                <a class="links" href="/tags">
-                                    
-                                        <i class="fa-regular fa-tags icon-space"></i>
-                                    
-                                    <span class="link-name">Tags</span>
-                                </a>
-                            
-                        
-                            
-                                <a class="links" href="/categories">
-                                    
-                                        <i class="fa-regular fa-folder icon-space"></i>
-                                    
-                                    <span class="link-name">Categories</span>
-                                </a>
-                            
-                        
-                    
-                </div>
-            
-            <div class="sidebar-content"  marginTop >
-                <div class="avatar">
-                    <img src="/images/logo.svg">
-                </div>
-                <div class="author">
-                    <div class="name">cccs7</div>
-                    
-                        <div class="label">Lv5</div>
-                    
-                </div>
-                <div class="statistics">
-                    <a class="item" href="/tags">
-                        <div class="number">53</div>
-                        <div class="label">Tags</div>
-                    </a>
-                    <a class="item" href="/categories">
-                        <div class="number">74</div>
-                        <div class="label">Categories</div>
-                    </a>
-                    <a class="item" href="/archives">
-                        <div class="number">70</div>
-                        <div class="label">Posts</div>
-                    </a>
-                </div>
-            </div>
-        
-
-    </div>
-</div>
-
-            
 
             <div class="main-content">
 
                 
-                    <div class="home-content-container fade-in-down-animation">
-    <ul class="home-article-list">
-        
-            <li class="home-article-item">
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
 
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">MongoDB 被攻击复盘</h1>
+                </div>
+            
                 
+            
 
-                
-                    <div class="home-article-thumbnail">
-                        <a href="/2023/07/03/JavaScript%E8%BF%9B%E9%98%B6/">
-                            <img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230703112249113.png" alt="JavaScript进阶" />
-                        </a>
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/logo.svg">
                     </div>
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/07/03/JavaScript%E8%BF%9B%E9%98%B6/">
-                        JavaScript进阶
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        作用域作用域（scope）规定了变量能够被访问的 范围，离开了这个范围变量便不能被访问。作用域分为 全局作用域和局部作用域
-局部作用域局部作用域分为函数作用域和块作用域。
-函数作用域在函数内部声明的变量只能在函数内部被访问，外部无法直接访问。
-123...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Jul 03 2023 11:19:12 GMT+0800">
-                
-                    2023-07-03
-                
-            </span>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">cccs7</span>
+                            
+                                <span class="author-label">Lv5</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-10-11 12:22:23</span>
+        <span class="mobile">2023-10-11 12:22</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-10-11 13:08:55</span>
+            <span class="mobile">2023-10-11 13:08</span>
+            <span class="hover-info">Updated</span>
         </span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/">JavaScript</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
+    
 
-    <a href="/2023/07/03/JavaScript%E8%BF%9B%E9%98%B6/">Read more<span class="seo-reader-text">JavaScript进阶</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/MongoDB/">MongoDB</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/MongoDB/">MongoDB</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Issues/">Issues</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>202 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>1 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
 </div>
 
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/07/01/Web-APIs/">
-                        Web APIs
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        
-了解 DOM 的结构并掌握其基本的操作，体验 DOM 的在开发中的作用
-
-
-知道 ECMAScript 与 JavaScript 的关系
-了解 DOM 的相关概念及DOM 的本质是一个对象
-掌握查找节点的基本方法
-掌握节点属性和文本的操作
-能够使用...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 01 2023 16:44:21 GMT+0800">
-                
-                    2023-07-01
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/">JavaScript</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/07/01/Web-APIs/">Read more<span class="seo-reader-text">Web APIs</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-                    <div class="home-article-thumbnail">
-                        <a href="/2023/07/01/JavaScript%E5%9F%BA%E7%A1%80/">
-                            <img src="https://www.w3docs.com/uploads/media/default/0001/05/4482fe09d95a0be765154b9cefff5e07f7fc32ff.png" alt="JavaScript基础" />
-                        </a>
+                        </div>
                     </div>
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/07/01/JavaScript%E5%9F%BA%E7%A1%80/">
-                        JavaScript基础
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        
-了解变量、数据类型、运算符等基础概念，能够实现数据类型的转换，结合四则运算体会如何编程。
-
-
-体会现实世界中的事物与计算机的关系
-理解什么是数据并知道数据的分类
-理解变量存储数据的“容器”
-掌握常见运算符的使用，了解优先级关系
-知道 JavaScr...
-                    
                 </div>
+            
 
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 01 2023 14:35:44 GMT+0800">
-                
-                    2023-07-01
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/">JavaScript</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/JavaScript/">JavaScript</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
+            <div class="article-content markdown-body">
+                <p>MongoDB 被攻击复盘</p>
+<p>这几天在测试项目，发现每隔一段时间，MongoDB里面存储的测试数据就会被清空，今天有空看了一下 mongodb 的日志，发现 被攻击了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20231011130246635.png"
+                      alt="image-20231011130246635"
+                ></p>
+<p>他使用 PyMongo , 定期的对我的数据库进行 drop，然后才想起来 mongodb 没有加身份验证，而且还开放了端口，导致这次的问题</p>
+<p>然后我在 mongo 添加了管理用户，并开放了 权限</p>
+<div class="highlight-container" data-rel="Js"><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.<span class="title function_">createUser</span>(</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">user</span>: <span class="string">&quot;admin&quot;</span>,</span><br><span class="line">    <span class="attr">pwd</span>: <span class="string">&quot;admin&quot;</span>,</span><br><span class="line">    <span class="attr">roles</span>: [ &#123; <span class="attr">role</span>: <span class="string">&quot;userAdminAnyDatabase&quot;</span>, <span class="attr">db</span>: <span class="string">&quot;admin&quot;</span> &#125;,</span><br><span class="line">            &#123; <span class="attr">role</span>: <span class="string">&quot;dbAdminAnyDatabase&quot;</span>, <span class="attr">db</span>: <span class="string">&quot;admin&quot;</span> &#125;,</span><br><span class="line">            &#123; <span class="attr">role</span>: <span class="string">&quot;readWriteAnyDatabase&quot;</span>, <span class="attr">db</span>: <span class="string">&quot;admin&quot;</span> &#125; ]</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
 
-    <a href="/2023/07/01/JavaScript%E5%9F%BA%E7%A1%80/">Read more<span class="seo-reader-text">JavaScript基础</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
+<p>不过添加之后，接口 查询数据可能会遇到<code>MongoDB:  Exception authenticating MongoCredential &#123;&#125;</code> 问题，需要更改 uri : </p>
+<div class="highlight-container" data-rel="Yaml"><figure class="iseeu highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">spring.data.mongodb.uri=mongodb://user:passwod@localhost/yourDatabasesName?authSource=admin</span></span><br></pre></td></tr></table></figure></div>
 
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> MongoDB 被攻击复盘</li>
+        <li><strong>Author:</strong> cccs7</li>
+        <li><strong>Created at:</strong> 2023-10-11 12:22:23</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-10-11 13:08:55
             </li>
         
-            <li class="home-article-item">
-
-                
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/07/01/H5C3%E6%96%B0%E7%89%B9%E6%80%A7/">
-                        HTML5与CSS3新增特性
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        1. HTML5新特性1.1 HTML5新增语义化标签
-&lt;header&gt;：头部标签
-&lt;nav&gt;：导航标签
-&lt;article&gt;：内容标签
-&lt;section&gt;：定义文档某个区域
-&lt;asider&gt;...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 01 2023 09:12:34 GMT+0800">
-                
-                    2023-07-01
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/HTML/">HTML</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/CSS/">CSS</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/HTML/">HTML</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/07/01/H5C3%E6%96%B0%E7%89%B9%E6%80%A7/">Read more<span class="seo-reader-text">HTML5与CSS3新增特性</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-                    <div class="home-article-thumbnail">
-                        <a href="/2023/06/30/css%E9%AB%98%E7%BA%A7/">
-                            <img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/css-logo.jpg" alt="css高级" />
-                        </a>
-                    </div>
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/06/30/css%E9%AB%98%E7%BA%A7/">
-                        css高级
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        1.1 精灵图一个网页中往往会应用很多小的背景图像作为修饰，当网页中的图像过多时，服务器就会频繁地接收和发送请求图片，造成服务器请求压力过大，这将大大降低页面的加载速度。
-因此，为了有效地减少服务器接收和发送请求的次数，提高页面的加载速度，出现了 C...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Jun 30 2023 20:21:11 GMT+0800">
-                
-                    2023-06-30
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/CSS/">CSS</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/06/30/css%E9%AB%98%E7%BA%A7/">Read more<span class="seo-reader-text">css高级</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                <h3 class="home-article-title">
-                    <a href="/2023/06/30/css%E6%B5%AE%E5%8A%A8/">
-                        浮动
-                    </a>
-                </h3>
-
-                <div class="home-article-content markdown-body">
-                    
-                        1. 浮动（float）1.1 传统网页布局方式网页布局的本质——用 CSS 来摆放盒子，把盒子放到相应位置。
-CSS 提供了三种传统布局方式：
-
-普通流
-浮动
-定位
-
-1.2 标准流（普通流&#x2F;文档流）所谓的标准流，就是标签按照规定好的默认...
-                    
-                </div>
-
-                <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Jun 30 2023 19:21:23 GMT+0800">
-                
-                    2023-06-30
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category"><i class="fa-solid fa-folders"></i></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                        <li>
-                            &gt; 
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>&nbsp;
-                        </li>
-                    
-                    
-                </ul>
-            </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/CSS/">CSS</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/06/30/css%E6%B5%AE%E5%8A%A8/">Read more<span class="seo-reader-text">浮动</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-            </li>
-        
+        <li>
+            <strong>Link:</strong> https://blog.cccs7.icu/2023/10/11/MongoDB 被攻击复盘/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
     </ul>
-
-    <div class="home-paginator">
-        <div class="paginator">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/6/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
+
+                </div>
+            
+
+            
+                <ul class="post-tags-box">
+                    
+                        <li class="tag-item">
+                            <a href="/tags/MongoDB/">#MongoDB</a>&nbsp;
+                        </li>
+                    
+                        <li class="tag-item">
+                            <a href="/tags/Issues/">#Issues</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/10/11/MongoDB%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E9%97%AE%E9%A2%98/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">MongoDB 被攻击复盘</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+                <div class="comment-container">
+                    <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fa-solid fa-comments"></i>&nbsp;Comments
+    </div>
+    
+
+        
+            
+ 
+    <div id="waline"></div>
+    <script type="module"  data-pjax>
+        import { init } from 'https://evan.beee.top/js/waline.mjs';
+
+        function loadWaline() {
+            init({
+                el: '#waline',
+                serverURL: 'https://hexo-cs7eric-waline.vercel.app/',
+                lang: 'zh-CN',
+                dark: 'body[class~="dark-mode"]',
+                requiredMeta: ['nick','mail'], // cannot customize by theme config, change it yourself
+            });
+        }
+
+        if ('true') {
+            const loadWalineTimeout = setTimeout(() => {
+                loadWaline();
+                clearTimeout(loadWalineTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadWaline);
+        }
+        
+    </script>
+
+
+
+        
+    
+</div>
+
+                </div>
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">MongoDB 被攻击复盘</div>
+        
 
     </div>
 </div>
+            </div>
+        
+    </div>
+</div>
+
 
                 
 
@@ -982,6 +668,27 @@ CSS 提供了三种传统布局方式：
         </div>
     </div>
 
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fa-regular fa-comments"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
     
 
     <div class="right-side-tools-container">
@@ -1071,7 +778,6 @@ CSS 提供了三种传统布局方式：
 
 
 
-
 <script src="/js/utils.js"></script>
 
 <script src="/js/main.js"></script>
@@ -1127,6 +833,16 @@ CSS 提供了三种传统布局方式：
 
 
 <div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
     
 </div>
 
