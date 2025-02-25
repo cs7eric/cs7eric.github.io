@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="The Redefine Team">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/03/25/nginx/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx">
+<meta property="og:url" content="http://example.com/2023/03/25/Nginx/index.html">
+<meta property="og:site_name" content="cccs7&#39;s blog">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2023-03-25T06:23:00.000Z">
+<meta property="article:modified_time" content="2024-09-13T03:07:59.000Z">
+<meta property="article:author" content="cccs7 - csq020611@gmail.com">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Nginx">
+<meta property="article:tag" content="中间件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Nginx | Theme Redefine
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Theme Redefine
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">53</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">75</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">71</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Nginx</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/redefine-avatar.svg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">The Redefine Team</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv5</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-03-25 14:23</span>
+        <span class="mobile">2023-03-25 14:23</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-09-13 11:07:59</span>
+            <span class="mobile">2024-09-13 11:07:59</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Java/">Java</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Java/Nginx/">Nginx</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/Nginx/">Nginx</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Nginx/">Nginx</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p> Nginx</p>
+<p>Nginx 是高性能的 HTTP 和反向代理的服务器，处理高并发能力是十分强大的，能经受高负载的考验，有报告表明 支持高达 50000 个 并发连接数</p>
+<h2 id="Nginx-简介"><a href="#Nginx-简介" class="headerlink" title="Nginx 简介"></a>Nginx 简介</h2><h3 id="Nginx-发行版本"><a href="#Nginx-发行版本" class="headerlink" title="Nginx 发行版本"></a>Nginx 发行版本</h3><ul>
+<li><p>Nginx开源版 <a class="link"   target="_blank" rel="noopener" href="http://nginx.org/en/" >http://nginx.org/en/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>官方原始的Nginx版本</p>
+</li>
+<li><p>Nginx plus商业版</p>
+<p>开箱即用，集成了大量功能</p>
+</li>
+<li><p>Open Resty <a class="link"   target="_blank" rel="noopener" href="https://openresty.org/cn/" >https://openresty.org/cn/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>OpenResty是一个基于Nginx与 Lua 的高性能 Web 平台，其内部集成了大量精良的 Lua 库、第三方模块以及大多数的依赖项。<strong>更适用于需要大量二次开发的场景，有极强的扩展性</strong></p>
+</li>
+<li><p>Tengine <a class="link"   target="_blank" rel="noopener" href="https://tengine.taobao.org/" >https://tengine.taobao.org/<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p>由淘宝网发起的Web服务器项目。它在<a class="link"   target="_blank" rel="noopener" href="http://nginx.org/" >Nginx (opens new window)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>的基础上，针对大访问量网站的需求，添加了很多高级功能和特性。Tengine的性能和稳定性已经在大型的网站如<a class="link"   target="_blank" rel="noopener" href="http://www.taobao.com/" >淘宝网 (opens new window)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>，<a class="link"   target="_blank" rel="noopener" href="http://www.tmall.com/" >天猫商城 (opens new window)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>等得到了很好的检验。相比于Open Resty，扩展性不够强，但是能够满足绝多数使用场景</p>
+</li>
+</ul>
+<h3 id="Nginx-安装"><a href="#Nginx-安装" class="headerlink" title="Nginx 安装"></a>Nginx 安装</h3><hr>
+<h4 id="下载Nginx包"><a href="#下载Nginx包" class="headerlink" title="下载Nginx包"></a>下载Nginx包</h4><p><a class="link"   target="_blank" rel="noopener" href="http://nginx.org/en/download.html" >官网下载地址(opens new window)<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220501140833867.png"
+                      alt="image-20220501140833867"
+                ></p>
+<p>使用FTP工具将文件上传到虚拟机中</p>
+<p>我直接将其放在了 <code>/usr/local/</code> 下</p>
+<h4 id="解压-Nginx-包"><a href="#解压-Nginx-包" class="headerlink" title="解压 Nginx 包"></a>解压 Nginx 包</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf  nginx-1.21.6.tar.gz #解压到当前目录</span><br><span class="line"></span><br><span class="line">cd nginx-1.21.6 #进入解压后的文件夹</span><br><span class="line">ls #文件夹中的文件：auto     CHANGES.ru  configure  html     man     src CHANGES  conf        contrib    LICENSE  README</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装C编译器</span></span><br><span class="line">yum install -y gcc</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装pcre库</span></span><br><span class="line">yum install -y pcre pcre-devel</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">安装zlib</span></span><br><span class="line">yum install -y zlib zlib-devel</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx #使用prefix选项指定安装的目录</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/sbin</span><br><span class="line"></span><br><span class="line">ls # 里面是一个nginx的可执行文件</span><br><span class="line"></span><br><span class="line">./nginx # 启动这个可执行</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="补充-Nginx-命令"><a href="#补充-Nginx-命令" class="headerlink" title="补充 Nginx 命令"></a>补充 Nginx 命令</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s stop #快速停止</span><br><span class="line">./nginx -s quit #完成已接受的请求后，停止</span><br><span class="line">./nginx -s reload #重新加载配置</span><br><span class="line">./nginx -t #检查nginx配置是否正确</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="查看-Nginx-状态"><a href="#查看-Nginx-状态" class="headerlink" title="查看 Nginx 状态"></a>查看 Nginx 状态</h4><p><code>ps -ef | grep nginx</code></p>
+<h5 id="启动时"><a href="#启动时" class="headerlink" title="启动时"></a>启动时</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230325144826485.png"
+                      alt="image-20230325144826485"
+                ></p>
+<h5 id="停止后"><a href="#停止后" class="headerlink" title="停止后"></a>停止后</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230325145328879.png"
+                      alt="image-20230325145328879"
+                ></p>
+<h4 id="注册系统服务"><a href="#注册系统服务" class="headerlink" title="注册系统服务"></a>注册系统服务</h4><p>通过系统服务的方式启动 Nginx</p>
+<p><code>vim /usr/lib/systemd/system/nginx.service</code></p>
+<br>
+
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[Unit] </span><br><span class="line">Description=nginx</span><br><span class="line">After=network.target remote-fs.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/usr/local/nginx/logs/nginx.pid</span><br><span class="line">ExecStartPre=/usr/local/nginx/sbin/nginx -t -c /usr/local/nginx/conf/nginx.conf</span><br><span class="line">ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf</span><br><span class="line">ExecReload=/usr/local/nginx/sbin/nginx -s reload</span><br><span class="line">ExecStop=/usr/local/nginx/sbin/nginx -s stop</span><br><span class="line">ExecQuit=/usr/local/nginx/sbin/nginx -s quit </span><br><span class="line">PrivateTmp=true</span><br><span class="line">   </span><br><span class="line">[Install]   </span><br><span class="line">WantedBy=multi-user.target  # 多用户</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="Nginx-概述"><a href="#Nginx-概述" class="headerlink" title="Nginx 概述"></a>Nginx 概述</h3><hr>
+<p>Nginx （“<strong>engine x</strong>“) 是一个高性能的 HTTP 和 反向代理服务器，特点是 占有内存少，并发能力强，事实上 Nginx 的并发在同类型的网页服务器中表现确实较好，国内有很多网站使用 Nginx</p>
+<h4 id="Nginx-作为-web-服务器"><a href="#Nginx-作为-web-服务器" class="headerlink" title="Nginx 作为 web 服务器"></a>Nginx 作为 web 服务器</h4><p>Nginx 可以作为静态页面的 web 服务器，同时还支持 CGI 协议的动态语言，比如 Perl、PHP 等。但是不支持 Java。Java 程序只能通过与 Tomcat 配合完成。Nginx 专为性能优化而开发，性能是其最重要的考量，实现上非常注重效率，能经受高负载的考验。</p>
+<h4 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h4><p>Nginx 不仅可以做反向代理，实现负载均衡。还能用作正向代理来进行上网等功能。</p>
+<p>正向代理： 如果把局域网外的 Internet 想象成为一个巨大的资源库，则局域网中的客户端访问 Internet，则需要通过代理服务器进行访问，这种代理服务器就称为正向代理</p>
+<p><strong>正向代理可以理解为 【客户端】 的代理</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230325173206891.png"
+                      alt="image-20230325173206891"
+                ></p>
+<h4 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h4><p>反向代理，其实客户端对代理是无感知的，因为客户端不需要任何配置就可以访问，我们只需要将请求发送到反向代理服务器，由反向代理服务器去选择目标服务器获取数据后，再返回给客户端，此时反向代理服务器和目标服务器对外就是一个服务器，暴露的是代理服务器地址，隐藏了真实服务器 IP 地址</p>
+<p><strong>反向代理可以理解为【服务器】代理</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230325174430764.png"
+                      alt="image-20230325174430764"
+                ></p>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>客户端发送多个请求到服务器，服务器处理请求，有一些可能要与数据库进行交互，服务器处理完毕之后，再将结果返回给客户端</p>
+<p>这种架构模式对于早期的系统相对单一，并发请求相对较少的情况下是比较合适的，成本也低。但是随着信息数量的不断增长，访问量和数据量;de飞速增长，以及业务系统的复杂度增加，这种架构会造成服务器响应客户端的请求日益缓慢，并发量特别大的时候，还容易造成服务器直接崩溃。很明显这是由于服务器性能的瓶颈造成的问题，那么如何解决这种问题呢？</p>
+<p>首先，我们想到的可能是升级服务器的配置，比如提高 CPU 执行的频率，加大内存等提高机器的物理性能来解决此问题。但是我们知道 摩尔定律的 日益失效，硬件的性能提升已经不能满足日益提升的需求了，那么怎么办呢？</p>
+<p>上面的分析我们去掉了增加服务器 物理配置来解决问题的办法，也就是说 纵向解决办法不行，那么横向呢，<strong>横向增加服务器的数量</strong>，这时候 <strong>集群</strong> 的概念产生了，单个服务器解决不了，我们增加服务器的数量，然后 <strong>将请求分发到各个服务器上去，将原先请求集中到 单个服务器的请求 改为将请求分发到多个服务器上，将负载分发到不同的服务器</strong>，也就是我们所说的  <strong>负载均衡</strong></p>
+<h2 id="Nginx-使用"><a href="#Nginx-使用" class="headerlink" title="Nginx 使用"></a>Nginx 使用</h2><h3 id="Nginx-目录"><a href="#Nginx-目录" class="headerlink" title="Nginx 目录"></a>Nginx 目录</h3><p>Nginx 一般安装在 <code>/usr/local/nginx</code> 下，   安装时 也可 <code>--prefix</code>  指定安装目录</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">conf #配置文件</span><br><span class="line">	｜-nginx.conf # 主配置文件</span><br><span class="line">	｜-其他配置文件 # 可通过那个include关键字，引入到了nginx.conf生效</span><br><span class="line">	</span><br><span class="line">html #静态页面</span><br><span class="line"></span><br><span class="line">logs</span><br><span class="line">	｜-access.log #访问日志(每次访问都会记录)</span><br><span class="line">	｜-error.log #错误日志</span><br><span class="line">	｜-nginx.pid #进程号</span><br><span class="line">	</span><br><span class="line">sbin</span><br><span class="line">	｜-nginx #主进程文件</span><br><span class="line">	</span><br><span class="line">*_temp #运行时，生成临时文件</span><br></pre></td></tr></table></figure></div>
+
+<BR>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230325180400275.png"
+                      alt="image-20230325180400275"
+                ></p>
+<h3 id="Nginx-配置"><a href="#Nginx-配置" class="headerlink" title="Nginx 配置"></a>Nginx 配置</h3><hr>
+<p>每次 修改 Nginx 配置文件，都需要重载才能生效</p>
+<p><code>systemctl reload nginx</code></p>
+<h4 id="简化版的-nginx-conf"><a href="#简化版的-nginx-conf" class="headerlink" title="简化版的 nginx.conf"></a>简化版的 nginx.conf</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  1; # 启动的worker进程数</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024; #每个worker进程的连接数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types; #include是引入关键字，这里引入了mime.types这个配置文件（同在conf目录下，mime.types是用来定义，请求返回的content-type）</span><br><span class="line">    default_type  application/octet-stream; #mime.types未定义的，使用默认格式application/octet-stream</span><br><span class="line"></span><br><span class="line">    sendfile        on; #详情，见下文</span><br><span class="line">    keepalive_timeout  65; #长链接超时时间</span><br><span class="line">	</span><br><span class="line"><span class="meta prompt_">		#</span><span class="language-bash">一个nginx可以启用多个server（虚拟服务器）</span></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;#监听端口80</span><br><span class="line">        server_name  localhost;  #接收的域名</span><br><span class="line"></span><br><span class="line">        location / &#123; </span><br><span class="line">            root   html; #根目录指向html目录</span><br><span class="line">            index  index.html index.htm; #域名/index 指向 index.html index.htm文件</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html; # 服务器错误码为500 502 503 504，转到&quot;域名/50x.html&quot;</span><br><span class="line">        location = /50x.html &#123;# 指定到html文件夹下找/50x.htm</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>根据上述文件，我们可以很明显的 将 nginx.conf 配置文件 分为三个部分</p>
+<h5 id="全局块"><a href="#全局块" class="headerlink" title="全局块"></a>全局块</h5><p>从配置文件开始 到 events 块之间的内容，主要会设置一些影响 nginx  服务器整体运行的配置指令，主要包括配置运行 Nginx 服务器的用户（组）、允许生成的 worker process 数，进程 PID 存放的路径、日志存放路径和类型以及配置文件的引入</p>
+<p><code>worker_processes 1;</code></p>
+<p>这是 Nginx 服务器并发处理服务的关键配置，worker_processes 越大，可以支持并发的处理量也越多，但是会受到硬件、软件等设备的制约</p>
+<h5 id="events-块"><a href="#events-块" class="headerlink" title="events 块"></a>events 块</h5><p>比如上述的配置</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">events &#123;</span><br><span class="line">	worker_connections 1024;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>vents 块涉及的指令主要影响 Nginx 服务器与用户的网络连接，常用的设置包括是否开启对多 work process下的网络连接进行序列化，是否允许同时接收多个网络连接，选取哪种事件驱动模型来处理连接请求，每个 wordprocess 可以同时支持的最大连接数等。</p>
+<p>上述例子就表示每个 work process 支持的最大连接数为 1024.</p>
+<p>这部分的配置对 Nginx 的性能影响较大，在实际中应该灵活配置  </p>
+<h4 id="http-块"><a href="#http-块" class="headerlink" title="http 块"></a>http 块</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> http &#123;</span><br><span class="line"><span class="meta prompt_"> 		#</span><span class="language-bash">....其他属性</span></span><br><span class="line"> 		server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  pro.cccs7.com;</span><br><span class="line"></span><br><span class="line">        location / &#123; </span><br><span class="line">            root   html/pro; </span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line"> 		server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  test.cccs7.com;</span><br><span class="line"></span><br><span class="line">        location / &#123; </span><br><span class="line">            root   html/test; </span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>这算是 Nginx 服务器配置中最频繁的部分，代理、缓存和日志定义等绝大多数功能和第三方模块的配置都在这里。</p>
+<p>需要注意的是: http 块也昆虫包括 <strong>http 全局块、server 块</strong></p>
+<h6 id="http-全局块"><a href="#http-全局块" class="headerlink" title="http 全局块"></a>http 全局块</h6><p>http 全局配置的指令包括文件引入、MIME-TYPE 定义、日志自定义、连接超时时间、单链接请求数上限等</p>
+<h6 id="server-块"><a href="#server-块" class="headerlink" title="server 块"></a>server 块</h6><p>这块和虚拟主机有密切的关系，虚拟主机从用户角度来看，和一台独立的硬件主机是一样的 ，该技术的产生是为了节省互联网服务器硬件成本</p>
+<p>每个http 块可以包括多个 server  块，而 每个 server 块 就相当于一个虚拟主机</p>
+<p>而每个 server 块也分为全局 server 块，以及可以同时包含多个 location 块</p>
+<ul>
+<li><p>server</p>
+<p>二级域名，映射 到不同静态页面</p>
+<p>可以写多个 server 字段，从前向后匹配，先匹配到哪个就用哪个</p>
+<p>用户 访问 <code>pro.cccs7.com</code> ，就会走到第一个 server 配置；<code>test.cccs7.com</code> 走到第二个 配置</p>
+</li>
+<li><p>location 块</p>
+<p>一个 server 块可以配置多个 location 块</p>
+<p>这块的主要作用是 基于 Nginx 服务器接收到的 请求字符串（例如 server_name_uri-string）,对虚拟主机命令（也可以是 IP 别名）之外的字符串（例如前面的 &#x2F;uri-string） 进行匹配，对特定的请求进行处理。地址定向、数据缓存和应答控制等功能，还有许多第三方模块的配置也在这里进行</p>
+</li>
+</ul>
+<h5 id="sendlife"><a href="#sendlife" class="headerlink" title="sendlife"></a>sendlife</h5><p>打开sendfile，用户请求的数据不用再加载到nginx的内存中，而是直接发送</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230325211126855.png"
+                      alt="image-20230325211126855" style="zoom: 67%;" 
+                >
+
+
+
+
+
+
+
+<p><strong>不同域名，映射到同一静态页面</strong></p>
+<h5 id="server-name"><a href="#server-name" class="headerlink" title="server_name"></a>server_name</h5><ul>
+<li>可以写多个，用空格分开</li>
+<li>使用 通配符（*）</li>
+<li>使用正则表达式</li>
+</ul>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">http&#123; 		</span><br><span class="line"> 		server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  *.cccs7.com  ~^[0-9]+\.cccs7\.com$; # &quot;\.&quot;是转译&quot;.&quot;</span><br><span class="line"></span><br><span class="line">        location / &#123; </span><br><span class="line">            root   html/test; </span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="反向代理和负载均衡"><a href="#反向代理和负载均衡" class="headerlink" title="反向代理和负载均衡"></a>反向代理和负载均衡</h3><hr>
+<h4 id="反向代理-1"><a href="#反向代理-1" class="headerlink" title="反向代理"></a>反向代理</h4><p>这种代理方式叫做，隧道代理。有性能瓶颈，因为所有的数据都经过 Nginx，所以 Nginx 服务器的性能至关重要</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230325212844273.png"
+                      alt="image-20230325212844273"
+                ></p>
+<h4 id="负载均衡-1"><a href="#负载均衡-1" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>把请求 按照一定算法规则，分配给多态业务服务器（即使其中一个坏了&#x2F;维护升级，还有其他服务器可以继续提供服务）</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230325213051123.png"
+                      alt="image-20230325213051123" style="zoom:67%;" 
+                >
+
+<h4 id="反向代理-负载均衡"><a href="#反向代理-负载均衡" class="headerlink" title="反向代理 + 负载均衡"></a>反向代理 + 负载均衡</h4><h5 id="Nginx-conf-配置文件"><a href="#Nginx-conf-配置文件" class="headerlink" title="Nginx.conf 配置文件"></a>Nginx.conf 配置文件</h5><p>启动 proxy_pass，root 和 index 字段就会失效</p>
+<p>proxy_pass 后的地址必须写完整  <code>http://xxx</code>,不支持 HTTPS</p>
+<p>当 访问 localhost 时（Nginx服务器），网页打开的是 <code>http://xxx</code>(应用服务器)，网页地址栏写的还是 localhost</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">http&#123; 		</span><br><span class="line"> 		server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        location / &#123; </span><br><span class="line">        		proxy_pass http://xxx;</span><br><span class="line">            #root   html/test; </span><br><span class="line">            #index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p>*定义地址别名 **</p>
+<p>使用upstream定义一组地址【在server字段下】</p>
+<p>访问localhost，访问都会代理到<code>192.168.174.133:80</code>和<code>192.168.174.134:80</code>这两个地址之一，每次访问这两个地址轮着切换（后面讲到，因为默认权重相等）</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line">	upstream httpds&#123;</span><br><span class="line">		server 192.168.21.136:80; #如果是80端口，可以省略不写</span><br><span class="line">		server 192.168.21.137:80;</span><br><span class="line">	&#125;</span><br><span class="line">	server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        location / &#123; </span><br><span class="line">        		proxy_pass http://httpds;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>设置权重</strong></p>
+<p>访问使用哪个地址的权重</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream httpds&#123;</span><br><span class="line">		server 192.168.174.133:80 weight=10;</span><br><span class="line">		server 192.168.174.134:80 weight=80;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>关闭</strong></p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream httpds&#123;</span><br><span class="line">		server 192.168.174.133:80 weight=10 down;</span><br><span class="line">		server 192.168.174.134:80 weight=80;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<p><strong>备用机</strong></p>
+<p>如果<code>192.168.174.133:80</code>出现故障，无法提供服务，就用使用backup的这个机器</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream httpds&#123;</span><br><span class="line">		server 192.168.174.133:80 weight=10;</span><br><span class="line">		server 192.168.174.134:80 weight=80 backup;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h3><hr>
+<p>当用户请求时，动态请求分配到 Tomcat 业务服务器，静态资源放到 Nginx 服务器中</p>
+<br>
+
+<p>例子：</p>
+<ul>
+<li>如果请求的资源地址是<code>location/</code>，<code>/</code>的优先级比较低，如果下面的location没匹配到，就会走<a class="link"   target="_blank" rel="noopener" href="http://xxx这个地址的机器/" >http://xxx这个地址的机器<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li>如果请求的资源地址是<code>location/css/*</code>，就会被匹配到nginx的html目录下的css文件夹中（我们把css静态资源放在这个位置）</li>
+</ul>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">				</span><br><span class="line">				location / &#123; # /的优先级比较低，如果下面的location没匹配到，就会走http://xxx这个地址的机器</span><br><span class="line">        		proxy_pass http://xxx;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        location /css &#123;  # root指的是html，location/css指的是root下的css，所以地址就是html/css</span><br><span class="line">        		root html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>使用正则</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location ~*/(js|css|img)&#123;</span><br><span class="line">	root html;</span><br><span class="line">  index  index.html index.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="URL-重写"><a href="#URL-重写" class="headerlink" title="URL 重写"></a>URL 重写</h4><div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">rewrite是URL重写的关键指令，根据regex（正则表达式）部分内容，重定向到replacement，结尼是flag标记。</span><br><span class="line"></span><br><span class="line">rewrite    &lt;regex&gt;   &lt;replacement&gt;  [flag];</span><br><span class="line">关键字				正则				替代内容     flagt标记</span><br><span class="line"></span><br><span class="line">正则：per1森容正则表达式语句进行规则匹配</span><br><span class="line">替代内容：将正则匹配的内容替换成replacement</span><br><span class="line"></span><br><span class="line">flag标记说明：</span><br><span class="line">last  #本条规则匹配完成后，继续向下匹配新的1ocation URI规则</span><br><span class="line">break #本条规则匹配完成即终止，不再匹配后面的任何规则</span><br><span class="line"></span><br><span class="line">redirect #返回302临重定向，游览器地址会显示跳转后的URL地址</span><br><span class="line">permanent #返回301永久重定向，测览器地址栏会显示跳转后的URL地址</span><br></pre></td></tr></table></figure></div>
+
+<p>浏览器地址栏访问 <code>xxx/123.html</code>实际上是访问<code>xxx/index.jsp?pageNum=123</code></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">				</span><br><span class="line">				location / &#123; </span><br><span class="line">						rewrite ^/([0-9]+).html$ /index.jsp?pageNum=$1  break;</span><br><span class="line">        		proxy_pass http://xxx;</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line"></span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="网关服务器"><a href="#网关服务器" class="headerlink" title="网关服务器"></a>网关服务器</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230326173904991.png"
+                      alt="image-20230326173904991"
+                ></p>
+<p>上图中，应用服务器，不能直接被外网访问到，只能通过Nginx服务器进行访问（使用proxy_pass），这时候这台Nginx服务器就成为了网关服务器（承担入口的功能）</p>
+<p>所以，我们启动应用服务器的防火墙，设置其只能接受这台Nginx服务器的请求</p>
+<p><strong>添加rich规则</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.174.135&quot; port protocol=&quot;tcp&quot; port=&quot;8080&quot; accept&quot; #这里的192.168.174.135是网关 服务器地址</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p><strong>移除rich规则</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --remove-rich-rule=&quot;rule family=&quot;ipv4&quot; source address=&quot;192.168.174.135&quot; port port=&quot;8080&quot; protocol=&quot;tcp&quot; accept&quot;</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p><strong>重启</strong></p>
+<p>移除和添加规则都要重启才能生效</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p><strong>查看所有规则</strong></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --list-all #所有开启的规则</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h3 id="防盗链"><a href="#防盗链" class="headerlink" title="防盗链"></a>防盗链</h3><hr>
+<p>当我们请求到一个页面后，这个页面一般会再去请求其中的静态资源，这时候请求头中，会有一个refer字段，表示当前这个请求的来源，我们可以限制指定来源的请求才返回，否则就不返回，这样可以节省资源<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220503162830153.png"
+                      alt="image-20220503162830153" style="zoom:67%;" 
+                ></p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">valid_referers none|server_name</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>设置有效的refer值</p>
+<ul>
+<li>none：检测地址没有refer，则有效</li>
+<li>server_name：检测主机地址，refer显示是从这个地址来的，则有效（server_name必须是完整的<code>http://xxxx</code>）</li>
+</ul>
+<p>注意：<code>if ($invalid_referer)</code>中if后有个空格，不写就会报错</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx: [emerg] unknown directive &quot;if($invalid_referer)&quot; in /usr/local/nginx/conf/nginx.conf:27</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>例子：这里设置nginx服务器中的img目录下的图片必须refer为http:192.168.174&#x2F;133才能访问</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">				</span><br><span class="line">				location / &#123; </span><br><span class="line">        		proxy_pass http://xxx;</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">				location /img&#123;</span><br><span class="line">                valid_referers http:192.168.174/133;</span><br><span class="line">                if ($invalid_referer)&#123;#无效的</span><br><span class="line">                        return 403;#返回状态码403</span><br><span class="line">                &#125;</span><br><span class="line">                root html;</span><br><span class="line">                index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>如果引用这张图片的页面且refer并没有被设置，图片无法加载出来</p>
+<p>如果直接访问图片地址，因为没有refer字段指向来源，会直接显示Nginx的页面</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220503153401325.png"
+                      alt="image-20220503153401325"
+                ></p>
+<p><strong>设置盗链图片</strong></p>
+<p>将提示图片放在html&#x2F;img&#x2F;x.png，访问设置防盗链图片时，就返回这x.png张图</p>
+<div class="code-container" data-rel="Text"><figure class="iseeu highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /img&#123;</span><br><span class="line">                valid_referers http:192.168.174/133;</span><br><span class="line">                if ($invalid_referer)&#123;#无效的</span><br><span class="line">                     rewrite ^/  /img/x.png break;</span><br><span class="line">                &#125;</span><br><span class="line">                root html;</span><br><span class="line">                index  index.html index.htm;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<h3 id="高可用场景"><a href="#高可用场景" class="headerlink" title="高可用场景"></a>高可用场景</h3><hr>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220503174125433.png"
+                      alt="image-20220503174125433"
+                ></p>
+<p>用户访问时，访问的是一个 虚拟 IP， Keepalived 会选定一个 主服务器使用这个虚拟 IP</p>
+<p>每台机器上的 Keepalived 会相互通信，根据其他机器上的 Keepalived 进程是否存在，判断服务器状态，如果 默认的 Master 停止了，就会在剩下的 Backup 机器中，竞选出一台 Nginx 服务器 作为 Master</p>
+<h4 id="安装-Keepalived"><a href="#安装-Keepalived" class="headerlink" title="安装 Keepalived"></a>安装 Keepalived</h4><p><code>yum -y install keppalived</code></p>
+<ul>
+<li>配置文件在 <code>/etc/keepalived/keepalived.conf</code></li>
+<li><code>vrrp_instance</code> 、<code>virtual_rouer_id</code>、<code>authentication</code>、<code>virtual_ipaddr</code> 这几个一样的机器，才算是在一个组里。这个组才会选出一个作为 Master 机器</li>
+</ul>
+<p>这里设置两台机器，分别下载好 Keepalived，然后进行配置</p>
+<p> 机器一</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   router_id lb1 # 名字与其他配置了keepalive的机器不重复就行</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance cccs7 &#123;#vrrp实例名可以随意取</span><br><span class="line">    state MASTER #只能有一个默认的Master，其他写BACKUP</span><br><span class="line">    interface ens33 # ip addr查看下网卡名，默认时ens33</span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 100 # 多台安装了keepalived的机器竞争成为Master的优先级</span><br><span class="line">    advert_int 1 #通信时间</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.16 #虚拟IP</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>机器二：</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File for keepalived</span><br><span class="line"></span><br><span class="line">global_defs &#123;</span><br><span class="line">   router_id lb2 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance cccs7 &#123;</span><br><span class="line">    state BACKUP #只能有一个默认的Master，其他写BACKUP</span><br><span class="line">    interface ens33 </span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    priority 50</span><br><span class="line">    advert_int 1 </span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.16 #虚拟IP</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>通过 命令 <code>ip addr</code> 查看机器一的 ip 信息，可以看到虚拟 IP</p>
+<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230326180207525.png"
+                      alt="image-20230326180207525" style="zoom:50%;" 
+                >
+
+
+
+<h3 id="配置证书"><a href="#配置证书" class="headerlink" title="配置证书"></a>配置证书</h3><hr>
+<p>购买服务器——&gt;购买域名，并解析到这个主机——&gt;购买证书，绑定到域名上，并且把证书文件安装到服务器，并在Nginx上配置好</p>
+<p>这时候，这个域名就可以使用https进行访问里（<code>https://xxxx</code>），浏览器上会有一个小锁</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220503191754606.png"
+                      alt="image-20220503191754606"
+                ></p>
+<p>这里直接写申请到证书后的Nginx配置部分</p>
+<p><strong>下载证书文件</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220503192840029.png"
+                      alt="image-20220503192840029"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20220503192957256.png"
+                      alt="image-20220503192957256"
+                ></p>
+<p>下载后，解压压缩包，可以看到两个文件，一个是 <code>xxx.key</code>（私钥）和<code>xxx.pem</code>（证书）</p>
+<p><strong>配置</strong></p>
+<p>将两个文件上传到Nginx目录中，记得放置的位置。我这里直接放在nginx.conf配置文件所在的目录（<code>/user/local/nginx/conf</code>），所以写的都是相对路径</p>
+<div class="code-container" data-rel="Shell"><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	listen 443 ss1;</span><br><span class="line">	</span><br><span class="line">	ss1 certificate  xxx.pem; #这里是证书路径</span><br><span class="line">	ss1_ certificate_key  xxx.key  #这里是私钥路径</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Nginx</li>
+        <li><strong>Author:</strong> The Redefine Team</li>
+        <li><strong>Created at
+                :</strong> 2023-03-25 14:23:00</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-09-13 11:07:59
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://redefine.ohevan.com/2023/03/25/Nginx/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Java/">#Java</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Nginx/">#Nginx</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">#中间件</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2023/03/26/Netty/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Netty</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2023/03/21/Linux-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Linux 常用命令</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Nginx</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-%E7%AE%80%E4%BB%8B"><span class="nav-text">Nginx 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC"><span class="nav-text">Nginx 发行版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-%E5%AE%89%E8%A3%85"><span class="nav-text">Nginx 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-%E6%A6%82%E8%BF%B0"><span class="nav-text">Nginx 概述</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-%E4%BD%BF%E7%94%A8"><span class="nav-text">Nginx 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-%E7%9B%AE%E5%BD%95"><span class="nav-text">Nginx 目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx-%E9%85%8D%E7%BD%AE"><span class="nav-text">Nginx 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-text">反向代理和负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB"><span class="nav-text">动静分离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E7%9B%97%E9%93%BE"><span class="nav-text">防盗链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E5%8F%AF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">高可用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%AF%81%E4%B9%A6"><span class="nav-text">配置证书</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">The Redefine Team</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        71 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>

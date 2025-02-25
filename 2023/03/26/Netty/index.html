@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="The Redefine Team">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2023/03/26/netty/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty">
+<meta property="og:url" content="http://example.com/2023/03/26/Netty/index.html">
+<meta property="og:site_name" content="cccs7&#39;s blog">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2023-03-26T14:23:11.000Z">
+<meta property="article:modified_time" content="2024-09-13T03:07:59.000Z">
+<meta property="article:author" content="cccs7 - csq020611@gmail.com">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Netty">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Netty | Theme Redefine
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"en"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"Theme Redefine","subtitle":{"text":[],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"style":"default","links":{"github":null,"instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.2","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    window.lang_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                Theme Redefine
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    HOME
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                HOME
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">53</div>
+        <div class="label text-third-text-color text-sm">Tags</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">75</div>
+        <div class="label text-third-text-color text-sm">Categories</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">71</div>
+        <div class="label text-third-text-color text-sm">Posts</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">Netty</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+				<img src="/images/redefine-avatar.svg">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">The Redefine Team</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv5</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-03-26 22:23:11</span>
+        <span class="mobile">2023-03-26 22:23:11</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-09-13 11:07:59</span>
+            <span class="mobile">2024-09-13 11:07:59</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+        <span class="article-categories article-meta-item">
+            <i class="fa-regular fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Java/">Java</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/Java/Netty/">Netty</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">网络编程</a>&nbsp;
+                        </li>
+                    
+                    
+                
+                    
+                        
+                            <li>></li>
+                        
+                        <li>
+                            <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/Netty/">Netty</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fa-regular fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Netty/">Netty</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<p> Netty  网络编程</p>
+<p>Netty是由<a class="link"   target="_blank" rel="noopener" href="https://baike.baidu.com/item/JBOSS/5611767?fromModule=lemma_inlink" >JBOSS<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>提供的一个<a class="link"   target="_blank" rel="noopener" href="https://baike.baidu.com/item/java%E5%BC%80%E6%BA%90/10795649?fromModule=lemma_inlink" >java开源<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>框架，现为 <a class="link"   target="_blank" rel="noopener" href="https://baike.baidu.com/item/Github/10145341?fromModule=lemma_inlink" >Github<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>上的独立项目。Netty提供异步的、<a class="link"   target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8/9597519?fromModule=lemma_inlink" >事件驱动<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>的网络应用程序框架和工具，用以快速开发高性能、高可靠性的<a class="link"   target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E7%BD%91%E7%BB%9C%E6%9C%8D%E5%8A%A1%E5%99%A8/99096?fromModule=lemma_inlink" >网络服务器<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>和客户端程序。</p>
+<p>也就是说，Netty 是一个基于NIO的客户、服务器端的编程框架，使用Netty 可以确保你快速和简单的开发出一个网络应用，例如实现了某种协议的客户、<a class="link"   target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%9C%8D%E5%8A%A1%E7%AB%AF/6492316?fromModule=lemma_inlink" >服务端<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>应用。Netty相当于简化和流线化了网络应用的编程开发过程，例如：基于TCP和UDP的socket服务开发。</p>
+<p>“快速”和“简单”并不用产生维护性或性能上的问题。Netty 是一个吸收了多种协议（包括FTP、SMTP、HTTP等各种二进制文本协议）的实现经验，并经过相当精心设计的项目。最终，Netty 成功的找到了一种方式，在保证易于开发的同时还保证了其应用的性能，稳定性和伸缩性。 [1] </p>
+<h2 id="NIO-基础"><a href="#NIO-基础" class="headerlink" title="NIO 基础"></a>NIO 基础</h2><h3 id="三大组件"><a href="#三大组件" class="headerlink" title="三大组件"></a>三大组件</h3><h4 id="Channel-Buffer"><a href="#Channel-Buffer" class="headerlink" title="Channel &amp; Buffer"></a>Channel &amp; Buffer</h4><p>channel 有一点类似于 stream，它就是读写数据的 <strong>双向通道</strong>，可以从 channel 将数据读入 buffer，也可以 将 buffer的 数据 写入 channel，而之前的 stream 要么是输入，要么是输出，channel 比 stream 更为底层</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">channel --&gt; buffer</span><br><span class="line">buffer --&gt; channel</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>常见的 Channel </p>
+<ul>
+<li>FileChannel</li>
+<li>DatagramChannel</li>
+<li>SocketChannel</li>
+<li>ServerSocketChannel</li>
+</ul>
+<br>
+
+<p>buffer 则用来缓冲读写数据，常见的 Buffer 有</p>
+<ul>
+<li>ByteBuffer<ul>
+<li>MappedByteBuffer</li>
+<li>DirectByteBuffer</li>
+<li>HeapByteBuffer</li>
+</ul>
+</li>
+<li>ShortBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>FloatBuffer</li>
+<li>DoubleBuffer</li>
+<li>CharBuffer</li>
+</ul>
+<h4 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h4><p>selector 单从字面意思不好理解，需要结合 服务器的 设计演化来理解它的用途</p>
+<h5 id="多线程版设计"><a href="#多线程版设计" class="headerlink" title="多线程版设计"></a>多线程版设计</h5><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">subgraph 多线程版</span><br><span class="line">t1(thread) --&gt; s1(socket1)</span><br><span class="line">t2(thread) --&gt; s2(socket2)</span><br><span class="line">t3(thread) --&gt; s3(socket3)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></div>
+
+<h5 id="多线程版缺点"><a href="#多线程版缺点" class="headerlink" title="多线程版缺点"></a>多线程版缺点</h5><ul>
+<li>内存占用高</li>
+<li>线程上下文切换成本高</li>
+<li>只适合连接较少的场景</li>
+</ul>
+<h5 id="线程池版设计"><a href="#线程池版设计" class="headerlink" title="线程池版设计"></a>线程池版设计</h5><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">subgraph 线程池版</span><br><span class="line">t4(thread) --&gt; s4(socket1)</span><br><span class="line">t5(thread) --&gt; s5(socket2)</span><br><span class="line">t4(thread) -.-&gt; s6(socket3)</span><br><span class="line">t5(thread) -.-&gt; s7(socket4)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="线程池版缺点"><a href="#线程池版缺点" class="headerlink" title="线程池版缺点"></a>线程池版缺点</h5><ul>
+<li>阻塞模式下，线程仅能处理一个 socket 连接</li>
+<li>仅适合短连接场景</li>
+</ul>
+<h5 id="selector-版设计"><a href="#selector-版设计" class="headerlink" title="selector 版设计"></a>selector 版设计</h5><p>selector 的作用 就是配合一个线程来管理多个 channel，获取这些 channel 上发生的事情，这些channel 工作在非阻塞模式下，不会让线程吊死在一个 channel 上。适合 连接数特别多，但流量地的场景 （low traffic）</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">subgraph selector 版</span><br><span class="line">thread --&gt; selector</span><br><span class="line">selector --&gt; c1(channel)</span><br><span class="line">selector --&gt; c2(channel)</span><br><span class="line">selector --&gt; c3(channel)</span><br><span class="line">end</span><br></pre></td></tr></table></figure></div>
+
+<p>调用 selector 的 <code>select()</code> 会阻塞  直到 channel 发生了 读写就绪事件，这些事件发生，<code>select()</code> 方法就会返回这些事件交给 thread 来处理</p>
+<h3 id="ByteBuffer"><a href="#ByteBuffer" class="headerlink" title="ByteBuffer"></a>ByteBuffer</h3><hr>
+<p>有一普通文本文件 data.txt </p>
+<div class="code-container" data-rel="Txt"><figure class="iseeu highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1234567890abcd</span><br></pre></td></tr></table></figure></div>
+
+<br>
+
+<p>使用<code>FileChannel </code> 来读取文件</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cs7eric.netty.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.extern.slf4j.Slf4j;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.RandomAccessFile;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.nio.channels.FileChannel;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ChannelDemo1</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">RandomAccessFile</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RandomAccessFile</span>(<span class="string">&quot;data.txt&quot;</span>, <span class="string">&quot;rw&quot;</span>);</span><br><span class="line">            <span class="type">FileChannel</span> <span class="variable">channel</span> <span class="operator">=</span> file.getChannel();</span><br><span class="line">            <span class="type">ByteBuffer</span> <span class="variable">byteBuffer</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">10</span>);</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="comment">// 向 buffer 写入</span></span><br><span class="line">                <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> channel.read(byteBuffer);</span><br><span class="line">                log.debug(<span class="string">&quot;读到字节数：&#123;&#125;&quot;</span>, len);</span><br><span class="line">                <span class="keyword">if</span> (len == -<span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 切换到 buffer 读模式</span></span><br><span class="line">                byteBuffer.flip();</span><br><span class="line">                <span class="keyword">while</span> (byteBuffer.hasRemaining()) &#123;</span><br><span class="line">                    log.debug(<span class="string">&quot;&#123;&#125;&quot;</span>, (<span class="type">char</span>) byteBuffer.get());</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 切换到 buffer  写模式</span></span><br><span class="line">                byteBuffer.clear();</span><br><span class="line">            &#125;<span class="keyword">while</span> (<span class="literal">true</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+<p>输出</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230329214105225.png"
+                      alt="image-20230329214105225"
+                ></p>
+<h4 id="ByteBuffer-使用"><a href="#ByteBuffer-使用" class="headerlink" title="ByteBuffer 使用"></a>ByteBuffer 使用</h4><ol>
+<li>向 buffer 写入数据，例如 调用 <code>channel.read(buufer)</code></li>
+<li>调用 <code>flip()</code>  切换至 <strong>读模式</strong></li>
+<li>从 buffer 读取数据，例如 调用 <code>buffer.get()</code></li>
+<li>调用 <code>clear()</code>  或 <code>compact()</code> 切换至 <strong>写模式</strong></li>
+<li>重复 1 - 4 步骤</li>
+</ol>
+<h4 id="ByteBuffer-结构"><a href="#ByteBuffer-结构" class="headerlink" title="ByteBuffer 结构"></a>ByteBuffer 结构</h4><p>ByteBuffer 有以下重要属性</p>
+<ul>
+<li>capacity</li>
+<li>position</li>
+<li>limit</li>
+</ul>
+<br>
+
+<p>一开始</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/0021.png"
+                     
+                ></p>
+<p>写模式下，position 是写入位置，limit 等于容量，下图表示写入了 4 个字节后的状态</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/0018.png"
+                     
+                ></p>
+<p>flip 动作发生后，position 切换为读取位置，limit 切换为读取限制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/0019.png"
+                     
+                ></p>
+<p>读取 4 个字节后，状态</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/0020.png"
+                     
+                ></p>
+<p>clear 动作发生后，状态</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/0021.png"
+                     
+                ></p>
+<p>compact 方法，是把未读完的部分向前压缩，然后切换至写模式</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/0022.png"
+                     
+                ></p>
+<h4 id="调试工具类"><a href="#调试工具类" class="headerlink" title="调试工具类"></a>调试工具类</h4><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cs7eric.netty.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.netty.util.internal.StringUtil;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> io.netty.util.internal.MathUtil.isOutOfBounds;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> io.netty.util.internal.StringUtil.NEWLINE;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ByteBufferUtil</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">char</span>[] BYTE2CHAR = <span class="keyword">new</span> <span class="title class_">char</span>[<span class="number">256</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">char</span>[] HEXDUMP_TABLE = <span class="keyword">new</span> <span class="title class_">char</span>[<span class="number">256</span> * <span class="number">4</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] HEXPADDING = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">16</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] HEXDUMP_ROWPREFIXES = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">65536</span> &gt;&gt;&gt; <span class="number">4</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] BYTE2HEX = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">256</span>];</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] BYTEPADDING = <span class="keyword">new</span> <span class="title class_">String</span>[<span class="number">16</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">char</span>[] DIGITS = <span class="string">&quot;0123456789abcdef&quot;</span>.toCharArray();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">256</span>; i++) &#123;</span><br><span class="line">            HEXDUMP_TABLE[i &lt;&lt; <span class="number">1</span>] = DIGITS[i &gt;&gt;&gt; <span class="number">4</span> &amp; <span class="number">0x0F</span>];</span><br><span class="line">            HEXDUMP_TABLE[(i &lt;&lt; <span class="number">1</span>) + <span class="number">1</span>] = DIGITS[i &amp; <span class="number">0x0F</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> i;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Generate the lookup table for hex dump paddings</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; HEXPADDING.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">padding</span> <span class="operator">=</span> HEXPADDING.length - i;</span><br><span class="line">            <span class="type">StringBuilder</span> <span class="variable">buf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(padding * <span class="number">3</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; padding; j++) &#123;</span><br><span class="line">                buf.append(<span class="string">&quot;   &quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            HEXPADDING[i] = buf.toString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Generate the lookup table for the start-offset header in each row (up to 64KiB).</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; HEXDUMP_ROWPREFIXES.length; i++) &#123;</span><br><span class="line">            <span class="type">StringBuilder</span> <span class="variable">buf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="number">12</span>);</span><br><span class="line">            buf.append(NEWLINE);</span><br><span class="line">            buf.append(Long.toHexString(i &lt;&lt; <span class="number">4</span> &amp; <span class="number">0xFFFFFFFFL</span> | <span class="number">0x100000000L</span>));</span><br><span class="line">            buf.setCharAt(buf.length() - <span class="number">9</span>, <span class="string">&#x27;|&#x27;</span>);</span><br><span class="line">            buf.append(<span class="string">&#x27;|&#x27;</span>);</span><br><span class="line">            HEXDUMP_ROWPREFIXES[i] = buf.toString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Generate the lookup table for byte-to-hex-dump conversion</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; BYTE2HEX.length; i++) &#123;</span><br><span class="line">            BYTE2HEX[i] = <span class="string">&#x27; &#x27;</span> + StringUtil.byteToHexStringPadded(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Generate the lookup table for byte dump paddings</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; BYTEPADDING.length; i++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">padding</span> <span class="operator">=</span> BYTEPADDING.length - i;</span><br><span class="line">            <span class="type">StringBuilder</span> <span class="variable">buf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(padding);</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; padding; j++) &#123;</span><br><span class="line">                buf.append(<span class="string">&#x27; &#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            BYTEPADDING[i] = buf.toString();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Generate the lookup table for byte-to-char conversion</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; BYTE2CHAR.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &lt;= <span class="number">0x1f</span> || i &gt;= <span class="number">0x7f</span>) &#123;</span><br><span class="line">                BYTE2CHAR[i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                BYTE2CHAR[i] = (<span class="type">char</span>) i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 打印所有内容</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> buffer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">debugAll</span><span class="params">(ByteBuffer buffer)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">oldlimit</span> <span class="operator">=</span> buffer.limit();</span><br><span class="line">        buffer.limit(buffer.capacity());</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">origin</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="number">256</span>);</span><br><span class="line">        appendPrettyHexDump(origin, buffer, <span class="number">0</span>, buffer.capacity());</span><br><span class="line">        System.out.println(<span class="string">&quot;+--------+-------------------- all ------------------------+----------------+&quot;</span>);</span><br><span class="line">        System.out.printf(<span class="string">&quot;position: [%d], limit: [%d]\n&quot;</span>, buffer.position(), oldlimit);</span><br><span class="line">        System.out.println(origin);</span><br><span class="line">        buffer.limit(oldlimit);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 打印可读取内容</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> buffer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">debugRead</span><span class="params">(ByteBuffer buffer)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="number">256</span>);</span><br><span class="line">        appendPrettyHexDump(builder, buffer, buffer.position(), buffer.limit() - buffer.position());</span><br><span class="line">        System.out.println(<span class="string">&quot;+--------+-------------------- read -----------------------+----------------+&quot;</span>);</span><br><span class="line">        System.out.printf(<span class="string">&quot;position: [%d], limit: [%d]\n&quot;</span>, buffer.position(), buffer.limit());</span><br><span class="line">        System.out.println(builder);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">appendPrettyHexDump</span><span class="params">(StringBuilder dump, ByteBuffer buf, <span class="type">int</span> offset, <span class="type">int</span> length)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (isOutOfBounds(offset, length, buf.capacity())) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IndexOutOfBoundsException</span>(</span><br><span class="line">                    <span class="string">&quot;expected: &quot;</span> + <span class="string">&quot;0 &lt;= offset(&quot;</span> + offset + <span class="string">&quot;) &lt;= offset + length(&quot;</span> + length</span><br><span class="line">                            + <span class="string">&quot;) &lt;= &quot;</span> + <span class="string">&quot;buf.capacity(&quot;</span> + buf.capacity() + <span class="string">&#x27;)&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        dump.append(</span><br><span class="line">                <span class="string">&quot;         +-------------------------------------------------+&quot;</span> +</span><br><span class="line">                        NEWLINE + <span class="string">&quot;         |  0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f |&quot;</span> +</span><br><span class="line">                        NEWLINE + <span class="string">&quot;+--------+-------------------------------------------------+----------------+&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">startIndex</span> <span class="operator">=</span> offset;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">fullRows</span> <span class="operator">=</span> length &gt;&gt;&gt; <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">remainder</span> <span class="operator">=</span> length &amp; <span class="number">0xF</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Dump the rows which have 16 bytes.</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">row</span> <span class="operator">=</span> <span class="number">0</span>; row &lt; fullRows; row++) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">rowStartIndex</span> <span class="operator">=</span> (row &lt;&lt; <span class="number">4</span>) + startIndex;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Per-row prefix.</span></span><br><span class="line">            appendHexDumpRowPrefix(dump, row, rowStartIndex);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Hex dump</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">rowEndIndex</span> <span class="operator">=</span> rowStartIndex + <span class="number">16</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> rowStartIndex; j &lt; rowEndIndex; j++) &#123;</span><br><span class="line">                dump.append(BYTE2HEX[getUnsignedByte(buf, j)]);</span><br><span class="line">            &#125;</span><br><span class="line">            dump.append(<span class="string">&quot; |&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// ASCII dump</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> rowStartIndex; j &lt; rowEndIndex; j++) &#123;</span><br><span class="line">                dump.append(BYTE2CHAR[getUnsignedByte(buf, j)]);</span><br><span class="line">            &#125;</span><br><span class="line">            dump.append(<span class="string">&#x27;|&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Dump the last row which has less than 16 bytes.</span></span><br><span class="line">        <span class="keyword">if</span> (remainder != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">rowStartIndex</span> <span class="operator">=</span> (fullRows &lt;&lt; <span class="number">4</span>) + startIndex;</span><br><span class="line">            appendHexDumpRowPrefix(dump, fullRows, rowStartIndex);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Hex dump</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">rowEndIndex</span> <span class="operator">=</span> rowStartIndex + remainder;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> rowStartIndex; j &lt; rowEndIndex; j++) &#123;</span><br><span class="line">                dump.append(BYTE2HEX[getUnsignedByte(buf, j)]);</span><br><span class="line">            &#125;</span><br><span class="line">            dump.append(HEXPADDING[remainder]);</span><br><span class="line">            dump.append(<span class="string">&quot; |&quot;</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Ascii dump</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> rowStartIndex; j &lt; rowEndIndex; j++) &#123;</span><br><span class="line">                dump.append(BYTE2CHAR[getUnsignedByte(buf, j)]);</span><br><span class="line">            &#125;</span><br><span class="line">            dump.append(BYTEPADDING[remainder]);</span><br><span class="line">            dump.append(<span class="string">&#x27;|&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dump.append(NEWLINE +</span><br><span class="line">                <span class="string">&quot;+--------+-------------------------------------------------+----------------+&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">appendHexDumpRowPrefix</span><span class="params">(StringBuilder dump, <span class="type">int</span> row, <span class="type">int</span> rowStartIndex)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (row &lt; HEXDUMP_ROWPREFIXES.length) &#123;</span><br><span class="line">            dump.append(HEXDUMP_ROWPREFIXES[row]);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            dump.append(NEWLINE);</span><br><span class="line">            dump.append(Long.toHexString(rowStartIndex &amp; <span class="number">0xFFFFFFFFL</span> | <span class="number">0x100000000L</span>));</span><br><span class="line">            dump.setCharAt(dump.length() - <span class="number">9</span>, <span class="string">&#x27;|&#x27;</span>);</span><br><span class="line">            dump.append(<span class="string">&#x27;|&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">short</span> <span class="title function_">getUnsignedByte</span><span class="params">(ByteBuffer buffer, <span class="type">int</span> index)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="type">short</span>) (buffer.get(index) &amp; <span class="number">0xFF</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h4 id="ByteBuffer-常见方法"><a href="#ByteBuffer-常见方法" class="headerlink" title="ByteBuffer 常见方法"></a>ByteBuffer 常见方法</h4><h5 id="分配空间"><a href="#分配空间" class="headerlink" title="分配空间"></a>分配空间</h5><p>可以使用 <code>allocate</code> 方法为 ByteBuffer 分配空间，其他 buffer 类也有该方法</p>
+<div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ByteBuffer</span> <span class="variable">buf</span> <span class="operator">=</span> ByteBuffer.allocate(<span class="number">16</span>);</span><br></pre></td></tr></table></figure></div>
+
+
+
+<h5 id="向-buffer-写入数据"><a href="#向-buffer-写入数据" class="headerlink" title="向 buffer 写入数据"></a>向 buffer 写入数据</h5><p>有两种方法</p>
+<ul>
+<li>调用 channel 的 read 方法<ul>
+<li><code>int readBytes = channel.read(buf);</code></li>
+</ul>
+</li>
+<li>调用 buffer 自己的 put 方法<ul>
+<li><code>buf.put((byte) 127)</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="向-buffer-读取数据"><a href="#向-buffer-读取数据" class="headerlink" title="向 buffer 读取数据"></a>向 buffer 读取数据</h5><p>同样有两种方法</p>
+<ul>
+<li>调用 channel 的 <code>write </code> 方法<ul>
+<li><code>int writeBytes = channel.write(buf);</code></li>
+</ul>
+</li>
+<li>调用 buffer 自己的 <code>get</code> 方法<ul>
+<li><code>byte b = buf.get();</code></li>
+</ul>
+</li>
+</ul>
+<br>
+
+<p>get 方法 会让 position 读指针 向后走，如果 想 <strong>重复读取数据</strong></p>
+<ul>
+<li>可以 调用 <code>rewind()</code> 方法 将 position 重新置为 0</li>
+<li>或者 调用 <code>get(int i)</code> 方法 获取 索引 为 i 的内容，他不会移动指针</li>
+</ul>
+<h5 id="mark-和-reset"><a href="#mark-和-reset" class="headerlink" title="mark  和 reset"></a>mark  和 reset</h5><p>mark 是在读取时，做一个标记，即使 position 改变，只要调用 <code>reset</code> 就能回到 mark 的 位置</p>
+<blockquote>
+<p><strong><code>rewind 、flip</code>  都会清除 mark 位置</strong></p>
+</blockquote>
+<h5 id="字符串和-ByteBuffer-互转"><a href="#字符串和-ByteBuffer-互转" class="headerlink" title="字符串和 ByteBuffer 互转"></a>字符串和 ByteBuffer 互转</h5><div class="code-container" data-rel="Java"><figure class="iseeu highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ByteBuffer</span> <span class="variable">buffer1</span> <span class="operator">=</span> StandardCharsets.UTF_8.encode(<span class="string">&quot;你好&quot;</span>);</span><br><span class="line"><span class="type">ByteBuffer</span> <span class="variable">buffer2</span> <span class="operator">=</span> Charset.forName(<span class="string">&quot;utf-8&quot;</span>).encode(<span class="string">&quot;你好&quot;</span>);</span><br><span class="line"></span><br><span class="line">debug(buffer1);</span><br><span class="line">debug(buffer2);</span><br><span class="line"></span><br><span class="line"><span class="type">CharBuffer</span> <span class="variable">buffer3</span> <span class="operator">=</span> StandardCharsets.UTF_8.decode(buffer1);</span><br><span class="line">System.out.println(buffer3.getClass());</span><br><span class="line">System.out.println(buffer3.toString());</span><br></pre></td></tr></table></figure></div>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230329215951740.png"
+                      alt="image-20230329215951740"
+                ></p>
+<h5 id="Buffer-线程安全"><a href="#Buffer-线程安全" class="headerlink" title="Buffer 线程安全"></a>Buffer 线程安全</h5><blockquote>
+<p><strong>Buffer 是   非  线程安全的</strong></p>
+</blockquote>
+<h2 id="Netty-入门"><a href="#Netty-入门" class="headerlink" title="Netty 入门"></a>Netty 入门</h2><h2 id="Netty-进阶"><a href="#Netty-进阶" class="headerlink" title="Netty 进阶"></a>Netty 进阶</h2><h2 id="Netty-优化与源码"><a href="#Netty-优化与源码" class="headerlink" title="Netty 优化与源码"></a>Netty 优化与源码</h2>
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Netty</li>
+        <li><strong>Author:</strong> The Redefine Team</li>
+        <li><strong>Created at
+                :</strong> 2023-03-26 22:23:11</li>
+        
+            <li>
+                <strong>Updated at
+                    :</strong> 2024-09-13 11:07:59
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://redefine.ohevan.com/2023/03/26/Netty/
+        </li>
+        <li>
+            <strong>
+                License:
+            </strong>
+            
+
+            
+                This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a>.
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+		<ul class="post-tags-box text-lg mt-1.5 flex-wrap justify-center flex md:hidden">
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Java/">#Java</a>&nbsp;
+			</li>
+			
+			<li class="tag-item mx-0.5">
+				<a href="/tags/Netty/">#Netty</a>&nbsp;
+			</li>
+			
+		</ul>
+		
+
+		
+
+		
+		<div class="article-nav my-8 flex justify-between items-center px-2 sm:px-6 md:px-8">
+			
+			<div class="article-prev border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="prev" rel="prev" href="/2023/03/28/gitfatalunable-to-connect-to-github.com/">
+					<span class="left arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-left"></i>
+					</span>
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">git:fatal:unable to connect to github.com</span>
+						<span class="post-nav-item">Prev posts</span>
+					</span>
+				</a>
+			</div>
+			
+			
+			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
+				<a class="next" rel="next" href="/2023/03/25/Nginx/">
+					<span class="title flex justify-center items-center">
+						<span class="post-nav-title-item">Nginx</span>
+						<span class="post-nav-item">Next posts</span>
+					</span>
+					<span class="right arrow-icon flex justify-center items-center">
+						<i class="fa-solid fa-chevron-right"></i>
+					</span>
+				</a>
+			</div>
+			
+		</div>
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        Comments
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.mjs';
+
+      function loadWaline() {
+        init({
+          el: '#waline',
+          serverURL: 'https://example.example.com',
+          lang: 'zh-CN',
+          dark: 'body[class~="dark-mode"]',
+          reaction: false,
+          requiredMeta: ['nick', 'mail'],
+          emoji: [],
+          
+          
+        });
+      }
+
+      if (typeof swup !== 'undefined') {
+        loadWaline();
+      } else {
+        window.addEventListener('DOMContentLoaded', loadWaline);
+      }
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">On this page</div>
+		<div class="page-title">Netty</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NIO-%E5%9F%BA%E7%A1%80"><span class="nav-text">NIO 基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E7%BB%84%E4%BB%B6"><span class="nav-text">三大组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ByteBuffer"><span class="nav-text">ByteBuffer</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netty-%E5%85%A5%E9%97%A8"><span class="nav-text">Netty 入门</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netty-%E8%BF%9B%E9%98%B6"><span class="nav-text">Netty 进阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Netty-%E4%BC%98%E5%8C%96%E4%B8%8E%E6%BA%90%E7%A0%81"><span class="nav-text">Netty 优化与源码</span></a></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2025&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">The Redefine Team</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        71 posts in total
+                    </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">VISITOR COUNT</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">TOTAL PAGE VIEWS</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a></span>
+            <span class="text-sm lg:block">THEME&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.2</a></span>
+        </div>
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container">
+	<img src="">
+</div>
+
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    const swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+</script>
+
+
+
+
+	
+<script src="/js/build/tools/imageViewer.js" type="module"></script>
+
+<script src="/js/build/utils.js" type="module"></script>
+
+<script src="/js/build/main.js" type="module"></script>
+
+<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
+
+<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
+
+<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
+
+<script src="/js/build/layouts/categoryList.js" type="module"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/codeBlock.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/layouts/lazyload.js" type="module"></script>
+
+
+
+
+    
+<script src="/js/build/tools/runtime.js"></script>
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+  
+<script src="/js/build/plugins/typed.js" type="module"></script>
+
+
+
+
+
+
+
+
+    
+<script src="/js/build/libs/anime.min.js"></script>
+
+
+
+
+
+    
+<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
+
+<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
+
+
+
+
+
+	
+</body>
+
+</html>
