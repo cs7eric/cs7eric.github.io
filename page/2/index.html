@@ -394,15 +394,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">68</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">77</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">86</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">75</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">92</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -462,15 +462,15 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">68</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">77</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">86</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">75</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">92</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -495,27 +495,26 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/08/06/CSS%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">
-                            CSS编码规范
+                        <a href="/2025/03/23/InnoDB%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%84%8F%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB%E7%9A%84/">
+                            InnoDB如何解决脏读、不可重复读和幻读的
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            1 前言CSS作为网页样式的描述语言，在百度一直有着广泛的应用。本文档的目标是使CSS代码风格保持一致，容易被理解和被维护。
-虽然本文档是针对CSS设计的，但是在使用各种CSS的预编译器(如less、sass、stylus等)时，适用的部分也应尽量遵循本文档的约定。
-2 代码风格2.1 文件[建议] CSS 文件使用无 BOM 的 UTF-8 编码。解释：
-UTF-8 编码具有更广泛的适应性...
+                            在Innodb中，通过MVCC解决脏读和不可重复读，通过MVCC+间隙锁解决幻读的。
+脏读的解决。脏读指一个事务可以读取另一个事务未提交的数据，导致数据不一致。在读已提交（Read Committed）隔离级别下，事务只能读取到其他事务已经提交的数据版本。因此，如果一个事务在读取数据时，另一个事务已经修改了这些数据但尚未提交，那么读取事务将不会看到这些未提交的更改。
+当事务在“读已提交”隔离...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun Aug 06 2023 23:32:22 GMT+0800">
+            <span class="home-article-date" data-date="Sun Mar 23 2025 17:35:00 GMT+0800">
                 
-                    2023-08-06
+                    2025-03-23
                 
             </span>
         </span>
@@ -528,27 +527,7 @@ UTF-8 编码具有更广泛的适应性...
                     
                         
                         <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/CSS/">CSS</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E8%A7%84%E8%8C%83/">规范</a>&nbsp;
+                            <a href="/categories/MySQL/">MySQL</a>&nbsp;
                         </li>
                     
                     
@@ -557,31 +536,9 @@ UTF-8 编码具有更广泛的适应性...
         </span>
         
         
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/CSS/">CSS</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E8%A7%84%E8%8C%83/">规范</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
     </div>
 
-    <a href="/2023/08/06/CSS%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/">Read more<span class="seo-reader-text">CSS编码规范</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/23/InnoDB%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%84%8F%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%92%8C%E5%B9%BB%E8%AF%BB%E7%9A%84/">Read more<span class="seo-reader-text">InnoDB如何解决脏读、不可重复读和幻读的</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -596,37 +553,27 @@ UTF-8 编码具有更广泛的适应性...
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/08/05/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E5%B8%83%E5%B1%80/">
-                            前端常见布局
+                        <a href="/2025/03/23/%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/">
+                            脏读、幻读、不可重复读
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            常见的 CSS 布局有以下几类：
-
-水平居中
-垂直居中
-水平垂直居中
-两列布局
-三列布局
-等分布局
-Sticky Footer布局
-全屏布局
-
-为保证其他的 css 代码不影响理解，下面给出的 代码只包括实现效果的代码
-水平居中模板代码
-1234567891011121314151617181920&lt;script setup&gt;&lt;/script&gt;&lt;template...
+                            什么是脏读、幻读、不可重复读
+&#x3D;&#x3D;脏读&#x3D;&#x3D;： 读到了其他事务还没有提交的数据
+&#x3D;&#x3D;不可重复读&#x3D;&#x3D;： 对某数据进行读取过程中，有其他事务对数据进行了修改 （UPDATE、DELETE），导致第二次读取的结果不同
+&#x3D;&#x3D;幻读&#x3D;&#x3D;： 事务在做范围查询过程中，有另外一个事务对范围内新...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Aug 05 2023 23:40:34 GMT+0800">
+            <span class="home-article-date" data-date="Sun Mar 23 2025 16:56:00 GMT+0800">
                 
-                    2023-08-05
+                    2025-03-23
                 
             </span>
         </span>
@@ -639,17 +586,7 @@ Sticky Footer布局
                     
                         
                         <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/%E5%B8%83%E5%B1%80/">布局</a>&nbsp;
+                            <a href="/categories/MySQL/">MySQL</a>&nbsp;
                         </li>
                     
                     
@@ -664,7 +601,7 @@ Sticky Footer布局
                     
                         <li>
                             
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
+                            <a href="/tags/MySQL/">MySQL</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -672,7 +609,7 @@ Sticky Footer布局
         
     </div>
 
-    <a href="/2023/08/05/%E5%89%8D%E7%AB%AF%E5%B8%B8%E8%A7%81%E5%B8%83%E5%B1%80/">Read more<span class="seo-reader-text">前端常见布局</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/23/%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB/">Read more<span class="seo-reader-text">脏读、幻读、不可重复读</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -687,25 +624,25 @@ Sticky Footer布局
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/08/05/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">
-                            策略模式
+                        <a href="/2025/03/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BB%BA%E8%AE%AE%E5%A4%9A%E8%A1%A8Join/">
+                            为什么不建议多表Join
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            在策略模式（Strategy Pattern）中，一个类 的 行为  或其 算法 可以在的 运行时更改。这种 类型的 设计模式属于 行为型模式。 我们创建表示 各种策略模式的对象和一个行为 随着对象而改变的 context 对象。策略对象 改变 context 对象的执行算法
-策略模式是一种行为型设计模式，它定义了一系列算法，将每个算法都封装起来，并且使它们之间可以互换。在策略模式中，算法的...
+                            不建议使用 join 查询，最主要的原因是 join 的效率低
+MySQL是使用了嵌套循环（Nested-Loop Join）的方式来实现关联查询的，简单点说就是要通过两层循环，用第一张表做外循环，第二张表做内循环，外循环的每一条记录跟内循环中的记录作比较，符合条件的就输出。而具体到算法实现上主要有simple nested loop，block nested loop和index nest...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Aug 05 2023 23:13:22 GMT+0800">
+            <span class="home-article-date" data-date="Sun Mar 23 2025 16:39:00 GMT+0800">
                 
-                    2023-08-05
+                    2025-03-23
                 
             </span>
         </span>
@@ -718,17 +655,7 @@ Sticky Footer布局
                     
                         
                         <li>
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">策略模式</a>&nbsp;
+                            <a href="/categories/MySQL/">MySQL</a>&nbsp;
                         </li>
                     
                     
@@ -743,7 +670,7 @@ Sticky Footer布局
                     
                         <li>
                             
-                            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>&nbsp;
+                            <a href="/tags/MySQL-Join/">MySQL,Join</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -751,7 +678,7 @@ Sticky Footer布局
         
     </div>
 
-    <a href="/2023/08/05/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/">Read more<span class="seo-reader-text">策略模式</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/23/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BB%BA%E8%AE%AE%E5%A4%9A%E8%A1%A8Join/">Read more<span class="seo-reader-text">为什么不建议多表Join</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -766,26 +693,26 @@ Sticky Footer布局
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/08/04/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/">
-                            模板模式
+                        <a href="/2025/03/23/Spring%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">
+                            Spring如何解决循环依赖
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            模板模式是一种行为型设计模式，它定义了一个算法的骨架，将一些复杂流程的实现步骤封装在一个抽象类中，而将一些具体实现步骤延迟到子类中实现。
-在 模板模式（Template Pattern）中，一个抽象类公开定义了 执行它的方法的    方式&#x2F;模板   。它的子类可以按需重写方法实现，但调用将以 抽象类中定义的 方式进行，这种类型的设计模式属于  行为式模式
-意图： 定义一个 操作中的...
+                            Spring 的三级缓存#Spring的三级缓存
+@Lazy 注解#Lazy注解
+
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Aug 04 2023 23:29:22 GMT+0800">
+            <span class="home-article-date" data-date="Sun Mar 23 2025 16:32:00 GMT+0800">
                 
-                    2023-08-04
+                    2025-03-23
                 
             </span>
         </span>
@@ -798,17 +725,7 @@ Sticky Footer布局
                     
                         
                         <li>
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/">模板模式</a>&nbsp;
+                            <a href="/categories/Spring/">Spring</a>&nbsp;
                         </li>
                     
                     
@@ -823,7 +740,7 @@ Sticky Footer布局
                     
                         <li>
                             
-                            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>&nbsp;
+                            <a href="/tags/Spring/">Spring</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -831,7 +748,7 @@ Sticky Footer布局
         
     </div>
 
-    <a href="/2023/08/04/%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/">Read more<span class="seo-reader-text">模板模式</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/23/Spring%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96/">Read more<span class="seo-reader-text">Spring如何解决循环依赖</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -846,28 +763,24 @@ Sticky Footer布局
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/08/01/Element-Plus-ElMessage%E3%80%81Loading%E7%BB%84%E4%BB%B6%E5%9C%A8%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%85%A5%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E6%98%BE%E7%A4%BA/">
-                            Element-Plus ElMessage、Loading组件在自动导入的情况下不显示
+                        <a href="/2025/03/23/SpringMVC%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">
+                            SpringMVC执行流程
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            今天在使用 Vue3 + Element-Plus 的时候，根据官方文档的引导，使用了 推荐的 组件自动导入的方式
-
-官方文档： https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5
-
-在使用其他的 组件的时候一切正常，比如 el-button、el-for...
+                            #SpringMVC的执行流程对于 Http 请求， Tomcat 执行了 HttpServlet#service 方法，继承了 HttpServlet 的 FrameWorkServlet  是执行 doService 方法，而 SpringMVC 的 DispatcherServlet 则是继承了 FrameWorkServlet，进入到 SpringMVC 的流程中，在 Dispatc...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Tue Aug 01 2023 00:03:22 GMT+0800">
+            <span class="home-article-date" data-date="Sun Mar 23 2025 16:12:00 GMT+0800">
                 
-                    2023-08-01
+                    2025-03-23
                 
             </span>
         </span>
@@ -880,47 +793,7 @@ Sticky Footer布局
                     
                         
                         <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/">Vue</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/Vue3/">Vue3</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/Vue%E7%BB%84%E4%BB%B6%E5%BA%93/">Vue组件库</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/Vue%E7%BB%84%E4%BB%B6%E5%BA%93/ElementPlus/">ElementPlus</a>&nbsp;
+                            <a href="/categories/Spring/">Spring</a>&nbsp;
                         </li>
                     
                     
@@ -935,17 +808,161 @@ Sticky Footer布局
                     
                         <li>
                             
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
+                            <a href="/tags/Spring-SpringMVC/">Spring,SpringMVC</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/03/23/SpringMVC%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">Read more<span class="seo-reader-text">SpringMVC执行流程</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/03/23/react%E9%A2%84%E5%8A%A0%E8%BD%BD%E6%96%B9%E6%A1%88/">
+                            react预加载方案
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            这个问题是关于React中数据预加载和路由导航的概念。
+React中有几种方法可以实现在导航到组件之前预先加载数据：
+
+使用React Router的数据加载机制
+
+使用状态管理库（如Redux、Zustand）
+
+使用Context API结合Suspense
+
+实现自定义导航守卫
+
+
+React数据预加载方案在React中，可以在进入组件之前先请求数据，然后再渲染组件。这种模式有几种实现...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sun Mar 23 2025 03:10:00 GMT+0800">
+                
+                    2025-03-23
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/React/">React</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/React/">React</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/03/23/react%E9%A2%84%E5%8A%A0%E8%BD%BD%E6%96%B9%E6%A1%88/">Read more<span class="seo-reader-text">react预加载方案</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/03/15/jenkins%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B%E8%A6%81%E7%82%B9/">
+                            jenkins部署过程要点
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            jenkins 构建过程源码管理Git
+12345678无法连接仓库：Command &quot;git ls-remote -h -- git@github.com:cs7eric/devs-phere.git HEAD&quot; returned status code 128:stdout:stderr: No ED25519 host key is known for github...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Sat Mar 15 2025 21:09:27 GMT+0800">
+                
+                    2025-03-15
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Jenkins/">Jenkins</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Jenkins/">Jenkins</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/Vue3/">Vue3</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/ElementsPlus/">ElementsPlus</a>&nbsp;
+                            <a href="/tags/CI%E3%80%81CD/">CI、CD</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -953,7 +970,7 @@ Sticky Footer布局
         
     </div>
 
-    <a href="/2023/08/01/Element-Plus-ElMessage%E3%80%81Loading%E7%BB%84%E4%BB%B6%E5%9C%A8%E8%87%AA%E5%8A%A8%E5%AF%BC%E5%85%A5%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E6%98%BE%E7%A4%BA/">Read more<span class="seo-reader-text">Element-Plus ElMessage、Loading组件在自动导入的情况下不显示</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/15/jenkins%E9%83%A8%E7%BD%B2%E8%BF%87%E7%A8%8B%E8%A6%81%E7%82%B9/">Read more<span class="seo-reader-text">jenkins部署过程要点</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -968,26 +985,27 @@ Sticky Footer布局
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/07/29/git-flow/">
-                            git-flow
+                        <a href="/2025/03/12/CROS-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+                            CROS-跨域问题
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            
-Git Flow 最开始是由 Vincent Driessen 发行并广受欢迎，这个模型是在 2010 年构思出来的，而现在距今已有 10 多年了，而 Git 本身才诞生不久。在过去的十年中，Git Flow 在许多软件团队中非常流行
-分支命名规范:12345678master 分支：master 分支只有一个，名称即为 master 。GitHub 现在叫 maindevelop 分支：...
+                            什么情况下会发生跨域简单理解，就是你在 A 域名下的页面，去调用 B 域名的接口，浏览器感觉你这次调用可能是不安全的请求行为，于是它需要用 cors 安全策略来确认一下这个请求是由用户真实的意愿发出的，而不是被 csrf 伪造请求攻击偷偷发送的。（这么说只是为了方便大家理解，不是特别严谨，实际上同域名下部分情形也会出现跨域问题）
+请仔细理解上面这段话，因为它说明了两点：
+
+跨域不是后端接口对...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 29 2023 15:37:22 GMT+0800">
+            <span class="home-article-date" data-date="Wed Mar 12 2025 00:31:03 GMT+0800">
                 
-                    2023-07-29
+                    2025-03-12
                 
             </span>
         </span>
@@ -1000,7 +1018,7 @@ Git Flow 最开始是由 Vincent Driessen 发行并广受欢迎，这个模型�
                     
                         
                         <li>
-                            <a href="/categories/Git/">Git</a>&nbsp;
+                            <a href="/categories/record/">record</a>&nbsp;
                         </li>
                     
                     
@@ -1015,7 +1033,7 @@ Git Flow 最开始是由 Vincent Driessen 发行并广受欢迎，这个模型�
                     
                         <li>
                             
-                            <a href="/tags/Git/">Git</a>&nbsp;
+                            <a href="/tags/record/">record</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1023,189 +1041,7 @@ Git Flow 最开始是由 Vincent Driessen 发行并广受欢迎，这个模型�
         
     </div>
 
-    <a href="/2023/07/29/git-flow/">Read more<span class="seo-reader-text">git-flow</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-                    
-                
-
-                
-                    <div id="home-article-thumbnail" class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large">
-                        <a href="/2023/07/29/Git/">
-                            <img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230729104938492.png" alt="git" class="w-full h-full object-cover dark:brightness-75 transition-all" />
-                        </a>
-                    </div>
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                    <h3 class="home-article-title">
-                        <a href="/2023/07/29/Git/">
-                            git
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            1. Git 概述Git 是一个免费开源的分布式版本控制系统，可以快速高效地处理从小到大的各种项目。
-Git 具有廉价的本地库（本地库在本地磁盘上）、方便的暂存区和对各工作流分支等特性。
-1.1 版本控制1.1.1 什么是版本控制可以记录文件修改的历史记录，从而允许用户查看历史版本
-1.1.2 为什么需要版本控制个人开发过渡到团队协作
-1.1.3 版本控制工具
-集中式版本控制工具
-CSV、S...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 29 2023 10:47:33 GMT+0800">
-                
-                    2023-07-29
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Git/">Git</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/Git/">Git</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/07/29/Git/">Read more<span class="seo-reader-text">git</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-                    
-                
-
-                
-                    <div id="home-article-thumbnail" class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large">
-                        <a href="/2023/07/23/pinia/">
-                            <img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230723104324198.png" alt="pinia" class="w-full h-full object-cover dark:brightness-75 transition-all" />
-                        </a>
-                    </div>
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                    <h3 class="home-article-title">
-                        <a href="/2023/07/23/pinia/">
-                            pinia
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            Vue3 状态管理 - Pinia
-1. 什么是PiniaPinia 是 Vue 的专属的最新状态管理库 ，是 Vuex 状态管理工具的替代品
-2. 手动添加Pinia到Vue项目后面在实际开发项目的时候，Pinia可以在项目创建时自动添加，现在我们初次学习，从零开始：
-
-使用 Vite 创建一个空的 Vue3项目
-
-1npm init vite@latest
-
-
-按照官方文档安装 pini...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun Jul 23 2023 10:41:22 GMT+0800">
-                
-                    2023-07-23
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/">Vue</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Vue/">Vue</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/07/23/pinia/">Read more<span class="seo-reader-text">pinia</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/12/CROS-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">Read more<span class="seo-reader-text">CROS-跨域问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1220,24 +1056,25 @@ CSV、S...
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/07/22/Vue3/">
-                            Vue3
+                        <a href="/2025/03/12/satoken%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+                            satoken跨域问题
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            认识 Vue3选项式 API 与 组合式 API1234567891011121314&lt;script&gt;export default &#123;  data()&#123;    return &#123;      count:0    &#125;  &#125;,  methods:&#123;    addCount()&#123;      this.count++  ...
+                            在前端发起请求，获取 subject 服务相关数据时，出现了 CORS 问题，刚开始我 在 SpringCloud Gateway 中配置了跨域，但是并没有起作用，我又在相关的微服务中，通过 WebConfig implements WebMvcConfigurer 再次配置了跨域
+1234567891011121314151617import org.springframework.con...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Jul 22 2023 11:01:22 GMT+0800">
+            <span class="home-article-date" data-date="Wed Mar 12 2025 00:22:38 GMT+0800">
                 
-                    2023-07-22
+                    2025-03-12
                 
             </span>
         </span>
@@ -1250,17 +1087,7 @@ CSV、S...
                     
                         
                         <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/">Vue</a>&nbsp;
+                            <a href="/categories/Java/">Java</a>&nbsp;
                         </li>
                     
                     
@@ -1275,12 +1102,17 @@ CSV、S...
                     
                         <li>
                             
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
+                            <a href="/tags/SpringBoot/">SpringBoot</a>&nbsp;
                         </li>
                     
                         <li>
                             | 
-                            <a href="/tags/Vue/">Vue</a>&nbsp;
+                            <a href="/tags/SaToken/">SaToken</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/SpringCloud/">SpringCloud</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1288,7 +1120,7 @@ CSV、S...
         
     </div>
 
-    <a href="/2023/07/22/Vue3/">Read more<span class="seo-reader-text">Vue3</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/12/satoken%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">Read more<span class="seo-reader-text">satoken跨域问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1303,34 +1135,29 @@ CSV、S...
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/07/21/vue%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85/">
-                            vue项目打包
+                        <a href="/2025/03/01/@Resource%E3%80%81@Autowired/">
+                            Resource与Autowired注解
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            项目打包优化vue脚手架只是开发过程中，协助开发的工具，当真正开发完了 &#x3D;&gt; 脚手架不参与上线
-参与上线的是 &#x3D;&gt; 打包后的源代码
-打包：
+                            #为什么不推荐使用@Autowired
+依赖注入 有三种形式
 
-将多个文件压缩合并成一个文件
-语法降级
-less sass ts 语法解析, 解析成css
-….
-
-打包后，可以生成，浏览器能够直接运行的网页 &#x3D;&gt; 就是需要上线的源码！
-打包命令vue脚手架工具已经提供...
+属性注入
+最常用的就是 属性注入
+123456@RestControllerpublic class AppointmentNumberConfigurationController &#123;    @Autowired    private AppointmentNumberConfigurationService num...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Jul 21 2023 16:43:00 GMT+0800">
+            <span class="home-article-date" data-date="Sat Mar 01 2025 23:09:27 GMT+0800">
                 
-                    2023-07-21
+                    2025-03-01
                 
             </span>
         </span>
@@ -1343,17 +1170,7 @@ less sass ts 语法解析, 解析成css
                     
                         
                         <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/">Vue</a>&nbsp;
+                            <a href="/categories/Java/">Java</a>&nbsp;
                         </li>
                     
                     
@@ -1368,12 +1185,7 @@ less sass ts 语法解析, 解析成css
                     
                         <li>
                             
-                            <a href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Vue/">Vue</a>&nbsp;
+                            <a href="/tags/Java/">Java</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1381,7 +1193,7 @@ less sass ts 语法解析, 解析成css
         
     </div>
 
-    <a href="/2023/07/21/vue%E9%A1%B9%E7%9B%AE%E6%89%93%E5%8C%85/">Read more<span class="seo-reader-text">vue项目打包</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/03/01/@Resource%E3%80%81@Autowired/">Read more<span class="seo-reader-text">Resource与Autowired注解</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1391,7 +1203,7 @@ less sass ts 语法解析, 解析成css
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
+	<a class="extend prev" rel="prev" href="/"><i class="fa-regular fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1417,7 +1229,7 @@ less sass ts 语法解析, 解析成css
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        75 posts in total
+                        92 posts in total
                     </span>
                     
                 </p>

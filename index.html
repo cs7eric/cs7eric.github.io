@@ -416,15 +416,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">68</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">77</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">86</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">75</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">92</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -484,15 +484,15 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">56</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">68</div>
         <div class="label text-third-text-color text-sm">Tags</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">77</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">86</div>
         <div class="label text-third-text-color text-sm">Categories</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">75</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">92</div>
         <div class="label text-third-text-color text-sm">Posts</div>
     </a>
 </div>
@@ -517,63 +517,33 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/03/12/CROS-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
-                            CROS-跨域问题
+                        <a href="/2025/04/10/React/">
+                            
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            什么情况下会发生跨域简单理解，就是你在 A 域名下的页面，去调用 B 域名的接口，浏览器感觉你这次调用可能是不安全的请求行为，于是它需要用 cors 安全策略来确认一下这个请求是由用户真实的意愿发出的，而不是被 csrf 伪造请求攻击偷偷发送的。（这么说只是为了方便大家理解，不是特别严谨，实际上同域名下部分情形也会出现跨域问题）
-请仔细理解上面这段话，因为它说明了两点：
-
-跨域不是后端接口对...
+                            #处理数据加载和空状态渲染
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455import &#123; useState, useEffect &#125; from &#x27;react&#x27;;const DataComponen...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Mar 12 2025 00:31:03 GMT+0800">
+            <span class="home-article-date" data-date="Thu Apr 10 2025 23:01:04 GMT+0800">
                 
-                    2025-03-12
+                    2025-04-10
                 
             </span>
         </span>
         
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/record/">record</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/record/">record</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
         
     </div>
 
-    <a href="/2025/03/12/CROS-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">Read more<span class="seo-reader-text">CROS-跨域问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/10/React/">Read more<span class="seo-reader-text"></span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -588,25 +558,29 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/03/12/satoken%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
-                            satoken跨域问题
+                        <a href="/2025/04/10/B+%E6%A0%91%E7%B4%A2%E5%BC%95%E5%92%8CHash%E7%B4%A2%E5%BC%95/">
+                            B+树索引和Hash索引
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            在前端发起请求，获取 subject 服务相关数据时，出现了 CORS 问题，刚开始我 在 SpringCloud Gateway 中配置了跨域，但是并没有起作用，我又在相关的微服务中，通过 WebConfig implements WebMvcConfigurer 再次配置了跨域
-1234567891011121314151617import org.springframework.con...
+                            B+树索引B+树的一些优点和特性
+
+B+树是一棵平衡树，每个叶子节点到根节点的路径长度相同，查找效率较高；  
+B+树的所有&#x3D;&#x3D;关键字都在叶子节点&#x3D;&#x3D;上，因此范围查询时只需要遍历一遍叶子节点即可；  
+B+树的叶子节点都按照关键字大小&#x3D;&#x3D;顺序存放&#x3D;&#x3D;，因此可以快速地支持按照关键字大小进行排序；  
+B+树的非叶子...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Mar 12 2025 00:22:38 GMT+0800">
+            <span class="home-article-date" data-date="Thu Apr 10 2025 22:47:00 GMT+0800">
                 
-                    2025-03-12
+                    2025-04-10
                 
             </span>
         </span>
@@ -619,7 +593,7 @@
                     
                         
                         <li>
-                            <a href="/categories/Java/">Java</a>&nbsp;
+                            <a href="/categories/MySQL/">MySQL</a>&nbsp;
                         </li>
                     
                     
@@ -634,17 +608,7 @@
                     
                         <li>
                             
-                            <a href="/tags/SpringBoot/">SpringBoot</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/SaToken/">SaToken</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/SpringCloud/">SpringCloud</a>&nbsp;
+                            <a href="/tags/MySQL/">MySQL</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -652,7 +616,7 @@
         
     </div>
 
-    <a href="/2025/03/12/satoken%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">Read more<span class="seo-reader-text">satoken跨域问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/10/B+%E6%A0%91%E7%B4%A2%E5%BC%95%E5%92%8CHash%E7%B4%A2%E5%BC%95/">Read more<span class="seo-reader-text">B+树索引和Hash索引</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -667,29 +631,24 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/03/01/@Resource%E3%80%81@Autowired/">
-                            Resource与Autowired注解
+                        <a href="/2025/04/08/Shadcn%20%E8%A1%A8%E5%8D%95%E7%A4%BA%E4%BE%8B/">
+                            Shadcn 表单示例
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            #为什么不推荐使用@Autowired
-依赖注入 有三种形式
-
-属性注入
-最常用的就是 属性注入
-123456@RestControllerpublic class AppointmentNumberConfigurationController &#123;    @Autowired    private AppointmentNumberConfigurationService num...
+                            123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&lt;div className=&quot;add-circle-content&quot;&gt;  &lt;Form    &#123;...form&#125;    &gt;    &lt;for...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat Mar 01 2025 23:09:27 GMT+0800">
+            <span class="home-article-date" data-date="Tue Apr 08 2025 23:32:00 GMT+0800">
                 
-                    2025-03-01
+                    2025-04-08
                 
             </span>
         </span>
@@ -702,7 +661,7 @@
                     
                         
                         <li>
-                            <a href="/categories/Java/">Java</a>&nbsp;
+                            <a href="/categories/React-Shadcn/">React,Shadcn</a>&nbsp;
                         </li>
                     
                     
@@ -717,7 +676,7 @@
                     
                         <li>
                             
-                            <a href="/tags/Java/">Java</a>&nbsp;
+                            <a href="/tags/React-Shadcn/">React,Shadcn</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -725,7 +684,7 @@
         
     </div>
 
-    <a href="/2025/03/01/@Resource%E3%80%81@Autowired/">Read more<span class="seo-reader-text">Resource与Autowired注解</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/08/Shadcn%20%E8%A1%A8%E5%8D%95%E7%A4%BA%E4%BE%8B/">Read more<span class="seo-reader-text">Shadcn 表单示例</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -740,33 +699,26 @@
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2025/02/28/ddd%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84/">
-                            ddd架构模块结构
+                        <a href="/2025/04/08/React%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%20Loader/">
+                            React 中实现全局 Loader
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            架构领域驱动设计（DDD）的分层架构中，各模块的职责通常如下划分：
-api 模块（用户接口层）
-作用：处理外部请求和响应，定义对外暴露的接口。
-核心职责：
-接收HTTP请求（如RESTful API、GraphQL），进行参数校验和权限认证。
-将外部请求的DTO（如请求参数）转换为应用层的输入模型。
-将应用层的输出结果转换为对外的响应DTO。
-
-
-典型内容：Controller、DTO、参数...
+                            使用 Redux + 自定义 Hook准备 Loader
+Loader.tsx
+12345678910import React from &#x27;react&#x27;;  import styled from &#x27;styled-components&#x27;;    const Loader = () =&gt; &#123;  	return (  	&lt;StyledW...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Feb 28 2025 23:08:05 GMT+0800">
+            <span class="home-article-date" data-date="Tue Apr 08 2025 23:32:00 GMT+0800">
                 
-                    2025-02-28
+                    2025-04-08
                 
             </span>
         </span>
@@ -779,14 +731,7 @@ api 模块（用户接口层）
                     
                         
                         <li>
-                            <a href="/categories/Java/">Java</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        <li>
-                            | <a href="/categories/%E6%9E%B6%E6%9E%84/">架构</a>&nbsp;
+                            <a href="/categories/React/">React</a>&nbsp;
                         </li>
                     
                     
@@ -801,12 +746,7 @@ api 模块（用户接口层）
                     
                         <li>
                             
-                            <a href="/tags/Java/">Java</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/DDD/">DDD</a>&nbsp;
+                            <a href="/tags/React/">React</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -814,7 +754,7 @@ api 模块（用户接口层）
         
     </div>
 
-    <a href="/2025/02/28/ddd%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84/">Read more<span class="seo-reader-text">ddd架构模块结构</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/08/React%20%E4%B8%AD%E5%AE%9E%E7%8E%B0%E5%85%A8%E5%B1%80%20Loader/">Read more<span class="seo-reader-text">React 中实现全局 Loader</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -829,26 +769,25 @@ api 模块（用户接口层）
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/10/20/%E7%AD%96%E7%95%A5+%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%B3%A8%E5%85%A5%E9%97%AE%E9%A2%98/">
-                            策略+工厂模式与自动注入问题
+                        <a href="/2025/04/08/Java%E7%9A%84%E9%9B%86%E5%90%88%E7%B1%BB/">
+                            Java的集合类
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            先说结论  ： 工厂+策略模式生成的策略 去执行 定义的方法的时候，不能进行自动注入
-在使用工厂+策略模式时，策略对象通常是在运行时创建的，并且不是由Spring容器直接管理的bean。因此，如果策略对象在Spring容器外部创建，Spring容器无法自动注入依赖，包括mongoTemplate。在这种情况下，需要手动注入mongoTemplate到策略对象中。
-以下是一种可能的方法来手动注...
+                            Java 的整个集合框架中。主要分为 List、Set、Queue、Stack、Map ，前四种都是 单一元素的集合，而最后的  Map 是以 KV 对形式使用从继承关系上来讲，List、Set ，Queue 都是 Collection 的子接口，Collection 又继承了 Iterable 接口，说明这几种接口都是可以遍历的。
+
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Fri Oct 20 2023 22:48:22 GMT+0800">
+            <span class="home-article-date" data-date="Tue Apr 08 2025 12:22:00 GMT+0800">
                 
-                    2023-10-20
+                    2025-04-08
                 
             </span>
         </span>
@@ -861,7 +800,7 @@ api 模块（用户接口层）
                     
                         
                         <li>
-                            <a href="/categories/Issues/">Issues</a>&nbsp;
+                            <a href="/categories/Java-%E9%9B%86%E5%90%88/">Java,集合</a>&nbsp;
                         </li>
                     
                     
@@ -876,17 +815,7 @@ api 模块（用户接口层）
                     
                         <li>
                             
-                            <a href="/tags/Java/">Java</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/MongoDB/">MongoDB</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Issues/">Issues</a>&nbsp;
+                            <a href="/tags/Java-%E9%9B%86%E5%90%88/">Java,集合</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -894,7 +823,7 @@ api 模块（用户接口层）
         
     </div>
 
-    <a href="/2023/10/20/%E7%AD%96%E7%95%A5+%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E4%B8%8E%E8%87%AA%E5%8A%A8%E6%B3%A8%E5%85%A5%E9%97%AE%E9%A2%98/">Read more<span class="seo-reader-text">策略+工厂模式与自动注入问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/08/Java%E7%9A%84%E9%9B%86%E5%90%88%E7%B1%BB/">Read more<span class="seo-reader-text">Java的集合类</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -909,27 +838,26 @@ api 模块（用户接口层）
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/10/11/MongoDB%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E9%97%AE%E9%A2%98/">
-                            MongoDB 身份验证问题
+                        <a href="/2025/04/07/Spring%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88%E5%8F%AF%E8%83%BD%E6%98%AF%E5%93%AA%E4%BA%9B%E5%8E%9F%E5%9B%A0/">
+                            Spring事务失效可能是哪些原因
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            MongoDB:  Exception authenticating MongoCredential {}
-Mongodb 身份验证问题复盘：
-这几天 mongodb 的数据一直被清空，今天有空看了一下mongodb的 日志，发现是 被攻击了，急忙加上了身份验证（之前懒），加完之后发现，走接口去 mongodb 查询数据时候会报以下错误：
-1.UncategorizedMongoDbExce...
+                            Spring中比较容易失效的就是通过@Transactional 定义的声明式事务，他在以下几个场景中会导致事务失效，首先，就是Spring的@Transactional是基于Spring的AOP机制实现的，而AOP机制又是基于&#x3D;&#x3D;动态代理&#x3D;&#x3D;实现的。那么如果代理失效了，事务也就会失效。
+
+@Transactional 应用在非 public 修饰的方...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Oct 11 2023 12:22:23 GMT+0800">
+            <span class="home-article-date" data-date="Mon Apr 07 2025 23:57:00 GMT+0800">
                 
-                    2023-10-11
+                    2025-04-07
                 
             </span>
         </span>
@@ -942,7 +870,7 @@ Mongodb 身份验证问题复盘：
                     
                         
                         <li>
-                            <a href="/categories/MongoDB/">MongoDB</a>&nbsp;
+                            <a href="/categories/Spring-Java/">Spring,Java</a>&nbsp;
                         </li>
                     
                     
@@ -957,12 +885,7 @@ Mongodb 身份验证问题复盘：
                     
                         <li>
                             
-                            <a href="/tags/MongoDB/">MongoDB</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Issues/">Issues</a>&nbsp;
+                            <a href="/tags/Spring-Java-%E4%BA%8B%E5%8A%A1/">Spring,Java,事务</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -970,7 +893,7 @@ Mongodb 身份验证问题复盘：
         
     </div>
 
-    <a href="/2023/10/11/MongoDB%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E9%97%AE%E9%A2%98/">Read more<span class="seo-reader-text">MongoDB 身份验证问题</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/07/Spring%E4%BA%8B%E5%8A%A1%E5%A4%B1%E6%95%88%E5%8F%AF%E8%83%BD%E6%98%AF%E5%93%AA%E4%BA%9B%E5%8E%9F%E5%9B%A0/">Read more<span class="seo-reader-text">Spring事务失效可能是哪些原因</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -985,29 +908,27 @@ Mongodb 身份验证问题复盘：
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/10/11/MongoDB%20%E8%A2%AB%E6%94%BB%E5%87%BB%E5%A4%8D%E7%9B%98/">
-                            MongoDB 被攻击复盘
+                        <a href="/2025/04/07/Spring%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E6%9C%BA%E5%88%B6%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/">
+                            Spring的事务传播机制有哪些？
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            MongoDB 被攻击复盘
-这几天在测试项目，发现每隔一段时间，MongoDB里面存储的测试数据就会被清空，今天有空看了一下 mongodb 的日志，发现 被攻击了
+                            #Spring的事务传播机制 用于控制在多个事务方法相互调用时事务的行为在复杂的业务场景中，多个事务方法之间的调用可能会导致事务的不一致，如数据丢失、重复提交等，使用事务传播机制可以避免这些问题，保证事务的一致性和完整性
+Spring 的事务规定了 7 种事务的传播级别，默认的传播机制是 REQUIRED
 
-他使用 PyMongo , 定期的对我的数据库进行 drop，然后才想起来 mongodb 没有加身份验证，而且还开放了端口，导致这次的问题
-然后我在 mongo 添加了管理用户，并开放了 权限
-123456789db.cre...
+REQUIRED，如果不存在事务则开启一个事务，如果存在事务则加入之前的事务，总是只...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Oct 11 2023 12:22:23 GMT+0800">
+            <span class="home-article-date" data-date="Mon Apr 07 2025 23:49:00 GMT+0800">
                 
-                    2023-10-11
+                    2025-04-07
                 
             </span>
         </span>
@@ -1020,7 +941,7 @@ Mongodb 身份验证问题复盘：
                     
                         
                         <li>
-                            <a href="/categories/MongoDB/">MongoDB</a>&nbsp;
+                            <a href="/categories/Java-Spring/">Java,Spring</a>&nbsp;
                         </li>
                     
                     
@@ -1035,12 +956,7 @@ Mongodb 身份验证问题复盘：
                     
                         <li>
                             
-                            <a href="/tags/MongoDB/">MongoDB</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Issues/">Issues</a>&nbsp;
+                            <a href="/tags/Java-Spring-%E4%BA%8B%E5%8A%A1/">Java,Spring,事务</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1048,146 +964,7 @@ Mongodb 身份验证问题复盘：
         
     </div>
 
-    <a href="/2023/10/11/MongoDB%20%E8%A2%AB%E6%94%BB%E5%87%BB%E5%A4%8D%E7%9B%98/">Read more<span class="seo-reader-text">MongoDB 被攻击复盘</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-                    
-                
-
-                
-                    <div id="home-article-thumbnail" class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large">
-                        <a href="/2023/09/21/mongodb/">
-                            <img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/image-20230921223844128.png" alt="mongodb" class="w-full h-full object-cover dark:brightness-75 transition-all" />
-                        </a>
-                    </div>
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
-                    <h3 class="home-article-title">
-                        <a href="/2023/09/21/mongodb/">
-                            mongodb
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            MongoDB 基础MongoDB 概览MongoDB是一种流行的开源NoSQL数据库管理系统。它旨在存储和管理大量的非结构化或半结构化数据，非常适合处理各种数据类型和用例。MongoDB通常用于现代Web应用程序、移动应用程序和其他需要灵活性和可扩展性的情况。
-以下是与MongoDB相关的一些关键特点和概念：
-
-面向文档：MongoDB是一种面向文档的数据库，意味着它以BSON（二进制JS...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Thu Sep 21 2023 22:24:22 GMT+0800">
-                
-                    2023-09-21
-                
-            </span>
-        </span>
-        
-            <span class="home-article-category">
-                <i class="fa-solid fa-folders"></i>&nbsp;
-            <ul>
-                
-                
-                    
-                        
-                        <li>
-                            <a href="/categories/Java/">Java</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/Java/MongoDB/">MongoDB</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/MongoDB/">MongoDB</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/NoSQL/">NoSQL</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/NoSQL/MongoDB/">MongoDB</a>&nbsp;
-                        </li>
-                    
-                    
-                
-            </ul>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/MongoDB/">MongoDB</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/NoSQL/">NoSQL</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2023/09/21/mongodb/">Read more<span class="seo-reader-text">mongodb</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/07/Spring%E7%9A%84%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E6%9C%BA%E5%88%B6%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/">Read more<span class="seo-reader-text">Spring的事务传播机制有哪些？</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1202,62 +979,24 @@ Mongodb 身份验证问题复盘：
                 
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/09/04/LaTex%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
-                            LaTex基础语法
+                        <a href="/2025/04/07/Spring%E7%9A%84AOP/">
+                            Spring的AOP
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            LaTexGreek and Hebrew letters常用的 符号
-
-$\alpha$
-$\alpha$
-
-
-$\beta$
-$\beta$
-
-
-$\delta$
-$\delta$
-
-
-$\lambda$
-$\lambda$
-
-
-$\mu$
-$\mu$
-
-
-$o$
-$o$
-
-
-$\phi$
-$\phi$
-
-
-$\pi$
-$\pi$
-
-
-$\sigma$
-$\sigma$
-
-
-$\thet...
+                            简述： AOP （Aspect-Oriented Programming）——  即 面向切面编程 —— 把公共的逻辑抽出来，让开发者可以更专注于业务逻辑开发和 IOC 一样，AOP 也指的是一种思想，是对 OOP 的一种补充。OOP 是面向类和对象的，但是 AOP 是面向不同切面的。一个切面可以横跨多个类和对象去操作，极大的丰富了开发者的使用方式，提高了开发效率。例如，有以下场景 ：一个订...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Mon Sep 04 2023 16:22:22 GMT+0800">
+            <span class="home-article-date" data-date="Mon Apr 07 2025 23:24:00 GMT+0800">
                 
-                    2023-09-04
+                    2025-04-07
                 
             </span>
         </span>
@@ -1270,7 +1009,7 @@ $\thet...
                     
                         
                         <li>
-                            <a href="/categories/LaTex/">LaTex</a>&nbsp;
+                            <a href="/categories/Spring-Java/">Spring,Java</a>&nbsp;
                         </li>
                     
                     
@@ -1285,7 +1024,7 @@ $\thet...
                     
                         <li>
                             
-                            <a href="/tags/LaTex/">LaTex</a>&nbsp;
+                            <a href="/tags/Aop-Java-Spring/">Aop,Java,Spring</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1293,7 +1032,7 @@ $\thet...
         
     </div>
 
-    <a href="/2023/09/04/LaTex%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">Read more<span class="seo-reader-text">LaTex基础语法</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/07/Spring%E7%9A%84AOP/">Read more<span class="seo-reader-text">Spring的AOP</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1304,37 +1043,33 @@ $\thet...
                 
 
                 
-                    
-                
 
                 
-                    <div id="home-article-thumbnail" class="home-article-thumbnail relative h-[150px] overflow-hidden rounded-t-large">
-                        <a href="/2023/08/09/springcloud/">
-                            <img src="https://cs7eric-image.oss-cn-hangzhou.aliyuncs.com/images/1_pNG0JHmOr3Zp83_hkGyR_A.png" alt="springcloud" class="w-full h-full object-cover dark:brightness-75 transition-all" />
-                        </a>
-                    </div>
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-5">
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
-                        <a href="/2023/08/09/springcloud/">
-                            springcloud
+                        <a href="/2025/04/07/YoungGC%E5%92%8CFullGC%E7%9A%84%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/">
+                            YoungGC和FullGC的触发条件是什么？
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            
-Spring Cloud provides tools for developers to quickly build some of the common patterns in distributed systems (e.g.configuration management, service discovery, circuit breakers, intelligent routi...
+                            先说结论： &#x3D;&#x3D;YoungGC 的出发条件比较简单 ——  年轻代中的 Eden 区分配满后就会触发&#x3D;&#x3D;FullGC 的出发条件比较复杂，有以下几种
+
+老年代空间不足
+创建一个大对象，超过指定阈值会直接保存在老年代中，如果老年代空间也不足，会触发 FullGC
+YoungGC 之后，发现要移到老年代的对象，老年代存不下的时候，会触发一次 FullGC
+...
                         
                     </div>
 
                     <div class="home-article-meta-info-container">
     <div class="home-article-meta-info">
         <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Wed Aug 09 2023 18:16:11 GMT+0800">
+            <span class="home-article-date" data-date="Mon Apr 07 2025 22:40:00 GMT+0800">
                 
-                    2023-08-09
+                    2025-04-07
                 
             </span>
         </span>
@@ -1347,27 +1082,7 @@ Spring Cloud provides tools for developers to quickly build some of the common p
                     
                         
                         <li>
-                            <a href="/categories/Java/">Java</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/Java/Spring/">Spring</a>&nbsp;
-                        </li>
-                    
-                    
-                
-                    
-                        
-                            <li>></li>
-                        
-                        <li>
-                            <a href="/categories/Java/Spring/SpringCloud/">SpringCloud</a>&nbsp;
+                            <a href="/categories/Java-JVM/">Java,JVM</a>&nbsp;
                         </li>
                     
                     
@@ -1382,17 +1097,7 @@ Spring Cloud provides tools for developers to quickly build some of the common p
                     
                         <li>
                             
-                            <a href="/tags/Java/">Java</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">微服务</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/Spring/">Spring</a>&nbsp;
+                            <a href="/tags/Java-JVM-GC/">Java,JVM,GC</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -1400,7 +1105,76 @@ Spring Cloud provides tools for developers to quickly build some of the common p
         
     </div>
 
-    <a href="/2023/08/09/springcloud/">Read more<span class="seo-reader-text">springcloud</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/04/07/YoungGC%E5%92%8CFullGC%E7%9A%84%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F/">Read more<span class="seo-reader-text">YoungGC和FullGC的触发条件是什么？</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+</div>
+
+                </div>
+            </li>
+        
+            <li class="home-article-item">
+
+                
+
+                
+
+                
+                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
+                    <h3 class="home-article-title">
+                        <a href="/2025/04/07/Java%E7%9A%84%E5%A0%86%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%86%E4%BB%A3%E7%9A%84%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E4%BB%A3/">
+                            Java的堆是如何分代的？为什么分代
+                        </a>
+                    </h3>
+
+                    <div class="home-article-content markdown-body">
+                        
+                            
+                            Java的堆内存分代是指将不同生命周期的堆内存对象存储在不同的堆内存区域中，&#x3D;&#x3D;这里的不同的堆内存区域被定义为“代”&#x3D;&#x3D;。这样做有助于提升垃圾回收的效率，因为这样的话就可以为不同的”代”设置不同的回收策略。
+一般来说， Java 中的大部分对象都是朝生夕死的，同时也有一部分对象会持久存在。如果把这两部分对象放在一起分析和回收，效率太低。因此 通过将不同...
+                        
+                    </div>
+
+                    <div class="home-article-meta-info-container">
+    <div class="home-article-meta-info">
+        <span><i class="fa-solid fa-calendars"></i>&nbsp;
+            <span class="home-article-date" data-date="Mon Apr 07 2025 21:45:00 GMT+0800">
+                
+                    2025-04-07
+                
+            </span>
+        </span>
+        
+            <span class="home-article-category">
+                <i class="fa-solid fa-folders"></i>&nbsp;
+            <ul>
+                
+                
+                    
+                        
+                        <li>
+                            <a href="/categories/Java-JVM/">Java,JVM</a>&nbsp;
+                        </li>
+                    
+                    
+                
+            </ul>
+        </span>
+        
+        
+            <span class="home-article-tag">
+                <i class="fa-solid fa-tags"></i>&nbsp;
+                <ul>
+                    
+                        <li>
+                            
+                            <a href="/tags/Java-JVM/">Java,JVM</a>&nbsp;
+                        </li>
+                    
+                </ul>
+            </span>
+        
+    </div>
+
+    <a href="/2025/04/07/Java%E7%9A%84%E5%A0%86%E6%98%AF%E5%A6%82%E4%BD%95%E5%88%86%E4%BB%A3%E7%9A%84%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E5%88%86%E4%BB%A3/">Read more<span class="seo-reader-text">Java的堆是如何分代的？为什么分代</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1410,7 +1184,7 @@ Spring Cloud provides tools for developers to quickly build some of the common p
 
     <div class="home-paginator px-7 py-5">
         <div class="paginator">
-	<span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa-regular fa-angle-right"></i></a>
+	<span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa-regular fa-angle-right"></i></a>
 </div>
   
     </div>
@@ -1436,7 +1210,7 @@ Spring Cloud provides tools for developers to quickly build some of the common p
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        75 posts in total
+                        92 posts in total
                     </span>
                     
                 </p>
